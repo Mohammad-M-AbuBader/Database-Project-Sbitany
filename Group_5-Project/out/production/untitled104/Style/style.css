@@ -1,0 +1,50 @@
+    .button
+    {
+       -fx-background-color: #ffffff;
+    }
+    .button:hover
+    {
+     -fx-background-color: #4A4FDA;
+     -fx-text-fill: #ffffff;
+     -fx-border-color: black;
+     -fx-border-width: 1;
+     -fx-background-radius: 30;
+     -fx-border-radius: 30;
+    }
+
+    .button: pressed
+    {
+    -fx-background-color: #ff0303;
+    }
+
+    .btSearch
+    {
+    -fx-background-color: #ffffff;
+    }
+
+    .btSearch:hover
+    {
+     -fx-background-color: #4A4FDA;
+     -fx-background-radius: 20;
+     -fx-border-color: black;
+     -fx-border-width: 1;
+     -fx-border-radius: 20;
+    }
+  .buttonBack
+    {
+       -fx-background-color: #4A4FDA;
+       -fx-text-fill: #ffffff;;
+    }
+    .buttonBack:hover
+    {
+     -fx-background-color: #ffffff;
+     -fx-text-fill: #4A4FDA;
+     -fx-border-color: black;
+     -fx-border-width: 1;
+     -fx-background-radius: 30;
+     -fx-border-radius: 30;
+    }
+
+
+
+

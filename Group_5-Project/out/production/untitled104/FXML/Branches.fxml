@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sbitany_project.BranchesController">
+    <children>
+        <Pane layoutX="-9.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1012.0" style="-fx-background-color: #4a4fda;">
+            <children>
+                <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+                    <graphic>
+                        <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../sbitany_logo_new.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+                    <font>
+                        <Font name="Bell MT" size="52.0" />
+                    </font>
+                </Label>
+                <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+                    <font>
+                        <Font name="Engravers MT" size="33.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <HBox alignment="CENTER_LEFT" layoutX="611.0" layoutY="148.0" prefHeight="55.0" prefWidth="309.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-alignment: CENTER;" AnchorPane.bottomAnchor="517.0" AnchorPane.leftAnchor="611.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="148.0">
+            <children>
+                <Label prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #ffffff;" text="Total Branches">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lblTotalProducts" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" text="22222225" textFill="#4a4fda">
+                    <font>
+                        <Font name="System Bold" size="25.0" />
+                    </font>
+                </Label>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="14.0" layoutY="154.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="150.0">
+            <children>
+                <Label prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #ffffff;" text="Search">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Label>
+                <TextField fx:id="txProductCode" prefHeight="32.0" prefWidth="168.0" promptText="Branch Name" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets bottom="8.0" />
+                    </HBox.margin>
+                </TextField>
+                <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <graphic>
+                        <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+                            <graphic>
+                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../search.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Label>
+                    </graphic>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </HBox>
+        <ScrollPane layoutX="85.0" layoutY="251.0" style="-fx-background-color: transparent; -fx-border-color: #4A4FDA; -fx-border-width: 3;" stylesheets="@../Style/ScrollStyle.css">
+            <content>
+                <TableView fx:id="tvProducts" editable="true" mouseTransparent="true">
+                    <columns>
+                        <TableColumn fx:id="cmCodeProducts" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="cmNameProducts" prefWidth="150.0" text="Name" />
+                        <TableColumn fx:id="cmManufacturerProduct" prefWidth="150.0" text="Address" />
+                        <TableColumn fx:id="cmStatusMainStorage" prefWidth="150.0" text="Manager" />
+                        <TableColumn fx:id="cmQuantityMainStorage" prefWidth="150.0" text="Accountant" />
+                        <TableColumn fx:id="cmMainStorage" prefWidth="150.0" text="Sales-Employee" />
+                    </columns>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </TableView>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

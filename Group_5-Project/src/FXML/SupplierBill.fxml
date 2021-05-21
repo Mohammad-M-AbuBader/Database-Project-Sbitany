@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="788.0" prefWidth="951.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="120.0" prefWidth="951.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="14.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="22.0" />
+               </font>
+            </Label>
+            <Button contentDisplay="TOP" layoutX="879.0" layoutY="17.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="58.0" styleClass="btHome" stylesheets="@../Style/style.css" text="HOME" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/Home2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <HBox prefHeight="73.0" prefWidth="951.0">
+         <children>
+            <HBox prefHeight="32.0" prefWidth="350.0">
+               <children>
+                  <Label prefHeight="38.0" prefWidth="71.0" text="Bill ID:" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="textBillId" editable="false" prefHeight="34.0" prefWidth="217.0" promptText="Bill ID" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="350.0">
+               <children>
+                  <Label prefHeight="38.0" prefWidth="66.0" text="From:" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="textBranchName" editable="false" prefHeight="34.0" prefWidth="200.0" promptText="Branch Name" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="74.0" prefWidth="308.0">
+               <children>
+                  <Label prefHeight="38.0" prefWidth="39.0" text="To:" textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="textTo" editable="false" prefHeight="34.0" prefWidth="200.0" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="61.0" prefWidth="391.0">
+         <children>
+            <Label layoutX="14.0" layoutY="13.0" prefHeight="35.0" prefWidth="118.0" text="Release Date: " textAlignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textReleasseDate" editable="false" layoutX="132.0" layoutY="6.0" prefHeight="34.0" prefWidth="191.0" promptText="Date" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="416.0" prefWidth="951.0">
+         <children>
+            <ScrollPane layoutX="237.0" prefHeight="407.0" prefWidth="384.0" style="-fx-background-color: #ffffff; -fx-border-color: #4A4FDA; -fx-border-width: 2;">
+               <content>
+                  <TableView fx:id="billTableView" editable="true" mouseTransparent="true" prefHeight="406.0" prefWidth="398.0" style="-fx-background-color: transparent;">
+                     <columns>
+                        <TableColumn fx:id="cmCodeProducts1" prefWidth="120.0" text="Product Code" />
+                        <TableColumn fx:id="cmPurchasingPrice" prefWidth="120.0" text="Purchasing price" />
+                        <TableColumn fx:id="cmQuantity" prefWidth="150.0" text="Quantity" />
+                     </columns>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TableView>
+               </content>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <stylesheets>
+                  <URL value="@../Style/ScrollStyle.css" />
+                  <URL value="@../Style/ScrollStyle.css" />
+               </stylesheets>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="50.0" prefWidth="548.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="118.0" text="Value Of Bill: " textAlignment="RIGHT">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="textValueOfBill" editable="false" prefHeight="34.0" prefWidth="206.0" promptText="Value of Vill" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="73.0" prefWidth="951.0">
+         <children>
+            <HBox prefHeight="32.0" prefWidth="357.0">
+               <children>
+                  <Label prefHeight="38.0" prefWidth="86.0" text="Deposit: " textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="textDeposit" editable="false" prefHeight="34.0" prefWidth="234.0" promptText="Deposit" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="350.0">
+               <children>
+                  <Label prefHeight="38.0" prefWidth="87.0" text="Patches: " textAlignment="RIGHT">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="textPatches" editable="false" prefHeight="34.0" prefWidth="200.0" promptText="Patches" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <HBox.margin>
+                  <Insets left="230.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
