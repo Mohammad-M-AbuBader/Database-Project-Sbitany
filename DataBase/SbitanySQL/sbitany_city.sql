@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `customerbilldetails`
+-- Table structure for table `city`
 --
 
-DROP TABLE IF EXISTS `customerbilldetails`;
+DROP TABLE IF EXISTS `city`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customerbilldetails` (
-  `customerBillID` int NOT NULL,
-  `productCode` int NOT NULL,
-  `sellingPrice` int NOT NULL,
-  `quantity` int NOT NULL,
-  PRIMARY KEY (`customerBillID`,`productCode`),
-  KEY `customerbilldetails_ibfk_2` (`productCode`),
-  CONSTRAINT `customerbilldetails_ibfk_1` FOREIGN KEY (`customerBillID`) REFERENCES `customerbill` (`customerBillID`) ON DELETE CASCADE,
-  CONSTRAINT `customerbilldetails_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `city` (
+  `cityID` int NOT NULL AUTO_INCREMENT,
+  `cityName` varchar(40) NOT NULL,
+  PRIMARY KEY (`cityID`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `customerbilldetails`
+-- Dumping data for table `city`
 --
 
-LOCK TABLES `customerbilldetails` WRITE;
-/*!40000 ALTER TABLE `customerbilldetails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customerbilldetails` ENABLE KEYS */;
+LOCK TABLES `city` WRITE;
+/*!40000 ALTER TABLE `city` DISABLE KEYS */;
+INSERT INTO `city` VALUES (1,'Bethlahem'),(2,'Hebron'),(3,'Jenen'),(4,'Jericho'),(5,'Nablus'),(6,'Qalqilya'),(7,'Ramallah'),(8,'Salfit'),(9,'Tubas'),(10,'Tulkarm'),(11,'Jerusalem');
+/*!40000 ALTER TABLE `city` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  0:00:35
+-- Dump completed on 2021-05-21 20:14:00

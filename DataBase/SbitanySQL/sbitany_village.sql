@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `storedproducts`
+-- Table structure for table `village`
 --
 
-DROP TABLE IF EXISTS `storedproducts`;
+DROP TABLE IF EXISTS `village`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `storedproducts` (
-  `storageID` int NOT NULL,
-  `productCode` int NOT NULL,
-  `productQuantity` int NOT NULL,
-  PRIMARY KEY (`storageID`,`productCode`),
-  KEY `productCode` (`productCode`),
-  CONSTRAINT `storedproducts_ibfk_1` FOREIGN KEY (`storageID`) REFERENCES `storages` (`storageID`),
-  CONSTRAINT `storedproducts_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `village` (
+  `villageID` int NOT NULL AUTO_INCREMENT,
+  `villageName` varchar(40) NOT NULL,
+  `cityID` int NOT NULL,
+  PRIMARY KEY (`villageID`),
+  KEY `cityID_idx` (`cityID`),
+  CONSTRAINT `cityID` FOREIGN KEY (`cityID`) REFERENCES `city` (`cityID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `storedproducts`
+-- Dumping data for table `village`
 --
 
-LOCK TABLES `storedproducts` WRITE;
-/*!40000 ALTER TABLE `storedproducts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `storedproducts` ENABLE KEYS */;
+LOCK TABLES `village` WRITE;
+/*!40000 ALTER TABLE `village` DISABLE KEYS */;
+INSERT INTO `village` VALUES (3,'Bitter',1),(4,'Al-Abidiya',1),(5,'Al Khader',1),(6,'Dar-Salah',1),(7,'Dura',2),(8,'Idhna',2),(9,'al-samou',2),(10,'Yatta',2),(11,'Jaba',3),(12,'Burqin',3),(13,'Arrabah',3),(14,'Ajjah',3),(15,'Al-Auja',4),(16,'Al-Jiftlik',4),(17,'Fasayil',4),(18,'Aqabat Jaber',4),(19,'Aqraba',5),(20,'Beita',5),(21,'Huwara',5),(22,'Jammain',5),(23,'Beir Zeit',7),(24,'Beit Liqya',7),(25,'Silwad',7),(26,'Deir Qaddis',7),(27,'Attil',10),(28,'Anabta',10),(29,'Bal\'a',10),(30,'Qaffin',10);
+/*!40000 ALTER TABLE `village` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  0:00:36
+-- Dump completed on 2021-05-21 20:13:57

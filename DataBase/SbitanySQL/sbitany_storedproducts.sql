@@ -16,30 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `supplier`
+-- Table structure for table `storedproducts`
 --
 
-DROP TABLE IF EXISTS `supplier`;
+DROP TABLE IF EXISTS `storedproducts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `supplier` (
-  `supplierID` int NOT NULL AUTO_INCREMENT,
-  `supplierName` varchar(40) NOT NULL,
-  `supplierPhone` varchar(100) DEFAULT NULL,
-  `supplierEmail` varchar(40) DEFAULT NULL,
-  `supplierFax` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`supplierID`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `storedproducts` (
+  `storageID` int NOT NULL,
+  `productCode` int NOT NULL,
+  `productQuantity` int NOT NULL,
+  PRIMARY KEY (`storageID`,`productCode`),
+  KEY `productCode` (`productCode`),
+  CONSTRAINT `storedproducts_ibfk_1` FOREIGN KEY (`storageID`) REFERENCES `storages` (`storageID`),
+  CONSTRAINT `storedproducts_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `supplier`
+-- Dumping data for table `storedproducts`
 --
 
-LOCK TABLES `supplier` WRITE;
-/*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-INSERT INTO `supplier` VALUES (100,'Khaleel Ahmad Ail','592212466','Khaleel@gmail.com','972 (0)2 628 3021'),(101,'Ali Khaleel Ahmad','592212467','Ali@gmail.com','972 (0)2 296 3297'),(102,'Victor Dyer Isaac','592212468','Victor@gmail.com','972 (0)8 282 0512'),(103,'Issac Ahmad Ameer','592212469','Issac@gmail.com','972 (0)2 128 3024'),(104,'Dyer Victor Ata','592212470','Dyer@gmail.com','972 (0)2 723 3025'),(105,'Slater Murray Hughes','592212471','Slater@gmail.com','972 (0)2 467 3026');
-/*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
+LOCK TABLES `storedproducts` WRITE;
+/*!40000 ALTER TABLE `storedproducts` DISABLE KEYS */;
+INSERT INTO `storedproducts` VALUES (1,150,2),(1,152,14),(1,157,3),(1,158,7),(1,160,13),(1,161,7),(1,163,3),(1,165,5),(1,168,7),(1,169,6),(1,170,6),(1,173,10),(1,174,32),(1,175,10),(1,176,15),(1,179,10),(1,180,7),(2,150,2),(2,153,6),(2,165,4),(2,171,2),(2,173,7),(5,150,9),(5,180,6),(6,160,6),(6,173,9),(7,168,5),(7,173,4),(7,175,10),(8,171,2),(8,180,2),(9,157,4),(9,160,8),(9,163,6),(9,168,5),(10,173,5),(10,179,7);
+/*!40000 ALTER TABLE `storedproducts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  0:00:35
+-- Dump completed on 2021-05-21 20:13:59

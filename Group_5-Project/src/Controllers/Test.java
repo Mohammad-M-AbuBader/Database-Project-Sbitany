@@ -20,23 +20,29 @@ public class Test {
         con = connection.connectSbitanyDB();
 
         try {
-            // customerBillID, productCode, sellingPrice, quantity
-            File file = new File("CustomerBillDet.csv");
+            // transferNumber, getAt, employeeID, sourceStorageID,destinationStorageID, productCode, quantity
+            File file = new File("getFrom.csv");
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
                 String[] str2 = scanner.nextLine().split(",");
                 int id = Integer.parseInt(str2[0].trim());
-                int pc = Integer.parseInt(str2[1].trim());
-                int sp = Integer.parseInt(str2[2].trim());
-                int qy = Integer.parseInt(str2[3].trim());
+                int ed = Integer.parseInt(str2[2].trim());
+                int sd = Integer.parseInt(str2[3].trim());
+                int dd = Integer.parseInt(str2[4].trim());
+                int pc = Integer.parseInt(str2[5].trim());
+                int qy = Integer.parseInt(str2[6].trim());
 
 
-                PreparedStatement ps = con.prepareStatement("insert into customerbilldetails(customerBillID, productCode, sellingPrice, quantity)" + "values(?,?,?,?)");
+                PreparedStatement ps = con.prepareStatement("insert into branchgetfrom(transferNumber, getAt, employeeID, sourceStorageID," +
+                        " destinationStorageID, productCode, quantity)" + "values(?,?,?,?,?,?,?)");
 
                 ps.setInt(1, id);
-                ps.setInt(2, pc);
-                ps.setInt(3, sp);
-                ps.setInt(4, qy);
+                ps.setDate(2, Date.valueOf(str2[1].trim()));
+                ps.setInt(3, ed);
+                ps.setInt(4, sd);
+                ps.setInt(5, dd);
+                ps.setInt(6, pc);
+                ps.setInt(7, qy);
 
 
                 ps.executeUpdate();
@@ -363,6 +369,36 @@ File file = new File("Products.csv");
                 ps.setInt(4, qy);
 
 
+
+
+                ps.executeUpdate();
+         */
+    }
+    public void insertGetFrom(){
+        /*
+         // transferNumber, getAt, employeeID, sourceStorageID,destinationStorageID, productCode, quantity
+            File file = new File("getFrom.csv");
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String[] str2 = scanner.nextLine().split(",");
+                int id = Integer.parseInt(str2[0].trim());
+                int ed = Integer.parseInt(str2[2].trim());
+                int sd = Integer.parseInt(str2[3].trim());
+                int dd = Integer.parseInt(str2[4].trim());
+                int pc = Integer.parseInt(str2[5].trim());
+                int qy = Integer.parseInt(str2[6].trim());
+
+
+                PreparedStatement ps = con.prepareStatement("insert into branchgetfrom(transferNumber, getAt, employeeID, sourceStorageID," +
+                        " destinationStorageID, productCode, quantity)" + "values(?,?,?,?,?,?,?)");
+
+                ps.setInt(1, id);
+                ps.setDate(2, Date.valueOf(str2[1].trim()));
+                ps.setInt(3, ed);
+                ps.setInt(4, sd);
+                ps.setInt(5, dd);
+                ps.setInt(6, pc);
+                ps.setInt(7, qy);
 
 
                 ps.executeUpdate();

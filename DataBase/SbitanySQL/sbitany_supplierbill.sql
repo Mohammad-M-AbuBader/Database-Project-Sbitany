@@ -16,27 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `categories`
+-- Table structure for table `supplierbill`
 --
 
-DROP TABLE IF EXISTS `categories`;
+DROP TABLE IF EXISTS `supplierbill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categories` (
-  `categoriesId` int NOT NULL AUTO_INCREMENT,
-  `catogresName` varchar(40) NOT NULL,
-  PRIMARY KEY (`categoriesId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `supplierbill` (
+  `SupplierBillID` int NOT NULL AUTO_INCREMENT,
+  `orederAt` date NOT NULL,
+  `supplierID` int NOT NULL,
+  `valueOfBill` int NOT NULL,
+  `deposit` int NOT NULL,
+  `patches` int NOT NULL,
+  PRIMARY KEY (`SupplierBillID`),
+  KEY `supplierbill_ibfk_2` (`supplierID`),
+  CONSTRAINT `supplierbill_ibfk_2` FOREIGN KEY (`supplierID`) REFERENCES `supplier` (`supplierID`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categories`
+-- Dumping data for table `supplierbill`
 --
 
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Fridge'),(2,'Oven'),(3,'Washer'),(4,'Dryer'),(5,'Television'),(6,'Computers'),(7,'Mobiles'),(8,'Microwave'),(9,'Blender'),(10,'Conditioner'),(11,'Heater');
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+LOCK TABLES `supplierbill` WRITE;
+/*!40000 ALTER TABLE `supplierbill` DISABLE KEYS */;
+INSERT INTO `supplierbill` VALUES (250,'2018-01-05',100,55300,55300,0),(251,'2018-03-04',101,13950,13950,0),(252,'2018-05-12',102,12900,12900,0),(253,'2018-08-09',103,16570,16570,0),(254,'2019-01-12',104,15400,12400,3000),(255,'2019-04-09',105,46050,44050,2000),(256,'2019-06-09',100,81250,75250,6000),(257,'2019-10-12',101,1425,1420,0),(258,'2020-02-06',102,11760,5000,6760),(259,'2020-07-04',103,8500,8000,500),(260,'2020-07-04',104,25665,23665,2000),(261,'2020-09-08',105,52200,40200,12000);
+/*!40000 ALTER TABLE `supplierbill` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  0:00:36
+-- Dump completed on 2021-05-21 20:13:58

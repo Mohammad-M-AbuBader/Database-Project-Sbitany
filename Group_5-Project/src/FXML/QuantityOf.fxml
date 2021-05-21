@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="740.0" prefWidth="743.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.QuantityOfController">
+   <children>
+      <Pane layoutY="-5.0" prefHeight="154.0" prefWidth="743.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT" size="52.0" />
+               </font>
+            </Label>
+            <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="22.0" />
+               </font>
+            </Label>
+            <Button contentDisplay="TOP" layoutX="671.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="58.0" styleClass="btHome" stylesheets="@../Style/style.css" text="HOME" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/Home2.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <ScrollPane layoutX="206.0" layoutY="243.0" prefHeight="468.0" prefWidth="310.0" style="-fx-background-color: #ffffff; -fx-border-color: #4A4FDA; -fx-border-width: 2;">
+         <content>
+            <TableView fx:id="billTableView" editable="true" mouseTransparent="true" prefHeight="464.0" prefWidth="321.0" style="-fx-background-color: transparent;">
+               <columns>
+                  <TableColumn fx:id="cmCodeProducts1" prefWidth="151.99998474121094" text="Storage Nmae" />
+                  <TableColumn fx:id="cmQuantity" prefWidth="136.20001220703125" text="Quantity" />
+               </columns>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </TableView>
+         </content>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+         <stylesheets>
+            <URL value="@../Style/ScrollStyle.css" />
+            <URL value="@../Style/ScrollStyle.css" />
+         </stylesheets>
+      </ScrollPane>
+      <HBox alignment="CENTER" layoutX="20.0" layoutY="169.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label prefHeight="32.0" prefWidth="170.0" style="-fx-background-color: #ffffff;" text="Product Code">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txProductCode" editable="false" prefHeight="32.0" prefWidth="214.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="8.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+   </children>
+</AnchorPane>

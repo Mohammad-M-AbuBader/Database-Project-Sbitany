@@ -1,0 +1,64 @@
+-- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: sbitany
+-- ------------------------------------------------------
+-- Server version	8.0.23
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `branchgetfrom`
+--
+
+DROP TABLE IF EXISTS `branchgetfrom`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `branchgetfrom` (
+  `transferNumber` int NOT NULL AUTO_INCREMENT,
+  `getAt` date NOT NULL,
+  `employeeID` int NOT NULL,
+  `sourceStorageID` int NOT NULL,
+  `destinationStorageID` int NOT NULL,
+  `productCode` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`transferNumber`),
+  KEY `branchgetfrom_ibfk_5_idx` (`destinationStorageID`),
+  KEY `branchgetfrom_ibfk_4_idx` (`sourceStorageID`),
+  KEY `branchgetfrom_ibfk_1` (`employeeID`),
+  KEY `branchgetfrom_ibfk_3` (`productCode`),
+  CONSTRAINT `branchgetfrom_ibfk_1` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `branchgetfrom_ibfk_3` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `branchgetfrom_ibfk_4` FOREIGN KEY (`sourceStorageID`) REFERENCES `storages` (`storageID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `branchgetfrom_ibfk_5` FOREIGN KEY (`destinationStorageID`) REFERENCES `storages` (`storageID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1524 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `branchgetfrom`
+--
+
+LOCK TABLES `branchgetfrom` WRITE;
+/*!40000 ALTER TABLE `branchgetfrom` DISABLE KEYS */;
+INSERT INTO `branchgetfrom` VALUES (1501,'2021-08-05',2021002,1,2,150,5),(1502,'2021-08-05',2021035,1,9,157,4),(1503,'2021-08-05',2021029,1,5,165,4),(1504,'2021-05-06',2021030,1,7,168,10),(1505,'2021-05-06',2021037,1,10,173,5),(1506,'2021-05-07',2021009,1,6,173,13),(1507,'2021-05-08',2021034,1,8,180,8),(1508,'2021-05-08',2021038,1,9,163,6),(1509,'2021-05-09',2021022,1,2,173,7),(1510,'2021-05-09',2021004,1,5,150,6),(1511,'2021-05-09',2021008,1,6,160,14),(1512,'2021-05-09',2021001,6,10,173,4),(1513,'2021-05-12',2021031,1,7,175,10),(1514,'2021-05-13',2021004,2,5,150,3),(1515,'2021-05-13',2021022,5,2,165,4),(1516,'2021-05-14',2021035,7,9,168,5),(1517,'2021-05-14',2021035,10,7,173,4),(1518,'2021-05-15',2021037,1,10,179,7),(1519,'2021-05-16',2021038,6,9,160,8),(1520,'2021-05-17',2021004,8,5,180,6),(1521,'2021-05-18',2021034,1,8,171,4),(1522,'2021-05-19',2021022,8,2,171,2),(1523,'2021-05-20',2021002,1,2,153,6);
+/*!40000 ALTER TABLE `branchgetfrom` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-05-21 20:14:00

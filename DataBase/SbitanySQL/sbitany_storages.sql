@@ -16,27 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `jobtitle`
+-- Table structure for table `storages`
 --
 
-DROP TABLE IF EXISTS `jobtitle`;
+DROP TABLE IF EXISTS `storages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobtitle` (
-  `jobTitleID` int NOT NULL AUTO_INCREMENT,
-  `jobName` varchar(40) NOT NULL,
-  PRIMARY KEY (`jobTitleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `storages` (
+  `storageID` int NOT NULL AUTO_INCREMENT,
+  `branchID` int NOT NULL,
+  PRIMARY KEY (`storageID`),
+  KEY `storages_ibfk_1` (`branchID`),
+  CONSTRAINT `storages_ibfk_1` FOREIGN KEY (`branchID`) REFERENCES `branch` (`branchID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jobtitle`
+-- Dumping data for table `storages`
 --
 
-LOCK TABLES `jobtitle` WRITE;
-/*!40000 ALTER TABLE `jobtitle` DISABLE KEYS */;
-INSERT INTO `jobtitle` VALUES (1,'Branch Accountant'),(2,'Sales Employee'),(3,'Branch Manager'),(4,'General Accountant'),(5,'Personnel Officer'),(6,'General Manager');
-/*!40000 ALTER TABLE `jobtitle` ENABLE KEYS */;
+LOCK TABLES `storages` WRITE;
+/*!40000 ALTER TABLE `storages` DISABLE KEYS */;
+INSERT INTO `storages` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10);
+/*!40000 ALTER TABLE `storages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21  0:00:37
+-- Dump completed on 2021-05-21 20:13:59
