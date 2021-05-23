@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class GeneralManagerController {
 
@@ -65,16 +66,16 @@ public class GeneralManagerController {
     }
 
     public void handleBtProducts() {
-        try{
-            Parent root = FXMLLoader.load(getClass().getResource("../FXML/Products.fxml"));
-           Stage window = new Stage();
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Products.fxml")));
+            Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Products");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();
-        }catch (IOException exception){
-
+        } catch (IOException exception) {
+            //561
         }
 
     }
@@ -90,5 +91,6 @@ public class GeneralManagerController {
     public void handleBtSuppliers() {
 
     }
+
 
 }

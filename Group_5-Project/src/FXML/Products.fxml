@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="73.0" prefWidth="976.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProductController">
+<AnchorPane fx:id="anchorPane" prefHeight="755.0" prefWidth="1097.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProductController">
     <children>
-        <Pane layoutY="1.0" prefHeight="142.0" prefWidth="976.0" style="-fx-background-color: #4a4fda;">
+        <Pane prefHeight="142.0" prefWidth="1098.0" style="-fx-background-color: #4a4fda;">
             <children>
                 <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
                     <graphic>
@@ -34,24 +34,7 @@
                 </Label>
             </children>
         </Pane>
-        <HBox alignment="CENTER_LEFT" layoutY="698.0" prefHeight="51.0" prefWidth="309.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-alignment: CENTER;" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="667.0" AnchorPane.topAnchor="698.0">
-            <children>
-                <Label style="-fx-background-color: #ffffff;" text="Total Products">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <Label fx:id="lblTotalProducts" alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" text="22222225" textFill="#4a4fda">
-                    <font>
-                        <Font name="System Bold" size="25.0" />
-                    </font>
-                </Label>
-            </children>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="17.0" layoutY="180.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="180.0">
+        <HBox alignment="CENTER" layoutX="22.0" layoutY="164.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="164.0">
             <children>
                 <Label prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #ffffff;" text="Search">
                     <font>
@@ -64,7 +47,7 @@
                         <Insets right="15.0" />
                     </HBox.margin>
                 </Label>
-                <TextField fx:id="txProductCode" prefHeight="32.0" prefWidth="168.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+                <TextField fx:id="txSearch" prefHeight="32.0" prefWidth="168.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -72,7 +55,7 @@
                         <Insets bottom="8.0" />
                     </HBox.margin>
                 </TextField>
-                <Button fx:id="btSearch" mnemonicParsing="false" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -93,17 +76,18 @@
                 <Insets />
             </opaqueInsets>
         </HBox>
-        <ScrollPane layoutX="15.0" layoutY="258.0" prefHeight="426.0" prefWidth="946.0" style="-fx-background-color: #ffffff; -fx-border-color: #4A4FDA; -fx-border-width: 2;" stylesheets="@../Style/ScrollStyle.css" AnchorPane.bottomAnchor="172.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+        <ScrollPane layoutX="22.0" layoutY="231.0" prefHeight="434.0" prefWidth="1055.0" style="-fx-background-color: #ffffff; -fx-border-color: #4A4FDA; -fx-border-width: 2;" stylesheets="@../Style/ScrollStyle.css" AnchorPane.bottomAnchor="89.60000000000002" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0">
             <content>
-                <TableView fx:id="tvProducts" editable="true" mouseTransparent="true" prefHeight="422.0" prefWidth="938.0" style="-fx-background-color: transparent;">
+                <TableView fx:id="tableProducts" editable="true" prefHeight="422.0" prefWidth="1039.0">
                     <columns>
-                        <TableColumn fx:id="cmCodeProducts" prefWidth="63.199978828430176" text="Code" />
-                        <TableColumn fx:id="cmNameProducts" prefWidth="150.0" text="Name" />
-                        <TableColumn fx:id="cmManufacturerProduct" prefWidth="150.0" text="Manufacturer" />
-                        <TableColumn fx:id="cmSellingPriceProducts" prefWidth="105.0" text="Selling Price" />
-                        <TableColumn fx:id="P" prefWidth="90.0" text="Categories ID" />
-                        <TableColumn fx:id="cmBranchStorage" prefWidth="200.0" text="ParCode" />
-                        <TableColumn fx:id="cmMainStorage" prefWidth="200.0" text="Description" />
+                        <TableColumn fx:id="cmCodeProducts" editable="false" prefWidth="68.80001831054688" sortable="false" text="Code" />
+                        <TableColumn fx:id="cmParCode" editable="false" prefWidth="131.20001220703125" sortable="false" text="ParCode" />
+                        <TableColumn fx:id="cmNameProducts" editable="false" prefWidth="140.00003051757812" sortable="false" text="Name" />
+                        <TableColumn fx:id="cmManufacturerProduct" editable="false" prefWidth="120.0" sortable="false" text="Manufacturer" />
+                  <TableColumn fx:id="cmPurchasingPrice" editable="false" prefWidth="141.5999755859375" sortable="false" text="Purchasing Price" />
+                        <TableColumn fx:id="cmSellingPrice" editable="false" prefWidth="111.20001220703125" sortable="false" text="Selling Price" />
+                        <TableColumn fx:id="cmCategoriesName" editable="false" prefWidth="133.60003662109375" sortable="false" text="Categories Name" />
+                        <TableColumn fx:id="cmDescription" editable="false" maxWidth="204.0" prefWidth="199.199951171875" sortable="false" text="Description" />
                     </columns>
                     <opaqueInsets>
                         <Insets />
@@ -111,7 +95,7 @@
                 </TableView>
             </content>
         </ScrollPane>
-      <HBox alignment="CENTER" layoutX="645.0" layoutY="180.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;">
+      <HBox alignment="CENTER" layoutX="760.0" layoutY="164.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label prefHeight="32.0" prefWidth="126.0" style="-fx-background-color: #ffffff;" text="Quantity Of">
                <font>
@@ -124,7 +108,7 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <TextField fx:id="txProductCode1" prefHeight="32.0" prefWidth="168.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+            <TextField fx:id="txQuantityOf" prefHeight="32.0" prefWidth="168.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
                <font>
                   <Font size="14.0" />
                </font>
@@ -132,7 +116,7 @@
                   <Insets bottom="8.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="btSearch1" mnemonicParsing="false" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+            <Button fx:id="btQuantityOf" mnemonicParsing="false" onAction="#handleBtQuantityOf" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -153,5 +137,26 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <HBox alignment="CENTER" layoutY="678.0" prefHeight="51.0" prefWidth="374.0" spacing="15.0">
+         <children>
+            <Label text="Total Products">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txTotalProducts" editable="false" prefHeight="39.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Button layoutX="504.0" layoutY="172.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="90.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
     </children>
 </AnchorPane>

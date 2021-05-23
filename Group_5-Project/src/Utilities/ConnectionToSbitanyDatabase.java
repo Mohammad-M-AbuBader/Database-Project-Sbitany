@@ -3,7 +3,7 @@
  * ID: 1191076
  * At: 16-5-2021  11:35 AM
  */
-package Controllers;
+package Utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
