@@ -149,7 +149,6 @@ public class CompanyEmployeeController implements Initializable {
 
             rs.close();
             stmt.close();
-            con.close();
 
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
