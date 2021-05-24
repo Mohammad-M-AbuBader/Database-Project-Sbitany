@@ -64,11 +64,6 @@ public class CompanyEmployeeController implements Initializable {
     @FXML
     private TableColumn<Employee, String> cmAddress;
 
-    @FXML
-    private TextField txProductCode1;
-
-    @FXML
-    private TextField txProductCode11;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

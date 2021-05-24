@@ -1,7 +1,8 @@
 /**
- * Sample Skeleton for 'GeneralMangerEmployees.fxml' Controller Class
+ * @autor: Ameer Eleyan
+ * ID: 1191076
+ * At: 24-5-2021  3:10 PM
  */
-
 package Controllers;
 
 import DataBaseClasses.Employee;
@@ -17,7 +18,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AllDataForEmployee implements Initializable {
@@ -141,71 +141,7 @@ public class AllDataForEmployee implements Initializable {
     private void refresh() {
         this.txtSearch.clear();
         this.tableEmployee.getItems().clear();
-        try {
-            String getEmployee = "SELECT * from employee";
-            String getNumOfEmployee = "SELECT COUNT(*) from employee";
-
-            assert con != null;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(getEmployee);
-
-            while (rs.next()) {
-                Employee employee = new Employee();
-                String id = rs.getString(1);
-                employee.setEmployeeID(id);
-                employee.setEmployeeCard(rs.getString(2));
-                employee.setEmployeeName(rs.getString(3));
-                employee.setEmployeePhone(rs.getString(4));
-                employee.setEmployeeDateOfBirth(rs.getString(5));
-                employee.setEmployeeSalary(rs.getString(6));
-                employee.setEmployeeEmail(rs.getString(7));
-                employee.setEmployeeUserName(rs.getString(8));
-                employee.setEmployeePassword(rs.getString(9));
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),E.employeeDateOfBirth)), '%Y')+0 AS Age From Employee E where  E.employeeID=" + Integer.parseInt(id.trim()));
-                rs2.next();
-                employee.setEmployeeAge(rs2.getString(1));
-
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT b.branchName From Branch b, Employee E where E.branchID= b.branchID  and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs3.next();
-                employee.setBranchName(rs3.getString(1));
-
-                employee.setEmployeeHiringDate(rs.getString(10));
-                employee.setEmployeeFiringDate(rs.getString(11));
-
-                Statement stmt4 = con.createStatement();
-                ResultSet rs4 = stmt4.executeQuery("SELECT j.jobName From JobTitle j , Employee E where E.jobTitleID= j.jobTitleID and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs4.next();
-                employee.setJobTitleID(rs4.getString(1));
-
-                Statement stmt5 = con.createStatement();
-                String villageId = rs.getString(14);
-                ResultSet rs5;
-                if (villageId != null) {
-                    rs5 = stmt5.executeQuery("SELECT CONCAT(C.cityname,', ' ,V.villageName)" +
-                            "  From city C , Village V, Employee E where C.cityID = E.cityID and V.VillageID = E.villageID and E.employeeID=" + Integer.parseInt(id.trim()));
-                } else {
-                    rs5 = stmt5.executeQuery("SELECT C.cityName" +
-                            "  From city C, Employee E where C.cityID =E.cityID and E.employeeID=" + Integer.parseInt(id.trim()));
-                }
-                rs5.next();
-                employee.setAddress(rs5.getString(1));
-
-
-                this.tableEmployee.getItems().add(employee);
-            }
-
-            Statement total = con.createStatement();
-            ResultSet resultSetTotal = total.executeQuery(getNumOfEmployee);
-            resultSetTotal.next();
-            this.txtNumOfEmployee.setText(resultSetTotal.getString(1).trim());
-            rs.close();
-            stmt.close();
-
-        } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
-        }
+        this.execute("");
     }
 
     public void handleBtSearch() {
@@ -229,51 +165,8 @@ public class AllDataForEmployee implements Initializable {
                     this.txtSearch.clear();
                     return;
                 }
-                Employee employee = new Employee();
-                String id = rs.getString(1);
-                employee.setEmployeeID(id);
-                employee.setEmployeeCard(rs.getString(2));
-                employee.setEmployeeName(rs.getString(3));
-                employee.setEmployeePhone(rs.getString(4));
-                employee.setEmployeeDateOfBirth(rs.getString(5));
-                employee.setEmployeeSalary(rs.getString(6));
-                employee.setEmployeeEmail(rs.getString(7));
-                employee.setEmployeeUserName(rs.getString(8));
-                employee.setEmployeePassword(rs.getString(9));
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),E.employeeDateOfBirth)), '%Y')+0 AS Age From Employee E where  E.employeeID=" + Integer.parseInt(id.trim()));
-                rs2.next();
-                employee.setEmployeeAge(rs2.getString(1));
+                this.execute("  where E.employeeID="+ Integer.parseInt(this.txtSearch.getText().trim()));
 
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT b.branchName From Branch b, Employee E where E.branchID= b.branchID  and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs3.next();
-                employee.setBranchName(rs3.getString(1));
-
-                employee.setEmployeeHiringDate(rs.getString(10));
-                employee.setEmployeeFiringDate(rs.getString(11));
-
-                Statement stmt4 = con.createStatement();
-                ResultSet rs4 = stmt4.executeQuery("SELECT j.jobName From JobTitle j , Employee E where E.jobTitleID= j.jobTitleID and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs4.next();
-                employee.setJobTitleID(rs4.getString(1));
-
-                Statement stmt5 = con.createStatement();
-                String villageId = rs.getString(14);
-                ResultSet rs5;
-                if (villageId != null) {
-                    rs5 = stmt5.executeQuery("SELECT CONCAT(C.cityname,', ' ,V.villageName)" +
-                            "  From city C , Village V, Employee E where C.cityID = E.cityID and V.VillageID = E.villageID and E.employeeID=" + Integer.parseInt(id.trim()));
-                } else {
-                    rs5 = stmt5.executeQuery("SELECT C.cityName" +
-                            "  From city C, Employee E where C.cityID =E.cityID and E.employeeID=" + Integer.parseInt(id.trim()));
-                }
-                rs5.next();
-                employee.setAddress(rs5.getString(1));
-
-                this.tableEmployee.getItems().clear();
-                this.tableEmployee.getItems().add(employee);
-                this.txtSearch.clear();
             } catch (SQLException sqlException) {
                 System.out.println(sqlException.getMessage());
             }
@@ -288,74 +181,12 @@ public class AllDataForEmployee implements Initializable {
         this.tableEmployee.getItems().clear();
         try {
             String bName = this.combBranch.getValue().trim();
-            System.out.println(bName);
             String getBranchID = "SELECT B.branchID from branch B where B.branchName= '" + bName + "'";
             Statement bID = con.createStatement();
             ResultSet resultBId = bID.executeQuery(getBranchID);
             resultBId.next();
             int branchID = Integer.parseInt(resultBId.getString(1).trim());
-
-            String getEmployee = "SELECT * from employee E where E.branchID=" + branchID;
-            String getNumOfEmployee = "SELECT COUNT(*) from employee E where E.branchID=" + branchID;
-
-            assert con != null;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(getEmployee);
-
-            while (rs.next()) {
-                Employee employee = new Employee();
-                String id = rs.getString(1);
-                employee.setEmployeeID(id);
-                employee.setEmployeeCard(rs.getString(2));
-                employee.setEmployeeName(rs.getString(3));
-                employee.setEmployeePhone(rs.getString(4));
-                employee.setEmployeeDateOfBirth(rs.getString(5));
-                employee.setEmployeeSalary(rs.getString(6));
-                employee.setEmployeeEmail(rs.getString(7));
-                employee.setEmployeeUserName(rs.getString(8));
-                employee.setEmployeePassword(rs.getString(9));
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),E.employeeDateOfBirth)), '%Y')+0 AS Age From Employee E where  E.employeeID=" + Integer.parseInt(id.trim()));
-                rs2.next();
-                employee.setEmployeeAge(rs2.getString(1));
-
-                Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT b.branchName From Branch b, Employee E where E.branchID= b.branchID  and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs3.next();
-                employee.setBranchName(rs3.getString(1));
-
-                employee.setEmployeeHiringDate(rs.getString(10));
-                employee.setEmployeeFiringDate(rs.getString(11));
-
-                Statement stmt4 = con.createStatement();
-                ResultSet rs4 = stmt4.executeQuery("SELECT j.jobName From JobTitle j , Employee E where E.jobTitleID= j.jobTitleID and E.employeeID=" + Integer.parseInt(id.trim()));
-                rs4.next();
-                employee.setJobTitleID(rs4.getString(1));
-
-                Statement stmt5 = con.createStatement();
-                String villageId = rs.getString(14);
-                ResultSet rs5;
-                if (villageId != null) {
-                    rs5 = stmt5.executeQuery("SELECT CONCAT(C.cityname,', ' ,V.villageName)" +
-                            "  From city C , Village V, Employee E where C.cityID = E.cityID and V.VillageID = E.villageID and E.employeeID=" + Integer.parseInt(id.trim()));
-                } else {
-                    rs5 = stmt5.executeQuery("SELECT C.cityName" +
-                            "  From city C, Employee E where C.cityID =E.cityID and E.employeeID=" + Integer.parseInt(id.trim()));
-                }
-                rs5.next();
-                employee.setAddress(rs5.getString(1));
-
-
-                this.tableEmployee.getItems().add(employee);
-            }
-
-            Statement total = con.createStatement();
-            ResultSet resultSetTotal = total.executeQuery(getNumOfEmployee);
-            resultSetTotal.next();
-            this.txtNumOfEmployee.setText(resultSetTotal.getString(1).trim());
-            rs.close();
-            stmt.close();
-
+            this.execute(" where E.branchID=" + branchID);
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
