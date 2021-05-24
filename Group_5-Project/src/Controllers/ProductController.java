@@ -11,18 +11,26 @@ import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
+
+import static javafx.fxml.FXMLLoader.*;
 
 
 public class ProductController implements Initializable {
@@ -30,12 +38,6 @@ public class ProductController implements Initializable {
 
     @FXML // fx:id="txSearch"
     private TextField txSearch; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btSearch"
-    private Button btSearch; // Value injected by FXMLLoader
-
-    @FXML // fx:id="txQuantityOf"
-    private TextField txQuantityOf; // Value injected by FXMLLoader
 
     @FXML // fx:id="btQuantityOf"
     private Button btQuantityOf; // Value injected by FXMLLoader
@@ -72,9 +74,12 @@ public class ProductController implements Initializable {
 
     private Message message;
 
+    private Connection con;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
+        con = connection.connectSbitanyDB();
         this.tableProducts.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
                 "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
@@ -91,10 +96,7 @@ public class ProductController implements Initializable {
 
 
     public void handleBtSearch() {
-
         if (!this.txSearch.getText().trim().isEmpty()) {
-            ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
-            Connection con = connection.connectSbitanyDB();
             if (!isNumber(this.txSearch.getText().trim())) {
                 this.message = new Message();
                 message.displayMassage("Warning", " Product code is invalid ");
@@ -135,7 +137,18 @@ public class ProductController implements Initializable {
         }
     }
 
-    public void handleBtQuantityOf() {
+    public void handleBtQuantity() {
+        try{
+            Parent root = load(Objects.requireNonNull(getClass().getResource("../FXML/QuantityOf.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Quantity Of:");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException sqlException) {
+            System.out.println(sqlException.getMessage());
+        }
 
     }
 
@@ -144,8 +157,6 @@ public class ProductController implements Initializable {
         this.tableProducts.getItems().clear();
         try {
 
-            ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
-            Connection con = connection.connectSbitanyDB();
             String getProducts = "SELECT * from product";
             String getTotalProducts = "SELECT COUNT(*) from product";
 
@@ -172,7 +183,6 @@ public class ProductController implements Initializable {
 
             rs.close();
             stmt.close();
-            con.close();
 
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());

@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+import static javafx.fxml.FXMLLoader.load;
+
 public class GeneralManagerController {
 
     @FXML // fx:id="btBranches"
@@ -58,10 +60,21 @@ public class GeneralManagerController {
     }
 
     public void handleBtEmployee() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/CompanyEmployees.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Company Employees");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            //
+        }
     }
 
     public void handleBtCustomres() {
+
 
     }
 
@@ -75,7 +88,7 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            //561
+            //
         }
 
     }

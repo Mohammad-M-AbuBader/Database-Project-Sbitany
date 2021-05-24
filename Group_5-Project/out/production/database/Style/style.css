@@ -36,16 +36,17 @@
    -fx-border-color: black;
     -fx-border-width: 1;
     -fx-border-radius: 20;
+    -fx-font-size:16;
     }
 
     .btRefresh:hover{
-
     -fx-background-color: #4A4FDA;
     -fx-text-fill: #ffffff;
      -fx-background-radius: 20;
      -fx-border-color: black;
      -fx-border-width: 1;
      -fx-border-radius: 20;
+      -fx-font-size:16;
     }
   .buttonBack
     {

@@ -76,7 +76,7 @@
                 <Insets />
             </opaqueInsets>
         </HBox>
-        <ScrollPane layoutX="22.0" layoutY="231.0" prefHeight="434.0" prefWidth="1055.0" style="-fx-background-color: #ffffff; -fx-border-color: #4A4FDA; -fx-border-width: 2;" stylesheets="@../Style/ScrollStyle.css" AnchorPane.bottomAnchor="89.60000000000002" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0">
+        <ScrollPane layoutX="22.0" layoutY="231.0" prefHeight="434.0" prefWidth="1055.0" stylesheets="@../Style/ScrollStyle.css" AnchorPane.bottomAnchor="89.60000000000002" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="22.0">
             <content>
                 <TableView fx:id="tableProducts" editable="true" prefHeight="422.0" prefWidth="1039.0">
                     <columns>
@@ -95,48 +95,6 @@
                 </TableView>
             </content>
         </ScrollPane>
-      <HBox alignment="CENTER" layoutX="760.0" layoutY="164.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <Label prefHeight="32.0" prefWidth="126.0" style="-fx-background-color: #ffffff;" text="Quantity Of">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="txQuantityOf" prefHeight="32.0" prefWidth="168.0" promptText="Product Code" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="8.0" />
-               </HBox.margin>
-            </TextField>
-            <Button fx:id="btQuantityOf" mnemonicParsing="false" onAction="#handleBtQuantityOf" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <graphic>
-                  <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../Icons/search.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
-               </graphic>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </HBox>
       <HBox alignment="CENTER" layoutY="678.0" prefHeight="51.0" prefWidth="374.0" spacing="15.0">
          <children>
             <Label text="Total Products">
@@ -157,6 +115,7 @@
             </TextField>
          </children>
       </HBox>
-      <Button layoutX="504.0" layoutY="172.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="90.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button layoutX="504.0" layoutY="172.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button fx:id="btQuantityOf" layoutX="931.0" layoutY="172.0" mnemonicParsing="false" onAction="#handleBtQuantity" prefHeight="39.0" prefWidth="123.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Quantity Of" />
     </children>
 </AnchorPane>
