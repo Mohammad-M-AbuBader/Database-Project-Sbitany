@@ -48,7 +48,17 @@ public class GeneralManagerController {
 
 
     public void handleBtBranches() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Branches.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Company Branches");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            //
+        }
     }
 
     public void handleBtAccount() {

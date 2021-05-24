@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="758.0" prefWidth="1252.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BranchesController">
+<AnchorPane prefHeight="758.0" prefWidth="1481.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BranchesController">
     <children>
-        <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1252.0" style="-fx-background-color: #4a4fda;">
+        <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1480.0" style="-fx-background-color: #4a4fda;">
             <children>
                 <Label layoutX="29.0" layoutY="9.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
                     <graphic>
@@ -37,7 +37,7 @@
                 </Label>
             </children>
         </Pane>
-        <HBox alignment="CENTER_LEFT" layoutX="803.0" layoutY="678.0" prefHeight="66.0" prefWidth="442.0" style="-fx-background-color: #ffffff; -fx-alignment: CENTER;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="803.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="678.0">
+        <HBox alignment="CENTER_LEFT" layoutX="998.0" layoutY="670.0" prefHeight="66.0" prefWidth="432.0" style="-fx-background-color: #ffffff; -fx-alignment: CENTER;" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="998.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="670.0">
             <children>
                 <Label prefHeight="30.0" prefWidth="221.0" style="-fx-background-color: #ffffff;" text="Number Of Branches">
                     <font>
@@ -46,7 +46,7 @@
                 </Label>
                 <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
                     <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font name="System Bold" size="18.0" />
                     </font>
                <HBox.margin>
                   <Insets bottom="14.0" left="20.0" />
@@ -99,22 +99,18 @@
                 <Insets />
             </opaqueInsets>
         </HBox>
-        <ScrollPane layoutX="479.0" layoutY="235.0" prefHeight="443.0" prefWidth="758.0" style="-fx-background-color: transparent; -fx-border-color: #4A4FDA; -fx-border-width: 3;" stylesheets="@../Style/ScrollStyle.css">
-            <content>
-                <TableView fx:id="tableBranches" editable="true" mouseTransparent="true" prefHeight="400.0" prefWidth="752.0">
-                    <columns>
-                        <TableColumn fx:id="cmBranchId" editable="false" prefWidth="72.79998779296875" sortable="false" text="ID" />
-                        <TableColumn fx:id="cmBranchName" editable="false" prefWidth="247.20005798339844" sortable="false" text="Name" />
-                  <TableColumn fx:id="cmBranchPhone" editable="false" prefWidth="155.99993896484375" sortable="false" text="Phone" />
-                        <TableColumn fx:id="cmAddress" editable="false" prefWidth="274.39996337890625" sortable="false" text="Address" />
-                    </columns>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </TableView>
-            </content>
-        </ScrollPane>
-      <GridPane alignment="CENTER" hgap="5.0" layoutX="14.0" layoutY="235.0" prefHeight="358.0" prefWidth="454.0" style="-fx-background-color: #ffffff;" vgap="10.0">
+          <TableView fx:id="tableBranches" editable="true" layoutX="479.0" layoutY="232.0" onMouseClicked="#getSelected" prefHeight="431.0" prefWidth="994.0">
+              <columns>
+                  <TableColumn fx:id="cmBranchId" editable="false" prefWidth="72.79998779296875" sortable="false" text="ID" />
+                  <TableColumn fx:id="cmBranchName" editable="false" prefWidth="300.0" sortable="false" text="Name" />
+            <TableColumn fx:id="cmBranchPhone" editable="false" prefWidth="173.60003662109375" sortable="false" text="Phone" />
+                  <TableColumn fx:id="cmAddress" editable="false" prefWidth="444.0" sortable="false" text="Address" />
+              </columns>
+              <opaqueInsets>
+                  <Insets />
+              </opaqueInsets>
+          </TableView>
+      <GridPane alignment="CENTER" hgap="5.0" layoutX="14.0" layoutY="232.0" prefHeight="358.0" prefWidth="454.0" style="-fx-background-color: #ffffff;" vgap="10.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.20001220703125" minWidth="10.0" prefWidth="198.20001220703125" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.79998779296878" minWidth="10.0" prefWidth="255.79998779296878" />
@@ -126,79 +122,64 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Branch ID" textAlignment="CENTER">
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Branch Name" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Branch Name" textAlignment="CENTER" GridPane.rowIndex="1">
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Branch Phone" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Branch Phone" textAlignment="CENTER" GridPane.rowIndex="2">
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="199.0" style="-fx-background-color: #ffffff;" text="City Name" textAlignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="199.0" style="-fx-background-color: #ffffff;" text="City Name" textAlignment="CENTER" GridPane.rowIndex="3">
+            <TextField fx:id="txtBranchName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtBranchPhone" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Street Name" textAlignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <TextField fx:id="txtBranchID" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtBranchName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtBranchPhone" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="txtCityName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Street Name" textAlignment="CENTER" GridPane.rowIndex="4">
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Region Name" textAlignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Region Name" textAlignment="CENTER" GridPane.rowIndex="5">
+            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Bullding Number" textAlignment="CENTER" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label contentDisplay="CENTER" prefHeight="34.0" prefWidth="190.0" style="-fx-background-color: #ffffff;" text="Bullding Number" textAlignment="CENTER" GridPane.rowIndex="6">
-               <font>
-                  <Font name="System Bold" size="23.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtStrretName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="txtStrretName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtRegionName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="txtRegionName" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="txtBulldingNumber" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="txtBulldingNumber" prefHeight="39.0" prefWidth="248.0" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
+            <ComboBox fx:id="cbxCityName" prefHeight="39.0" prefWidth="250.0" promptText="City name" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="617.0" prefHeight="80.0" prefWidth="442.0" spacing="40.0">
@@ -208,6 +189,6 @@
             <Button fx:id="btDelete" mnemonicParsing="false" onAction="#handleBtDelete" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Delete" />
          </children>
       </HBox>
-      <Button fx:id="btRefresh" layoutX="1116.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button fx:id="btRefresh" layoutX="1369.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
     </children>
 </AnchorPane>

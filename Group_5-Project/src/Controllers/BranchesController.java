@@ -12,11 +12,7 @@ import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
@@ -24,6 +20,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class BranchesController implements Initializable {
@@ -58,8 +55,8 @@ public class BranchesController implements Initializable {
     @FXML // fx:id="txtBranchPhone"
     private TextField txtBranchPhone; // Value injected by FXMLLoader
 
-    @FXML // fx:id="txtCityName"
-    private TextField txtCityName; // Value injected by FXMLLoader
+    @FXML // fx:id="cbxCityName"
+    private ComboBox<String> cbxCityName; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtStrretName"
     private TextField txtStrretName; // Value injected by FXMLLoader
@@ -84,11 +81,50 @@ public class BranchesController implements Initializable {
         this.cmBranchName.setCellValueFactory(new PropertyValueFactory<>("branchName"));
         this.cmBranchPhone.setCellValueFactory(new PropertyValueFactory<>("branchPhone"));
         this.cmAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        try {
+            assert con != null;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT C.cityName From city C");
+            while (rs.next()) {
+                this.cbxCityName.getItems().add(rs.getString(1).trim());
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException sqlException) {
+            System.out.println(sqlException.getMessage());
+        }
+
+
         this.refresh("");
     }
 
     public void handleBtSearch() {
+        if (!this.txtSearch.getText().trim().isEmpty()) {
+            if (!isNumber(this.txtSearch.getText().trim())) {
+                this.message = new Message();
+                message.displayMassage("Warning", " Branch ID is invalid ");
+                this.txtSearch.clear();
+                return;
+            }
+            String search = "SELECT * from branch B where B.branchID=" + Integer.parseInt(this.txtSearch.getText().trim());
 
+            try {
+                assert con != null;
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(search);
+                boolean empty = rs.next();
+                if (!empty) {
+                    this.message = new Message();
+                    message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
+                    this.txtSearch.clear();
+                    return;
+                }
+                this.refresh(" where B.branchID=" + Integer.parseInt(this.txtSearch.getText().trim()));
+
+            } catch (SQLException sqlException) {
+                System.out.println(sqlException.getMessage());
+            }
+        }
     }
 
     public void handleBtRefresh() {
@@ -111,6 +147,13 @@ public class BranchesController implements Initializable {
     private void refresh(String str) {
         this.txtSearch.clear();
         this.tableBranches.getItems().clear();
+        this.txtBranchName.clear();
+        this.txtBranchPhone.clear();
+        this.txtBranchPhone.clear();
+        this.txtBulldingNumber.clear();
+        this.txtRegionName.clear();
+        this.txtStrretName.clear();
+        this.cbxCityName.setValue("");
         try {
             String getBranch = "SELECT * from branch B " + str;
             String getNumOfBranch = "SELECT COUNT(*) from branch B " + str;
@@ -120,27 +163,21 @@ public class BranchesController implements Initializable {
             ResultSet rs = stmt.executeQuery(getBranch);
 
             while (rs.next()) {
-                // branchID branchName branchPhone cityID streetName regionName bulldingNumber 
                 Branch branch = new Branch();
                 String id = rs.getString(1);
                 branch.setBranchId(id);
-                branch.setBranchName(rs.getString(2));
-                branch.setBranchPhone(rs.getString(3));
+                branch.setBranchName(rs.getString(2).trim());
+                branch.setBranchPhone(rs.getString(3).trim());
 
+                int cityID = Integer.parseInt(rs.getString(4).trim());
                 Statement stmt5 = con.createStatement();
-                String villageId = rs.getString(14);
-                ResultSet rs5;
-                if (villageId != null) {
-                    rs5 = stmt5.executeQuery("SELECT CONCAT(C.cityname,', ' ,V.villageName)" +
-                            "  From city C , Village V, Employee E where C.cityID = E.cityID and V.VillageID = E.villageID and E.employeeID=" + Integer.parseInt(id.trim()));
-                } else {
-                    rs5 = stmt5.executeQuery("SELECT C.cityName" +
-                            "  From city C, Employee E where C.cityID =E.cityID and E.employeeID=" + Integer.parseInt(id.trim()));
-                }
+                ResultSet rs5 = stmt5.executeQuery("SELECT C.cityName" +
+                        "  From city C where C.cityID =" + cityID);
                 rs5.next();
-                employee.setAddress(rs5.getString(1));
 
-
+                String address = rs5.getString(1).trim() + ", " + rs.getString(5).trim()
+                        + ", " + rs.getString(6).trim() + ", " + rs.getString(7).trim();
+                branch.setAddress(address);
                 this.tableBranches.getItems().add(branch);
             }
 
@@ -152,6 +189,50 @@ public class BranchesController implements Initializable {
             stmt.close();
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
+        }
+    }
+
+    public void getSelected() {
+        int index = this.tableBranches.getSelectionModel().getSelectedIndex();
+        if (index <= -1) return;
+        this.txtStrretName.setText(cmBranchName.getCellData(index));
+        this.txtBranchPhone.setText(cmBranchPhone.getCellData(index));
+        try {
+
+            String getBranchID = "SELECT * from branch B where B.branchID=" + Integer.parseInt(cmBranchId.getCellData(index));
+            assert con != null;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(getBranchID);
+            rs.next();
+
+            Statement stmt2 = con.createStatement();
+            ResultSet rs2 = stmt2.executeQuery("SELECT C.cityName From city C where C.cityID=" + Integer.parseInt(rs.getString(4)));
+            rs2.next();
+
+            this.txtBranchName.setText(rs.getString(2).trim());
+            this.cbxCityName.setValue(rs2.getString(1).trim());
+            this.txtStrretName.setText(rs.getString(5).trim());
+            this.txtRegionName.setText(rs.getString(6).trim());
+            this.txtBulldingNumber.setText(rs.getString(7).trim());
+
+        } catch (SQLException sqlException) {
+            System.out.println(sqlException.getMessage());
+        }
+    }
+
+    /**
+     * To check the value of the entered numberOfShares if contain only digits or not
+     */
+    public static boolean isNumber(String number) {
+        /* To check the entered number of shares, that it consists of
+           only digits
+         */
+        try {
+            int temp = Integer.parseInt(number);
+            if (number.matches("\\d+") && temp > 0) return true;
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
