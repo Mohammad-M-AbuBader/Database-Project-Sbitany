@@ -15,12 +15,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="784.0" prefWidth="1518.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AllDataForEmployee">
+<AnchorPane prefHeight="774.0" prefWidth="1518.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AllDataForEmployee">
     <children>
-      <Button fx:id="btRefresh" layoutX="592.0" layoutY="186.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
-        <Pane prefHeight="172.0" prefWidth="1518.0" style="-fx-background-color: #4a4fda;">
+      <Button fx:id="btRefresh" layoutX="710.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+        <Pane layoutY="10.0" prefHeight="141.0" prefWidth="1518.0" style="-fx-background-color: #4a4fda;">
             <children>
-                <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+                <Label layoutX="29.0" layoutY="12.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
                     <graphic>
                         <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -41,9 +41,9 @@
                 </Label>
             </children>
         </Pane>
-        <HBox alignment="CENTER" layoutX="1193.0" layoutY="174.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="1193.0" AnchorPane.topAnchor="174.0">
+        <HBox alignment="CENTER" layoutX="1193.0" layoutY="162.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="1193.0" AnchorPane.topAnchor="162.0">
             <children>
-                <Button fx:id="btSearch" contentDisplay="TOP" mnemonicParsing="false" styleClass="btSearch" stylesheets="@../Style/style.css" text="Search">
+                <Button fx:id="btSearch" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSearch" styleClass="btSearch" stylesheets="@../Style/style.css" text="Search">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -69,7 +69,7 @@
                 </TextField>
             </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="180.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="180.0">
+        <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="160.0" prefHeight="51.0" prefWidth="316.0" spacing="10.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="160.0">
             <children>
                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -79,10 +79,10 @@
                         <Insets />
                     </HBox.margin>
                 </ImageView>
-                <ComboBox fx:id="combBranch" prefHeight="39.0" prefWidth="226.0" promptText="Branch" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
+                <ComboBox fx:id="combBranch" onAction="#handleComboBoxBranches" prefHeight="39.0" prefWidth="226.0" promptText="Branch" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
             </children>
         </HBox>
-          <TableView fx:id="tableEmployee" layoutX="14.0" layoutY="254.0" prefHeight="446.0" prefWidth="1495.0" style="-fx-background-color: transparent;">
+          <TableView fx:id="tableEmployee" layoutX="11.0" layoutY="259.0" prefHeight="446.0" prefWidth="1495.0" style="-fx-background-color: transparent;">
               <columns>
                   <TableColumn fx:id="cmID" editable="false" prefWidth="78.39999198913574" sortable="false" text="ID" />
                   <TableColumn fx:id="cmPersonalID" editable="false" prefWidth="132.00003814697266" sortable="false" text="Parsonal ID" />
@@ -91,14 +91,14 @@
                   <TableColumn fx:id="cmDOB" editable="false" prefWidth="124.79998779296875" sortable="false" text="Date of birth" />
                   <TableColumn fx:id="cmAge" editable="false" prefWidth="72.0" sortable="false" text="Age" />
             <TableColumn fx:id="cmHiringDate" editable="false" prefWidth="113.5999755859375" sortable="false" text="Hiring Date" />
-                  <TableColumn fx:id="cmFiringDate" editable="false" prefWidth="106.39996337890625" sortable="false" text="Firing Date" />
-                  <TableColumn fx:id="cmEmail" editable="false" minWidth="210.0" prefWidth="210.0" sortable="false" text="Email" />
                   <TableColumn fx:id="cmSalary" editable="false" prefWidth="84.800048828125" sortable="false" text="Salary" />
-            <TableColumn fx:id="cmUname" editable="false" prefWidth="146.400146484375" sortable="false" text="User Name" />
-            <TableColumn fx:id="cmPasswd" editable="false" prefWidth="165.0" sortable="false" text="Password" />
             <TableColumn fx:id="cmPhone" editable="false" prefWidth="120.0" sortable="false" text="Phone" />
             <TableColumn fx:id="cmBranchName" editable="false" minWidth="195.0" prefWidth="195.0" sortable="false" text="Branch Name" />
             <TableColumn fx:id="cmAddress" editable="false" prefWidth="180.0" sortable="false" text="Address" />
+                  <TableColumn fx:id="cmFiringDate" editable="false" prefWidth="106.39996337890625" sortable="false" text="Firing Date" />
+                  <TableColumn fx:id="cmEmail" editable="false" minWidth="210.0" prefWidth="210.0" sortable="false" text="Email" />
+            <TableColumn fx:id="cmUname" editable="false" prefWidth="146.400146484375" sortable="false" text="User Name" />
+            <TableColumn fx:id="cmPasswd" editable="false" prefWidth="165.0" sortable="false" text="Password" />
               </columns>
               <opaqueInsets>
                   <Insets />
@@ -107,7 +107,7 @@
                   <Cursor fx:constant="DEFAULT" />
               </cursor>
           </TableView>
-      <HBox layoutX="14.0" layoutY="704.0" prefHeight="54.0" prefWidth="1495.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
+      <HBox layoutX="11.0" layoutY="705.0" prefHeight="54.0" prefWidth="1495.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
          <children>
             <AnchorPane prefHeight="54.0" prefWidth="1496.0">
                <children>
@@ -116,13 +116,23 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtNumOfEmployee" layoutX="240.0" layoutY="10.0" prefHeight="42.0" prefWidth="70.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;" text="1200">
+                  <TextField fx:id="txtNumOfEmployee" layoutX="240.0" layoutY="10.0" prefHeight="42.0" prefWidth="70.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </TextField>
                </children>
             </AnchorPane>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="6.0" layoutY="217.0" prefHeight="42.0" prefWidth="316.0" spacing="10.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label text="Show" textFill="#4a4fda">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbxShow" onAction="#handleComboBoxShow" prefHeight="27.0" prefWidth="226.0" promptText="Display" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
          </children>
       </HBox>
     </children>
