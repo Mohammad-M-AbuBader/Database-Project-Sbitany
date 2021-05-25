@@ -4,6 +4,7 @@
 
 package Controllers;
 
+import Utilities.Message;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,7 +58,8 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            //
+            Message message = new Message();
+            message.displayMassage("Warning", exception.getMessage());
         }
     }
 
@@ -79,7 +81,8 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            //
+            Message message = new Message();
+            message.displayMassage("Warning", exception.getMessage());
         }
     }
 
@@ -98,7 +101,8 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            //
+            Message message = new Message();
+            message.displayMassage("Warning", exception.getMessage());
         }
 
     }

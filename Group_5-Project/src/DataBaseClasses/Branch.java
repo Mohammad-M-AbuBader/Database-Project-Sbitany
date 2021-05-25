@@ -14,6 +14,7 @@ public class Branch {
     private String address;
 
     public Branch() {
+
     }
 
 
@@ -60,8 +61,8 @@ public class Branch {
     @Override
     public String toString() {
         return "branchId: " + branchId +
-                        ", branchName: " + branchName +
-                        ", branchPhone: " + branchPhone +"Address:" +this.address;
+                ", branchName: " + branchName +
+                ", branchPhone: " + branchPhone + "Address:" + this.address;
 
 
     }

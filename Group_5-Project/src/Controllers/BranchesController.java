@@ -7,7 +7,7 @@
 package Controllers;
 
 import DataBaseClasses.Branch;
-import DataBaseClasses.Employee;
+
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
@@ -16,10 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -70,6 +68,9 @@ public class BranchesController implements Initializable {
     private Message message;
 
     private Connection con;
+
+    private int branchID = -1;
+    private PreparedStatement ps;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -132,14 +133,181 @@ public class BranchesController implements Initializable {
     }
 
     public void handleBtAdd() {
+        try {
+            Message message;
+            ps = con.prepareStatement("INSERT INTO branch(branchName, branchPhone, cityID, streetName, regionName, bulldingNumber)" +
+                    "values(?,?,?,?,?,?)");
+            // get branch name
+            if (!this.txtBranchName.getText().isEmpty())
+                ps.setString(1, this.txtBranchName.getText().trim());
+            else {
+                message = new Message();
+                message.displayMassage("Warning", " Please Enter the branch name");
+                return;
+            }
 
+            // get city name
+            if (this.cbxCityName == null || this.cbxCityName.getValue().equals("")) {
+                message = new Message();
+                message.displayMassage("Warning", " Please select the city name");
+                return;
+            } else {
+                String cityID = "SELECT C.cityID from city C where C.cityName='" + this.cbxCityName.getValue() + "'";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(cityID);
+                rs.next();
+                ps.setInt(3, Integer.parseInt(rs.getString(1).trim()));
+            }
+            // get branch phone
+            if (!this.txtBranchPhone.getText().isEmpty()) ps.setString(2, this.txtBranchPhone.getText().trim());
+            else ps.setNull(2, Types.NULL);
+
+            // get strretName
+            if (!this.txtStrretName.getText().isEmpty()) ps.setString(4, this.txtStrretName.getText().trim());
+            else ps.setNull(4, Types.NULL);
+
+            // get region name
+            if (!this.txtRegionName.getText().isEmpty()) ps.setString(5, this.txtRegionName.getText().trim());
+            else ps.setNull(5, Types.NULL);
+
+            // get bullding number
+            if (!this.txtBulldingNumber.getText().isEmpty()) {
+                if (isNumber(this.txtBulldingNumber.getText().trim()))
+                    ps.setInt(6, Integer.parseInt(this.txtBulldingNumber.getText().trim()));
+                else {
+                    message = new Message();
+                    message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
+                    return;
+                }
+            } else ps.setNull(6, Types.NULL);
+
+            ps.executeUpdate();
+
+            // get branch id for new branch
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery("SELECT B.branchID from branch B where B.branchName='" + this.txtBranchName.getText().trim() + "'");
+            rs2.next();
+
+            // create storage for this branch
+            PreparedStatement ps2 = con.prepareStatement("INSERT INTO storages(branchID) values(?)");
+            ps2.setInt(1, Integer.parseInt(rs2.getString(1)));
+            ps2.executeUpdate();
+
+            // clear texts
+            this.txtBranchName.clear();
+            this.txtBranchPhone.clear();
+            this.txtBulldingNumber.clear();
+            this.txtRegionName.clear();
+            this.txtStrretName.clear();
+            this.cbxCityName.setValue("");
+            // display branch with new branch
+            this.refresh("");
+            message = new Message();
+            message.displayMassage("Successfully", "A new branch has been added successfully");
+
+        } catch (SQLException e) {
+            message = new Message();
+            message.displayMassage("Error", e.getMessage());
+        }
     }
 
     public void handleBtUpdate() {
+        try {
+            if (this.branchID == -1) return;
+
+            String sqlUpdate = "UPDATE branch " + "SET branchName = ?, branchPhone=?, cityID=?, streetName=?, regionName=?, bulldingNumber=?" + " WHERE branchID = " + this.branchID;
+            ps = con.prepareStatement(sqlUpdate);
+
+            // get branch name
+            if (!this.txtBranchName.getText().isEmpty())
+                ps.setString(1, this.txtBranchName.getText().trim());
+            else {
+                message = new Message();
+                message.displayMassage("Warning", " Please Enter the branch name");
+                return;
+            }
+
+            // get city name
+            if (this.cbxCityName == null || this.cbxCityName.getValue().equals("")) {
+                message = new Message();
+                message.displayMassage("Warning", " Please select the city name");
+                return;
+            } else {
+                String cityID = "SELECT C.cityID from city C where C.cityName='" + this.cbxCityName.getValue() + "'";
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(cityID);
+                rs.next();
+                ps.setInt(3, Integer.parseInt(rs.getString(1).trim()));
+            }
+
+            // get branch phone
+            if (!this.txtBranchPhone.getText().isEmpty()) ps.setString(2, this.txtBranchPhone.getText().trim());
+            else ps.setNull(2, Types.NULL);
+
+            // get strretName
+            if (!this.txtStrretName.getText().isEmpty()) ps.setString(4, this.txtStrretName.getText().trim());
+            else ps.setNull(4, Types.NULL);
+
+            // get region name
+            if (!this.txtRegionName.getText().isEmpty()) ps.setString(5, this.txtRegionName.getText().trim());
+            else ps.setNull(5, Types.NULL);
+
+            // get bullding number
+            if (!this.txtBulldingNumber.getText().isEmpty()) {
+                if (isNumber(this.txtBulldingNumber.getText().trim()))
+                    ps.setInt(6, Integer.parseInt(this.txtBulldingNumber.getText().trim()));
+                else {
+                    message = new Message();
+                    message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
+                    return;
+                }
+            } else ps.setNull(6, Types.NULL);
+
+            ps.executeUpdate();
+
+            // clear texts
+            this.txtBranchName.clear();
+            this.txtBranchPhone.clear();
+            this.txtBulldingNumber.clear();
+            this.txtRegionName.clear();
+            this.txtStrretName.clear();
+            this.cbxCityName.setValue("");
+            // display branch with new branch
+            this.refresh("");
+            message = new Message();
+            message.displayMassage("Successfully", " The " + this.branchID + " branch information has been successfully updated ");
+
+        } catch (SQLException e) {
+            message = new Message();
+            message.displayMassage("Error", e.getMessage());
+        }
 
     }
 
     public void handleBtDelete() {
+        if (this.branchID == -1) return;
+        try {
+            String query = "DELETE from branch B " + "where B.branchID=" + this.branchID;
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+
+            // clear texts
+            this.txtBranchName.clear();
+            this.txtBranchPhone.clear();
+            this.txtBulldingNumber.clear();
+            this.txtRegionName.clear();
+            this.txtStrretName.clear();
+            this.cbxCityName.setValue("");
+            // display branch with new branch
+            this.refresh("");
+            message = new Message();
+            message.displayMassage("Successfully", " The " + this.branchID + " Branch has been successfully deleted ");
+            this.branchID = -1;
+        } catch (SQLException e) {
+            message = new Message();
+            message.displayMassage("Error", e.getMessage());
+        }
+        // get branch id for new branch
 
     }
 
@@ -148,7 +316,6 @@ public class BranchesController implements Initializable {
         this.txtSearch.clear();
         this.tableBranches.getItems().clear();
         this.txtBranchName.clear();
-        this.txtBranchPhone.clear();
         this.txtBranchPhone.clear();
         this.txtBulldingNumber.clear();
         this.txtRegionName.clear();
@@ -167,7 +334,9 @@ public class BranchesController implements Initializable {
                 String id = rs.getString(1);
                 branch.setBranchId(id);
                 branch.setBranchName(rs.getString(2).trim());
-                branch.setBranchPhone(rs.getString(3).trim());
+
+                if (rs.getString(3) != null)
+                    branch.setBranchPhone(rs.getString(3).trim());
 
                 int cityID = Integer.parseInt(rs.getString(4).trim());
                 Statement stmt5 = con.createStatement();
@@ -175,8 +344,14 @@ public class BranchesController implements Initializable {
                         "  From city C where C.cityID =" + cityID);
                 rs5.next();
 
-                String address = rs5.getString(1).trim() + ", " + rs.getString(5).trim()
-                        + ", " + rs.getString(6).trim() + ", " + rs.getString(7).trim();
+                String address = rs5.getString(1).trim();
+                if (rs.getString(5) != null)
+                    address += (", " + rs.getString(5).trim());
+                if (rs.getString(6) != null)
+                    address += (", " + rs.getString(6).trim());
+                if (rs.getString(7) != null)
+                    address += (", " + rs.getString(7).trim());
+
                 branch.setAddress(address);
                 this.tableBranches.getItems().add(branch);
             }
@@ -195,8 +370,7 @@ public class BranchesController implements Initializable {
     public void getSelected() {
         int index = this.tableBranches.getSelectionModel().getSelectedIndex();
         if (index <= -1) return;
-        this.txtStrretName.setText(cmBranchName.getCellData(index));
-        this.txtBranchPhone.setText(cmBranchPhone.getCellData(index));
+        this.branchID = Integer.parseInt(cmBranchId.getCellData(index));
         try {
 
             String getBranchID = "SELECT * from branch B where B.branchID=" + Integer.parseInt(cmBranchId.getCellData(index));
@@ -211,9 +385,22 @@ public class BranchesController implements Initializable {
 
             this.txtBranchName.setText(rs.getString(2).trim());
             this.cbxCityName.setValue(rs2.getString(1).trim());
-            this.txtStrretName.setText(rs.getString(5).trim());
-            this.txtRegionName.setText(rs.getString(6).trim());
-            this.txtBulldingNumber.setText(rs.getString(7).trim());
+
+            if (cmBranchPhone.getCellData(index) != null)
+                this.txtBranchPhone.setText(cmBranchPhone.getCellData(index));
+            else this.txtBranchPhone.setText("");
+
+            if (rs.getString(5) != null)
+                this.txtStrretName.setText(rs.getString(5).trim());
+            else this.txtStrretName.setText("");
+
+            if (rs.getString(6) != null)
+                this.txtRegionName.setText(rs.getString(6).trim());
+            else this.txtRegionName.setText("");
+
+            if (rs.getString(7) != null)
+                this.txtBulldingNumber.setText(rs.getString(7).trim());
+            else this.txtBulldingNumber.setText("");
 
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
