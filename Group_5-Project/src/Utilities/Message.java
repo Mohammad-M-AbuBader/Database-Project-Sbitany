@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Message {
 
-    public void displayMassage(String title, String massage) {
+    public static void displayMassage(String title, String massage) {
 
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);

@@ -22,9 +22,12 @@ import java.util.ResourceBundle;
 
 public class BranchAccountantController {
 
+    @FXML // fx:id="btLogout"
+    private Button btLogout; // Value injected by FXMLLoader
+
     public void handleBtProducts() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/ProductsForBranches.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/ProductForBranches.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Products");
@@ -32,14 +35,12 @@ public class BranchAccountantController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            Message message = new Message();
-            message.displayMassage("Warning",exception.getMessage());
+            Message.displayMassage("Warning", exception.getMessage());
         }
 
     }
 
     public void handleBtOrderProduct() {
-
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Order.fxml")));
             Stage window = new Stage();
@@ -49,10 +50,8 @@ public class BranchAccountantController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            Message message = new Message();
-            message.displayMassage("Warning",exception.getMessage());
+            Message.displayMassage("Warning", exception.getMessage());
         }
-
     }
 
 
@@ -68,7 +67,19 @@ public class BranchAccountantController {
 
     @FXML
     void handleBtLogout() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Login.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Login");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            Stage currentStage = (Stage) this.btLogout.getScene().getWindow();
+            currentStage.close();
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     @FXML

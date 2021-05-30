@@ -38,8 +38,6 @@ public class QuantityOfController implements Initializable {
     @FXML // fx:id="txQuantityOf"
     private TextField txQuantityOf; // Value injected by FXMLLoader
 
-    private Message message;
-
     private Connection con;
 
     @Override
@@ -57,31 +55,26 @@ public class QuantityOfController implements Initializable {
         if (!this.txQuantityOf.getText().trim().isEmpty()) {
 
             if (!isNumber(this.txQuantityOf.getText().trim())) {
-               this.message = new Message();
-                message.displayMassage("Warning", " Product code is invalid ");
+               Message.displayMassage("Warning", " Product code is invalid ");
                 this.txQuantityOf.clear();
                 return;
             }
+            this.quantityTableView.getItems().clear();
 
             try {
-                String quantityOf = "SELECT B.branchName, S.productQuantity FROM storedproducts S, branch B where S.productCode= " + Integer.parseInt(this.txQuantityOf.getText().trim()) + " And S.storageID=B.branchID order by S.productQuantity DESC";
+                String quantityOf = "SELECT B.branchName, S.productQuantity FROM storedproducts S, branch B where S.productCode= " +
+                        Integer.parseInt(this.txQuantityOf.getText().trim()) + " And S.storageID=B.branchID order by S.productQuantity DESC";
                 assert con != null;
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(quantityOf);
 
-              /*  if (!rs.next()) {
-                    Message message = new Message();
-                    message.displayMassage("Warning", this.txQuantityOf.getText() + " Does not exist ");
-                    this.txQuantityOf.clear();
-                    return;
-                }*/
                 while (rs.next()) {
                     QuantityOf quantity = new QuantityOf(rs.getString(1), rs.getString(2));
                     this.quantityTableView.getItems().add(quantity);
                 }
 
             } catch (SQLException sqlException) {
-                sqlException.printStackTrace();
+                Message.displayMassage("Warning",sqlException.getMessage());
             }
 
         }
@@ -90,14 +83,11 @@ public class QuantityOfController implements Initializable {
     /**
      * To check the value of the entered numberOfShares if contain only digits or not
      */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
+    private static boolean isNumber(String number) {
+        // To check the entered number of shares, that it consists of only digits
         try {
             int temp = Integer.parseInt(number);
-            if (number.matches("\\d+") && temp > 0) return true;
-            return false;
+            return number.matches("\\d+") && temp > 0;
         } catch (NumberFormatException e) {
             return false;
         }

@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="755.0" prefWidth="1076.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProductForBranchesController">
+<AnchorPane fx:id="anchorPane" prefHeight="755.0" prefWidth="1204.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ProductForBranchesController">
     <children>
-        <Pane layoutY="1.0" prefHeight="142.0" prefWidth="1076.0" style="-fx-background-color: #4a4fda;">
+        <Pane layoutY="1.0" prefHeight="142.0" prefWidth="1204.0" style="-fx-background-color: #4a4fda;">
             <children>
                 <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
                     <graphic>
@@ -75,15 +75,15 @@
                 <Insets />
             </opaqueInsets>
         </HBox>
-          <TableView fx:id="tvProducts" editable="true" layoutX="19.0" layoutY="251.0" mouseTransparent="true" prefHeight="406.0" prefWidth="1051.0" style="-fx-background-color: transparent;">
+          <TableView fx:id="tvProducts" layoutX="19.0" layoutY="251.0" prefHeight="406.0" prefWidth="1174.0" style="-fx-background-color: transparent;">
               <columns>
-                  <TableColumn fx:id="cmProductCode" prefWidth="63.199978828430176" text="Code" />
-                  <TableColumn fx:id="cmProductName" prefWidth="150.0" text="Name" />
-                  <TableColumn fx:id="cmManufacturer" prefWidth="103.20002746582031" text="Manufacturer" />
-                  <TableColumn fx:id="cmSellingPrice" prefWidth="126.39996337890625" text="Selling Price" />
-                  <TableColumn fx:id="cmCategoriesName" prefWidth="174.4000244140625" text="Categories Name" />
-                  <TableColumn fx:id="cmParCode" prefWidth="107.20001220703125" text="ParCode" />
-                  <TableColumn fx:id="cmDescripition" prefWidth="326.4000122070313" text="Description" />
+                  <TableColumn fx:id="cmProductCode" prefWidth="111.20000839233398" text="Code" />
+                  <TableColumn fx:id="cmProductName" prefWidth="147.99998474121094" text="Name" />
+                  <TableColumn fx:id="cmManufacturer" prefWidth="108.800048828125" text="Manufacturer" />
+                  <TableColumn fx:id="cmSellingPrice" prefWidth="148.79995727539062" text="Selling Price" />
+                  <TableColumn fx:id="cmCategoriesName" prefWidth="176.00003051757812" text="Categories Name" />
+                  <TableColumn fx:id="cmParCode" prefWidth="140.7999267578125" text="ParCode" />
+                  <TableColumn fx:id="cmDescripition" prefWidth="336.79998779296875" text="Description" />
               </columns>
               <opaqueInsets>
                   <Insets />
@@ -97,8 +97,9 @@
           </Label>
           <Label fx:id="lblTotalProducts" alignment="CENTER" contentDisplay="CENTER" layoutX="175.0" layoutY="668.0" prefHeight="38.0" prefWidth="129.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
               <font>
-                  <Font name="System Bold" size="25.0" />
+                  <Font name="System Bold" size="18.0" />
               </font>
           </Label>
+      <Button layoutX="514.0" layoutY="182.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
     </children>
 </AnchorPane>

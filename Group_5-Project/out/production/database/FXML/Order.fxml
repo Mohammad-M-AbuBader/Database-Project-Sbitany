@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="622.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OrderProductController">
+    <children>
+        <Pane layoutX="-9.0" layoutY="-7.0" prefHeight="145.0" prefWidth="619.0" style="-fx-background-color: #4a4fda;">
+            <children>
+                <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+                    <graphic>
+                        <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Icons/logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Label>
+                <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+                    <font>
+                        <Font name="Bell MT" size="52.0" />
+                    </font>
+                </Label>
+                <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+                    <font>
+                        <Font name="Engravers MT" size="22.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+      <Button fx:id="brOrder" layoutX="169.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBtOrder" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Order">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Button>
+      <VBox alignment="CENTER" layoutX="136.0" layoutY="160.0" prefHeight="382.0" prefWidth="358.0" spacing="15.0">
+         <children>
+            <HBox prefHeight="54.0" prefWidth="272.0" spacing="5.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/qrcode.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <TextField fx:id="txtCodeProduct" prefHeight="34.0" prefWidth="243.0" promptText="Code of product" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="272.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="54.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/counter.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <TextField fx:id="txtQuantityOf" prefHeight="34.0" prefWidth="243.0" promptText="Quintity" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="272.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="15.0" top="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../Icons/EmployeeID.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="txtEmployeeID" prefHeight="34.0" prefWidth="243.0" promptText="Employee ID" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="25.0" top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="262.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="15.0" top="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../Icons/barnch.png" />
+                     </image>
+                  </ImageView>
+                  <ComboBox fx:id="cmbStorageName" onAction="#cbxBranchStorage" prefHeight="39.0" prefWidth="247.0" promptText="Branch Storage" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+                     <HBox.margin>
+                        <Insets left="25.0" top="10.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>

@@ -15,11 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BranchAccountant.fxml")));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Welcome");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
-
 
     }
 
