@@ -149,7 +149,6 @@ public class ProductController implements Initializable {
         } catch (IOException sqlException) {
             System.out.println(sqlException.getMessage());
         }
-
     }
 
     public void refresh() {

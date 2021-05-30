@@ -1,5 +1,5 @@
 /**
- * Sample Skeleton for 'GeneralManager.fxml' Controller Class
+ * ammer
  */
 
 package Controllers;

@@ -307,7 +307,7 @@ public class BranchesController implements Initializable {
             message = new Message();
             message.displayMassage("Error", e.getMessage());
         }
-        // get branch id for new branch
+
 
     }
 
