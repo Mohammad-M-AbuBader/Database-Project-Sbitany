@@ -18,7 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.*;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class BranchesController implements Initializable {
@@ -44,9 +43,6 @@ public class BranchesController implements Initializable {
     @FXML // fx:id="cmAddress"
     private TableColumn<Branch, String> cmAddress; // Value injected by FXMLLoader
 
-    @FXML // fx:id="txtBranchID"
-    private TextField txtBranchID; // Value injected by FXMLLoader
-
     @FXML // fx:id="txtBranchName"
     private TextField txtBranchName; // Value injected by FXMLLoader
 
@@ -64,9 +60,7 @@ public class BranchesController implements Initializable {
 
     @FXML // fx:id="txtBulldingNumber"
     private TextField txtBulldingNumber; // Value injected by FXMLLoader
-
-    private Message message;
-
+    
     private Connection con;
 
     private int branchID = -1;
@@ -102,8 +96,7 @@ public class BranchesController implements Initializable {
     public void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
             if (!isNumber(this.txtSearch.getText().trim())) {
-                this.message = new Message();
-                message.displayMassage("Warning", " Branch ID is invalid ");
+                Message.displayMassage("Warning", " Branch ID is invalid ");
                 this.txtSearch.clear();
                 return;
             }
@@ -115,8 +108,7 @@ public class BranchesController implements Initializable {
                 ResultSet rs = stmt.executeQuery(search);
                 boolean empty = rs.next();
                 if (!empty) {
-                    this.message = new Message();
-                    message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
+                    Message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
                     this.txtSearch.clear();
                     return;
                 }
@@ -141,15 +133,13 @@ public class BranchesController implements Initializable {
             if (!this.txtBranchName.getText().isEmpty())
                 ps.setString(1, this.txtBranchName.getText().trim());
             else {
-                message = new Message();
-                message.displayMassage("Warning", " Please Enter the branch name");
+                Message.displayMassage("Warning", " Please Enter the branch name");
                 return;
             }
 
             // get city name
             if (this.cbxCityName == null || this.cbxCityName.getValue().equals("")) {
-                message = new Message();
-                message.displayMassage("Warning", " Please select the city name");
+                Message.displayMassage("Warning", " Please select the city name");
                 return;
             } else {
                 String cityID = "SELECT C.cityID from city C where C.cityName='" + this.cbxCityName.getValue() + "'";
@@ -175,8 +165,7 @@ public class BranchesController implements Initializable {
                 if (isNumber(this.txtBulldingNumber.getText().trim()))
                     ps.setInt(6, Integer.parseInt(this.txtBulldingNumber.getText().trim()));
                 else {
-                    message = new Message();
-                    message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
+                    Message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
                     return;
                 }
             } else ps.setNull(6, Types.NULL);
@@ -202,12 +191,10 @@ public class BranchesController implements Initializable {
             this.cbxCityName.setValue("");
             // display branch with new branch
             this.refresh("");
-            message = new Message();
-            message.displayMassage("Successfully", "A new branch has been added successfully");
+            Message.displayMassage("Successfully", "A new branch has been added successfully");
 
         } catch (SQLException e) {
-            message = new Message();
-            message.displayMassage("Error", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
     }
 
@@ -222,15 +209,13 @@ public class BranchesController implements Initializable {
             if (!this.txtBranchName.getText().isEmpty())
                 ps.setString(1, this.txtBranchName.getText().trim());
             else {
-                message = new Message();
-                message.displayMassage("Warning", " Please Enter the branch name");
+                Message.displayMassage("Warning", " Please Enter the branch name");
                 return;
             }
 
             // get city name
             if (this.cbxCityName == null || this.cbxCityName.getValue().equals("")) {
-                message = new Message();
-                message.displayMassage("Warning", " Please select the city name");
+                Message.displayMassage("Warning", " Please select the city name");
                 return;
             } else {
                 String cityID = "SELECT C.cityID from city C where C.cityName='" + this.cbxCityName.getValue() + "'";
@@ -257,8 +242,7 @@ public class BranchesController implements Initializable {
                 if (isNumber(this.txtBulldingNumber.getText().trim()))
                     ps.setInt(6, Integer.parseInt(this.txtBulldingNumber.getText().trim()));
                 else {
-                    message = new Message();
-                    message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
+                    Message.displayMassage("Warning", this.txtBulldingNumber.getText().trim() + " Is invalid ");
                     return;
                 }
             } else ps.setNull(6, Types.NULL);
@@ -274,12 +258,10 @@ public class BranchesController implements Initializable {
             this.cbxCityName.setValue("");
             // display branch with new branch
             this.refresh("");
-            message = new Message();
-            message.displayMassage("Successfully", " The " + this.branchID + " branch information has been successfully updated ");
+            Message.displayMassage("Successfully", " The " + this.branchID + " branch information has been successfully updated ");
 
         } catch (SQLException e) {
-            message = new Message();
-            message.displayMassage("Error", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
 
     }
@@ -300,12 +282,10 @@ public class BranchesController implements Initializable {
             this.cbxCityName.setValue("");
             // display branch with new branch
             this.refresh("");
-            message = new Message();
-            message.displayMassage("Successfully", " The " + this.branchID + " Branch has been successfully deleted ");
+            Message.displayMassage("Successfully", " The " + this.branchID + " Branch has been successfully deleted ");
             this.branchID = -1;
         } catch (SQLException e) {
-            message = new Message();
-            message.displayMassage("Error", e.getMessage());
+            Message.displayMassage("Error", e.getMessage());
         }
 
 

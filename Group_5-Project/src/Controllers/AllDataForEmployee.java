@@ -138,7 +138,7 @@ public class AllDataForEmployee implements Initializable {
     private void refresh() {
         this.txtSearch.clear();
         this.tableEmployee.getItems().clear();
-        this.execute("");
+        this.execute(" where E.employeeFiringDate is not null");
     }
 
     public void handleBtSearch() {

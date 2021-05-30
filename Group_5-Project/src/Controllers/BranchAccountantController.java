@@ -58,7 +58,7 @@ public class BranchAccountantController {
     @FXML
     void handleBtBranches() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Branches.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BranchesForAccountant.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Branches");
