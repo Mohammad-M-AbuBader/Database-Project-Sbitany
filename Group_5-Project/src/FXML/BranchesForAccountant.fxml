@@ -14,88 +14,88 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="691.0" prefWidth="1049.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BranchesForAccountantController">
-    <children>
-        <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1049.0" style="-fx-background-color: #4a4fda;">
-            <children>
-                <Label layoutX="29.0" layoutY="9.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
-                    <graphic>
-                        <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../Icons/sbitany_logo_new.png" />
-                            </image>
+   <children>
+      <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1049.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="29.0" layoutY="9.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/sbitany_logo_new.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="33.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="148.0">
+         <children>
+            <Label prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #ffffff;" text="Search">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtSearch" prefHeight="32.0" prefWidth="168.0" promptText="Branch ID" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="8.0" />
+               </HBox.margin>
+            </TextField>
+            <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <graphic>
+                  <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Icons/search.png" />
+                           </image>
                         </ImageView>
-                    </graphic>
-                </Label>
-                <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
-                    <font>
-                        <Font name="Engravers MT" size="33.0" />
-                    </font>
-                </Label>
-            </children>
-        </Pane>
-        <HBox alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="148.0">
-            <children>
-                <Label prefHeight="32.0" prefWidth="54.0" style="-fx-background-color: #ffffff;" text="Search">
-                    <font>
-                        <Font name="System Bold" size="17.0" />
-                    </font>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                </Label>
-                <TextField fx:id="txtSearch" prefHeight="32.0" prefWidth="168.0" promptText="Branch Name" style="-fx-background-color: #ffffff; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda;">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets bottom="8.0" />
-                    </HBox.margin>
-                </TextField>
-                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                    <graphic>
-                        <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #ffffff;">
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../Icons/search.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Label>
-                    </graphic>
-                </Button>
-            </children>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <TableView fx:id="tableBranches" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1014.0">
-            <columns>
-                <TableColumn fx:id="cmBranchId" editable="false" prefWidth="85.59997272491455" sortable="false" text="ID" />
-                <TableColumn fx:id="cmBranchName" editable="false" prefWidth="298.40000915527344" sortable="false" text="Name" />
-                <TableColumn fx:id="cmBranchPhone" editable="false" prefWidth="185.5999755859375" sortable="false" text="Phone" />
-                <TableColumn fx:id="cmAddress" editable="false" prefWidth="444.79998779296875" sortable="false" text="Address" />
-            </columns>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </TableView>
-        <Button fx:id="btRefresh" layoutX="876.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
-          <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" layoutX="868.0" layoutY="635.0" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
-              <font>
-                  <Font name="System Bold" size="15.0" />
-              </font>
-          </Label>
-          <Label layoutX="646.0" layoutY="646.0" prefHeight="30.0" prefWidth="221.0" style="-fx-background-color: #ffffff;" text="Number Of Branches">
-              <font>
-                  <Font name="System Bold" size="20.0" />
-              </font>
-          </Label>
-    </children>
+                     </graphic>
+                  </Label>
+               </graphic>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <TableView fx:id="tableBranches" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1014.0">
+         <columns>
+            <TableColumn fx:id="cmBranchId" editable="false" prefWidth="85.59997272491455" sortable="false" text="ID" />
+            <TableColumn fx:id="cmBranchName" editable="false" prefWidth="298.40000915527344" sortable="false" text="Name" />
+            <TableColumn fx:id="cmBranchPhone" editable="false" prefWidth="185.5999755859375" sortable="false" text="Phone" />
+            <TableColumn fx:id="cmAddress" editable="false" prefWidth="444.79998779296875" sortable="false" text="Address" />
+         </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TableView>
+      <Button fx:id="btRefresh" layoutX="876.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" layoutX="868.0" layoutY="635.0" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="646.0" layoutY="646.0" prefHeight="30.0" prefWidth="221.0" style="-fx-background-color: #ffffff;" text="Number Of Branches">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

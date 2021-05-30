@@ -7,7 +7,6 @@ package Controllers;
 
 import Utilities.Message;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,9 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
 public class BranchAccountantController {
 
@@ -61,11 +58,12 @@ public class BranchAccountantController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BranchesForAccountant.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Branches");
+            window.setTitle("Company Employee");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
+            System.out.println(exception.getMessage());
             Message.displayMassage("Warning", exception.getMessage());
         }
     }

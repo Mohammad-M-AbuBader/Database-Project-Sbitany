@@ -43,9 +43,6 @@ public class BranchesForAccountantController implements Initializable {
     @FXML // fx:id="cmAddress"
     private TableColumn<Branch, String> cmAddress; // Value injected by FXMLLoader
 
-    @FXML // fx:id="cbxCityName"
-    private ComboBox<String> cbxCityName; // Value injected by FXMLLoader
-
     private Connection con;
 
     @Override
@@ -59,19 +56,6 @@ public class BranchesForAccountantController implements Initializable {
         this.cmBranchName.setCellValueFactory(new PropertyValueFactory<>("branchName"));
         this.cmBranchPhone.setCellValueFactory(new PropertyValueFactory<>("branchPhone"));
         this.cmAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-
-        try {
-            assert con != null;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT C.cityName From city C");
-            while (rs.next()) {
-                this.cbxCityName.getItems().add(rs.getString(1).trim());
-            }
-            stmt.close();
-            rs.close();
-        } catch (SQLException sqlException) {
-            Message.displayMassage("Warning", sqlException.getMessage());
-        }
 
         this.refresh("");
     }
@@ -110,7 +94,6 @@ public class BranchesForAccountantController implements Initializable {
     private void refresh(String str) {
         this.txtSearch.clear();
         this.tableBranches.getItems().clear();
-        this.cbxCityName.setValue("");
         try {
             String getBranch = "SELECT * from branch B " + str;
             String getNumOfBranch = "SELECT COUNT(*) from branch B " + str;
