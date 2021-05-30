@@ -83,8 +83,6 @@ public class AllDataForEmployee implements Initializable {
     @FXML // fx:id="cbxShow"
     private ComboBox<String> cbxShow; // Value injected by FXMLLoader
 
-    private Message message;
-
     private Connection con;
 
     @Override
@@ -135,7 +133,6 @@ public class AllDataForEmployee implements Initializable {
             System.out.println(sqlException.getMessage());
         }
 
-
     }
 
     private void refresh() {
@@ -147,8 +144,7 @@ public class AllDataForEmployee implements Initializable {
     public void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
             if (!isNumber(this.txtSearch.getText().trim())) {
-                this.message = new Message();
-                message.displayMassage("Warning", this.txtSearch.getText() + " is invalid ");
+                Message.displayMassage("Warning", this.txtSearch.getText() + " is invalid ");
                 this.txtSearch.clear();
                 return;
             }
@@ -160,8 +156,7 @@ public class AllDataForEmployee implements Initializable {
                 ResultSet rs = stmt.executeQuery(search);
                 boolean empty = rs.next();
                 if (!empty) {
-                    this.message = new Message();
-                    message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
+                    Message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
                     this.txtSearch.clear();
                     return;
                 }
@@ -313,8 +308,7 @@ public class AllDataForEmployee implements Initializable {
          */
         try {
             int temp = Integer.parseInt(number);
-            if (number.matches("\\d+") && temp > 0) return true;
-            return false;
+            return number.matches("\\d+") && temp > 0;
         } catch (NumberFormatException e) {
             return false;
         }

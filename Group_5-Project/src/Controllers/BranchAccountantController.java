@@ -57,12 +57,32 @@ public class BranchAccountantController {
 
     @FXML
     void handleBtBranches() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Branches.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Branches");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     @FXML
     void handleBtEmployees() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/CompanyEmployees.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Company Employee");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     @FXML

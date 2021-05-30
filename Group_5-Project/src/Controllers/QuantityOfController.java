@@ -67,7 +67,14 @@ public class QuantityOfController implements Initializable {
                 assert con != null;
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(quantityOf);
-
+                boolean isExist = rs.next();
+                if(isExist){
+                    QuantityOf quantity = new QuantityOf(rs.getString(1), rs.getString(2));
+                    this.quantityTableView.getItems().add(quantity);
+                }else{
+                    Message.displayMassage("Warning"," This product is not currently available ");
+                    return;
+                }
                 while (rs.next()) {
                     QuantityOf quantity = new QuantityOf(rs.getString(1), rs.getString(2));
                     this.quantityTableView.getItems().add(quantity);
