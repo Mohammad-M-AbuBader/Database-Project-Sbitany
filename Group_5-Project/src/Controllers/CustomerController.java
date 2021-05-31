@@ -1,5 +1,7 @@
 /**
- * Sample Skeleton for 'Customer.fxml' Controller Class
+ * @autor: Ameer ELeyan
+ * 1191076
+ * At: 31/5/2021  2:10 PM
  */
 
 package Controllers;
