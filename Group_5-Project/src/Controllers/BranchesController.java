@@ -396,8 +396,7 @@ public class BranchesController implements Initializable {
          */
         try {
             int temp = Integer.parseInt(number);
-            if (number.matches("\\d+") && temp > 0) return true;
-            return false;
+            return number.matches("\\d+") && temp > 0;
         } catch (NumberFormatException e) {
             return false;
         }

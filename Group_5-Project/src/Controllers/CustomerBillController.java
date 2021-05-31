@@ -65,6 +65,9 @@ public class CustomerBillController implements Initializable {
     @FXML // fx:id="txtSearch"
     private TextField txtSearch; // Value injected by FXMLLoader
 
+    @FXML // fx:id:"lblValues"
+    private Label lblValues;
+
     @FXML // fx:id="rbBillNumber"
     private RadioButton rbBillNumber; // Value injected by FXMLLoader
 
@@ -95,6 +98,8 @@ public class CustomerBillController implements Initializable {
         cmPatches.setCellValueFactory(new PropertyValueFactory<>("patches"));
         this.refresh(" ");
         this.fillCombBranchName();
+        this.combShow.getItems().add("The paid bills");
+        this.combShow.getItems().add("The unpaid bill");
     }
 
     private void refresh(String str) {
@@ -115,6 +120,7 @@ public class CustomerBillController implements Initializable {
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.valueOfBill) FROM customerbill C " + str);
             resultValueOfBill.next();
+            this.lblValues.setText("Value Of Bills:");
             if (resultValueOfBill.getString(1) != null)
                 txtValueOfBills.setText(resultValueOfBill.getString(1));
             else txtValueOfBills.setText("0");
@@ -122,6 +128,7 @@ public class CustomerBillController implements Initializable {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getCustomerBill);
 
+            boolean flag = true;
             while (rs.next()) {
                 CustomerBill customerBill = new CustomerBill();
                 customerBill.setCustomerBillID(rs.getString(1));
@@ -136,10 +143,13 @@ public class CustomerBillController implements Initializable {
                 ResultSet resultBranchName = stmtBranchName.executeQuery("select B.branchName From Branch B where B.BranchID =" + Integer.parseInt((rs.getString(5))));
                 resultBranchName.next();
                 customerBill.setBranchName(resultBranchName.getString(1));
-
                 this.tableCustomerBill.getItems().add(customerBill);
+                flag = false;
             }
-
+            if (flag) {
+                Message.displayMassage("Warning", "There are no bills");
+                this.txtSearch.clear();
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -152,24 +162,49 @@ public class CustomerBillController implements Initializable {
 
     @FXML
     void handleBtSearch() {
+        if (!this.txtSearch.getText().trim().isEmpty()) {
+            if (!isNumber(this.txtSearch.getText().trim())) {
+                Message.displayMassage("Warning", " The ID is invalid ");
+                this.txtSearch.clear();
+                return;
+            }
+        }
+        if (this.rbBillNumber.isSelected()) {
+            this.searchByBillID();
+        } else if (this.rbCustomerPersonalID.isSelected()) {
+            this.searchByBCustomerPersonalID();
+        } else if (this.rbDetailsOf.isSelected()) {
+            this.detailsOf();
+        } else {
+            Message.displayMassage("Warning", " Please choose how to search ");
+        }
 
     }
 
-    @FXML
-    void handleCombBranchName() {
-        this.tableCustomerBill.getItems().clear();
+    private void searchByBillID() {
+        this.refresh("  where C.customerBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
+    }
+
+    private void searchByBCustomerPersonalID() {
         try {
-            String bName = this.combBranchName.getValue().trim();
-            String getBranchID = "SELECT B.branchID from branch B where B.branchName= '" + bName + "'";
-            Statement bID = con.createStatement();
-            ResultSet resultBId = bID.executeQuery(getBranchID);
-            resultBId.next();
-            int branchID = Integer.parseInt(resultBId.getString(1).trim());
-            this.refresh(" where C.branchID=" + branchID);
+            Statement customerID = con.createStatement();
+            ResultSet resultCustomerID = customerID.executeQuery("select C.customerID From customer C where C.cardID =" + Integer.parseInt((txtSearch.getText().trim())));
+            boolean isExist = resultCustomerID.next();
+            if (isExist)
+                this.refresh(" Where C.customerID=" + Integer.parseInt(resultCustomerID.getString(1).trim()));
+            else {
+                Message.displayMassage("Warning", this.txtSearch.getText().trim() + " Does not have bills");
+                this.txtSearch.clear();
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
+
+    private void detailsOf() {
+
+    }
+
 
     private void fillCombBranchName() {
         try {
@@ -189,9 +224,67 @@ public class CustomerBillController implements Initializable {
     }
 
     @FXML
-    void handleCombShow() {
-
+    void handleCombBranchName() {
+        this.tableCustomerBill.getItems().clear();
+        try {
+            String bName = this.combBranchName.getValue().trim();
+            String getBranchID = "SELECT B.branchID from branch B where B.branchName= '" + bName + "'";
+            Statement bID = con.createStatement();
+            ResultSet resultBId = bID.executeQuery(getBranchID);
+            resultBId.next();
+            int branchID = Integer.parseInt(resultBId.getString(1).trim());
+            this.refresh(" where C.branchID=" + branchID);
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
     }
 
 
+    @FXML
+    void handleCombShow() {
+        if (this.combShow.getValue().equals("The paid bills")) getPaidBills();
+        else getUnpaidBills();
+    }
+
+
+    private void getPaidBills() {
+        try {
+            this.refresh(" where C.patches=0");
+            Statement stmtValueOfBill = con.createStatement();
+            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.deposit) FROM customerbill C where C.patches=0");
+            resultValueOfBill.next();
+            this.lblValues.setText("Total paid bills:");
+            this.txtValueOfBills.setText(resultValueOfBill.getString(1));
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
+    }
+
+    private void getUnpaidBills() {
+        try {
+            this.refresh(" where C.patches>0");
+            Statement stmtValueOfBill = con.createStatement();
+            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.patches) FROM customerbill C where C.patches>0");
+            resultValueOfBill.next();
+            this.lblValues.setText("Total unpaid bills:");
+            this.txtValueOfBills.setText(resultValueOfBill.getString(1));
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
+    }
+
+    /**
+     * To check the value of the entered numberOfShares if contain only digits or not
+     */
+    public static boolean isNumber(String number) {
+        /* To check the entered number of shares, that it consists of
+           only digits
+         */
+        try {
+            int temp = Integer.parseInt(number);
+            return number.matches("\\d+") && temp > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
