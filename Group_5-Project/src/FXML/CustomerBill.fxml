@@ -148,7 +148,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="combShow" layoutX="816.0" layoutY="157.0" onAction="#handleCombShow" prefHeight="42.0" prefWidth="222.0" promptText="Show" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
+      <ComboBox fx:id="combShow" layoutX="816.0" layoutY="157.0" onAction="#handleCombShow" prefHeight="42.0" prefWidth="222.0" promptText="Select One" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
       <Label layoutX="713.0" layoutY="169.0" prefHeight="36.0" prefWidth="95.0" style="-fx-background-color: transparent;" text="Show">
          <font>
             <Font name="System Bold" size="14.0" />

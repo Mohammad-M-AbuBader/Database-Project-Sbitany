@@ -93,27 +93,31 @@ public class CustomerBillController implements Initializable {
         cmValueOfBill.setCellValueFactory(new PropertyValueFactory<>("valueOfBill"));
         cmDeposit.setCellValueFactory(new PropertyValueFactory<>("deposit"));
         cmPatches.setCellValueFactory(new PropertyValueFactory<>("patches"));
-
         this.refresh(" ");
+        this.fillCombBranchName();
     }
-
 
     private void refresh(String str) {
         this.tableCustomerBill.getItems().clear();
+        this.txtSearch.clear();
+        this.rbBillNumber.setSelected(false);
+        this.rbCustomerPersonalID.setSelected(false);
+        this.rbDetailsOf.setSelected(false);
         try {
-
-
-            String getCustomerBill = "SELECT * from customerbill " + str;
-
+            String getCustomerBill = "SELECT * from customerbill C " + str;
             Statement statNumberOfBill = con.createStatement();
-            ResultSet resultNumberOfBill = statNumberOfBill.executeQuery("SELECT COUNT(*) FROM customerbill " + str);
+            ResultSet resultNumberOfBill = statNumberOfBill.executeQuery("SELECT COUNT(*) FROM customerbill C " + str);
             resultNumberOfBill.next();
-            txNumberOfBill.setText(resultNumberOfBill.getString(1));
+            if (resultNumberOfBill.getString(1) != null)
+                txNumberOfBill.setText(resultNumberOfBill.getString(1));
+            else txNumberOfBill.setText("0");
 
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.valueOfBill) FROM customerbill C " + str);
             resultValueOfBill.next();
-            txtValueOfBills.setText(resultValueOfBill.getString(1));
+            if (resultValueOfBill.getString(1) != null)
+                txtValueOfBills.setText(resultValueOfBill.getString(1));
+            else txtValueOfBills.setText("0");
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getCustomerBill);
@@ -153,12 +157,41 @@ public class CustomerBillController implements Initializable {
 
     @FXML
     void handleCombBranchName() {
+        this.tableCustomerBill.getItems().clear();
+        try {
+            String bName = this.combBranchName.getValue().trim();
+            String getBranchID = "SELECT B.branchID from branch B where B.branchName= '" + bName + "'";
+            Statement bID = con.createStatement();
+            ResultSet resultBId = bID.executeQuery(getBranchID);
+            resultBId.next();
+            int branchID = Integer.parseInt(resultBId.getString(1).trim());
+            this.refresh(" where C.branchID=" + branchID);
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
+    }
+
+    private void fillCombBranchName() {
+        try {
+            String sqlBranchesName = "SELECT B.branchName from branch B";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sqlBranchesName);
+            while (rs.next()) {
+                if (rs.getString(1).trim().equals("Main Company")) continue;
+                this.combBranchName.getItems().add(rs.getString(1).trim());
+            }
+            stmt.close();
+            rs.close();
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
 
     }
 
     @FXML
     void handleCombShow() {
-        
+
     }
+
 
 }
