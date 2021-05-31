@@ -84,8 +84,17 @@ public class GeneralManagerController {
     }
 
     public void handleBtCustomres() {
-
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Customer.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Company Employees");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     public void handleBtProducts() {
