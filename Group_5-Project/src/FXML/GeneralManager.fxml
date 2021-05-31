@@ -41,7 +41,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btAccount" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtAccount" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/style.css" text="My Account" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Button fx:id="btBranchGet" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranchGet" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/style.css" text="Record Movements" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -50,7 +50,7 @@
                             <graphic>
                                 <ImageView fitHeight="35.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../Icons/account.png" />
+                                        <Image url="@../Icons/Transactions.png" />
                                     </image>
                                 </ImageView>
                             </graphic>

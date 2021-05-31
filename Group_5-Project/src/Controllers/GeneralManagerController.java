@@ -1,5 +1,7 @@
 /**
- * ammer
+ * @autor: Ameer Eleyan
+ * 1191076
+ * At: 31/5/2021  4:30 AM
  */
 
 package Controllers;
@@ -16,37 +18,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static javafx.fxml.FXMLLoader.load;
 
 public class GeneralManagerController {
 
-    @FXML // fx:id="btBranches"
-    private Button btBranches; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btAccount"
-    private Button btAccount; // Value injected by FXMLLoader
 
     @FXML // fx:id="btLogout"
     private Button btLogout; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btEmployee"
-    private Button btEmployee; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btCustomres"
-    private Button btCustomres; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btProducts"
-    private Button btProducts; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btSupplierBills"
-    private Button btSupplierBills; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btCustomerBills"
-    private Button btCustomerBills; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btSuppliers"
-    private Button btSuppliers; // Value injected by FXMLLoader
-
 
     public void handleBtBranches() {
         try {
@@ -58,17 +35,38 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            Message message = new Message();
-            message.displayMassage("Warning", exception.getMessage());
+            Message.displayMassage("Warning", exception.getMessage());
         }
     }
 
-    public void handleBtAccount() {
-
+    public void handleBtBranchGet() {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/RecordMovements.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Record Movements");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     public void handleBtLogout() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Login.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Login");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            Stage currentStage = (Stage) this.btLogout.getScene().getWindow();
+            currentStage.close();
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     public void handleBtEmployee() {
@@ -81,8 +79,7 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            Message message = new Message();
-            message.displayMassage("Warning", exception.getMessage());
+            Message.displayMassage("Warning", exception.getMessage());
         }
     }
 
@@ -101,8 +98,7 @@ public class GeneralManagerController {
             window.setResizable(false);
             window.show();
         } catch (IOException exception) {
-            Message message = new Message();
-            message.displayMassage("Warning", exception.getMessage());
+            Message.displayMassage("Warning", exception.getMessage());
         }
 
     }
