@@ -98,8 +98,7 @@ public class ProductController implements Initializable {
     public void handleBtSearch() {
         if (!this.txSearch.getText().trim().isEmpty()) {
             if (!isNumber(this.txSearch.getText().trim())) {
-                this.message = new Message();
-                message.displayMassage("Warning", " Product code is invalid ");
+                Message.displayMassage("Warning", " Product code is invalid ");
                 this.txSearch.clear();
                 return;
             }
@@ -112,8 +111,7 @@ public class ProductController implements Initializable {
                 ResultSet rs = stmt.executeQuery(search);
                 boolean empty = rs.next();
                 if (!empty) {
-                    this.message = new Message();
-                    message.displayMassage("Warning", this.txSearch.getText() + " Does not exist ");
+                    Message.displayMassage("Warning", this.txSearch.getText() + " Does not exist ");
                     return;
                 }
                 Product product = new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
@@ -131,7 +129,7 @@ public class ProductController implements Initializable {
                 this.txSearch.clear();
 
             } catch (SQLException sqlException) {
-                System.out.println(sqlException.getMessage());
+                Message.displayMassage("Warning",sqlException.getMessage());
             }
 
         }

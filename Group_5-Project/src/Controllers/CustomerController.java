@@ -74,12 +74,67 @@ public class CustomerController implements Initializable {
 
     @FXML
     void handleBtSearch() {
-        this.refresh(" where C.customerID=" + this.txCustomerId);
+        if (!this.txCustomerId.getText().trim().isEmpty()) {
+            if (!isNumber(this.txCustomerId.getText().trim())) {
+                Message.displayMassage("Warning", " Transfer number is invalid ");
+                this.txCustomerId.clear();
+                return;
+            }
+        }
+
+        String search = "SELECT * from Customer C where C.customerID=" + Integer.parseInt(this.txCustomerId.getText().trim());
+
+        try {
+            assert con != null;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(search);
+            boolean empty = rs.next();
+            if (!empty) {
+                Message.displayMassage("Warning", this.txCustomerId.getText() + " Does not exist ");
+                this.txCustomerId.clear();
+                return;
+            }
+            Customer customer = new Customer();
+            String id = rs.getString(1);
+            customer.setCustomerID(id);
+            customer.setCustomerName(rs.getString(2));
+            customer.setCardID(rs.getString(3));
+            customer.setPhone(rs.getString(9));
+
+            String regionName = rs.getString(7);
+            String streetName = rs.getString(6);
+            String bulldingNumber = rs.getString(8);
+
+            Statement stmtCity = con.createStatement();
+            ResultSet rsCity;
+            rsCity = stmtCity.executeQuery("SELECT S.cityName From City S , Customer C where C.cityID = S.cityID and C.CustomerID=" + Integer.parseInt(id));
+            rsCity.next();
+            String cityName = rsCity.getString(1);
+
+
+            Statement stmtVillage = con.createStatement();
+            ResultSet rsVillageName;
+            rsVillageName = stmtVillage.executeQuery("SELECT V.villageName From Village V , Customer C where C.villageID = V.villageID and C.CustomerID=" + Integer.parseInt(id));
+            boolean result = rsVillageName.next();
+            String villageName = null;
+            if (result) villageName = rsVillageName.getString(1);
+
+            String Address = cityName + ", " + (villageName == null ? "" : villageName) + ", " + (regionName == null ? "" : regionName) + ", " + (streetName == null ? "" : streetName) + ", " + (bulldingNumber == null ? "" : bulldingNumber);
+            customer.setAddress(Address);
+            this.tableCustomers.getItems().clear();
+            this.tableCustomers.getItems().add(customer);
+            this.txCustomerId.clear();
+
+        } catch (SQLException sqlException) {
+            System.out.println(sqlException.getMessage());
+        }
+
     }
 
 
     private void refresh(String str) {
         this.tableCustomers.getItems().clear();
+        this.txCustomerId.clear();
         try {
             ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
             con = connection.connectSbitanyDB();
@@ -126,6 +181,21 @@ public class CustomerController implements Initializable {
             }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
+        }
+    }
+
+    /**
+     * To check the value of the entered numberOfShares if contain only digits or not
+     */
+    public static boolean isNumber(String number) {
+        /* To check the entered number of shares, that it consists of
+           only digits
+         */
+        try {
+            int temp = Integer.parseInt(number);
+            return number.matches("\\d+") && temp > 0;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

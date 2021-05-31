@@ -85,7 +85,53 @@ public class RecordMovementsController implements Initializable {
 
     @FXML
     void handleBtSearch() {
-        this.refresh(" where B.transferNumber=" + this.txtSearch.getText().trim());
+        if (!this.txtSearch.getText().trim().isEmpty()) {
+            if (!isNumber(this.txtSearch.getText().trim())) {
+                Message.displayMassage("Warning", " Transfer number is invalid ");
+                this.txtSearch.clear();
+                return;
+            }
+        }
+
+        String search = "SELECT * from branchgetfrom B where B.transferNumber=" + Integer.parseInt(this.txtSearch.getText().trim());
+
+        try {
+            assert con != null;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(search);
+            boolean empty = rs.next();
+            if (!empty) {
+                Message.displayMassage("Warning", "This Transfer number does not exist ");
+                this.txtSearch.clear();
+                return;
+            }
+            BranchGetFrom branchGetFrom = new BranchGetFrom();
+            branchGetFrom.setTransferNumber(rs.getString(1));
+            branchGetFrom.setGetAt(rs.getString(2));
+            branchGetFrom.setEmployeeID(rs.getString(3));
+            branchGetFrom.setProductCode(rs.getString(6));
+            branchGetFrom.setQuantity(rs.getString(7));
+
+
+            Statement stmt5 = con.createStatement();
+            ResultSet rs5 = stmt5.executeQuery("SELECT B.branchName" +
+                    "  From branch B where B.branchID= " + Integer.parseInt(rs.getString(4).trim()));
+            rs5.next();
+
+            branchGetFrom.setSourceBranchID(rs5.getString(1));
+
+            rs5 = stmt5.executeQuery("SELECT B.branchName" +
+                    "  From branch B where B.branchID= " + Integer.parseInt(rs.getString(5).trim()));
+            rs5.next();
+            branchGetFrom.setDestinationBranchID(rs5.getString(1));
+
+            this.tableRecordMovements.getItems().clear();
+            this.tableRecordMovements.getItems().add(branchGetFrom);
+            this.txtSearch.clear();
+        } catch (SQLException sqlException) {
+            System.out.println(sqlException.getMessage());
+        }
+
     }
 
     private void refresh(String str) {
@@ -137,5 +183,19 @@ public class RecordMovementsController implements Initializable {
         }
     }
 
+    /**
+     * To check the value of the entered numberOfShares if contain only digits or not
+     */
+    public static boolean isNumber(String number) {
+        /* To check the entered number of shares, that it consists of
+           only digits
+         */
+        try {
+            int temp = Integer.parseInt(number);
+            return number.matches("\\d+") && temp > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
