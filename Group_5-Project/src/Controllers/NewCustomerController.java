@@ -116,16 +116,17 @@ public class NewCustomerController implements Initializable {
 
 
     public void handleCombCity() {
+        combVillage.getItems().clear();
         switch (combCity.getValue()) {
             case "Bethlahem" -> fill(combVillage, Address.bethlahem);
             case "Hebron" -> fill(combVillage, Address.hebron);
             case "Jenen" -> fill(combVillage, Address.jenen);
-            case "Jericho " -> fill(combVillage, Address.jericho);
-            case "Nablus " -> fill(combVillage, Address.nablus);
-            case "Qalqilya " -> fill(combVillage, Address.qalqilya);
-            case "Ramallah " -> fill(combVillage, Address.ramallah);
-            case "Salfit " -> fill(combVillage, Address.salfit);
-            case "Tubas " -> fill(combVillage, Address.tubas);
+            case "Jericho" -> fill(combVillage, Address.jericho);
+            case "Nablus" -> fill(combVillage, Address.nablus);
+            case "Qalqilya" -> fill(combVillage, Address.qalqilya);
+            case "Ramallah" -> fill(combVillage, Address.ramallah);
+            case "Salfit" -> fill(combVillage, Address.salfit);
+            case "Tubas" -> fill(combVillage, Address.tubas);
             default -> fill(combVillage, Address.tulkarm);
         }
     }
@@ -154,10 +155,10 @@ public class NewCustomerController implements Initializable {
         }
 
         if (txtPhoneNumber.getText().trim().isEmpty()) { // get the customer phone
-            Message.displayMassage("Warning", "Please enter the  phone number ");
+            Message.displayMassage("Warning", "Please enter the phone number ");
             return;
         } else if (!isNumber(txtPhoneNumber.getText().trim())) {
-            Message.displayMassage("Warning", "Please enter valid  phone number ");
+            Message.displayMassage("Warning", "Please enter valid phone number ");
             return;
         }
 
@@ -180,7 +181,7 @@ public class NewCustomerController implements Initializable {
             // find customer if exist
             Statement stmt = con.createStatement();
             ResultSet getPersonalID = stmt.executeQuery("select C.customerID From  customer C  where C.cardID= " + Integer.parseInt(txtIDCard.getText().trim()));
-            getPersonalID.next();
+            boolean isCustomerExist = getPersonalID.next();
 
             int cityID;
 
@@ -194,11 +195,11 @@ public class NewCustomerController implements Initializable {
             if (combVillage == null) {
                 villageID = null;
             } else {
-                Statement stmt3 = con.createStatement(); // get the village id
-                ResultSet getVillageID = stmt3.executeQuery("SELECT V.VillageID From Village V ,City C where V.cityID = " + cityID + " and V.villageName='" + combVillage.getValue() + "'");
-                getVillageID.next();
 
-                if (getVillageID.getString(1) == null) { // village does not exist
+                Statement stmt3 = con.createStatement(); // get the village id
+                ResultSet getVillageID = stmt3.executeQuery("SELECT V.VillageID From Village V where V.cityID = " + cityID + " and V.villageName='" + combVillage.getValue() + "'");
+                boolean result = getVillageID.next();
+                if (!result) { // village does not exist
 
                     String insertNewVillage = "INSERT INTO village(villageName, cityID) values(?, ?)";
                     PreparedStatement psInsertVillage = con.prepareStatement(insertNewVillage);
@@ -218,13 +219,13 @@ public class NewCustomerController implements Initializable {
 
             PreparedStatement psCustomer;
 
-            if (getPersonalID.getString(1) == null) {// this customer is not exist and insert this customer to the system
+            if (!isCustomerExist) {// this customer is not exist and insert this customer to the system
                 String sqlInsert = "insert into Customer(customerName," + "cardID,cityId,phone,villageID," +
-                        "regionName,streetName,buildingNumber) values(?,?,?,?,?,?,?,?,?)";
+                        "regionName,streetName, bulldingNumber) values(?,?,?,?,?,?,?,?)";
                 psCustomer = con.prepareStatement(sqlInsert);
 
             } else { // // this customer is exist, and update his info
-                String sqlUpdate = "UPDATE Customer " + "SET CustomerName = ?, cardID=?, cityId=?, phone=?, regionName=?,streetName=? ,buildingNumber=?" + " where cardID=" + Integer.parseInt(txtIDCard.getText().trim());
+                String sqlUpdate = "UPDATE Customer " + "SET CustomerName = ?, cardID=?, cityId=?, phone=?,villageID=? ,regionName=?,streetName=? ,bulldingNumber=?" + " where cardID=" + Integer.parseInt(txtIDCard.getText().trim());
                 psCustomer = con.prepareStatement(sqlUpdate);
             }
 
@@ -287,11 +288,10 @@ public class NewCustomerController implements Initializable {
             this.hBox4.setDisable(true);
             this.btAddCustomer.setDisable(true);
             this.hboxProductCodeAndQu.setVisible(true);
-            this.btSave.setVisible(true);
             this.btAddToBill.setVisible(true);
 
         } catch (SQLException sqlException) {
-            Message.displayMassage("Warning", sqlException.getMessage());
+            sqlException.printStackTrace();
         }
     }
 
@@ -312,40 +312,49 @@ public class NewCustomerController implements Initializable {
             int requiredQuantity = Integer.parseInt(txtQuantityOf.getText().trim());
             int remainingQuantity;
 
-            Statement stmt = con.createStatement(); // get available quantity
-            ResultSet getQuantity = stmt.executeQuery("select S.productQuantity From storedProducts S  where S.StorageID= " + storageID + " and S.productCode= " + parCode);
-            getQuantity.next();
+            Statement stmt5 = con.createStatement();
+            ResultSet getProductCodeAndSellPrice = stmt5.executeQuery("Select P.productCode, P.sellingPrice From product P where P.parCode=" + parCode);
+            boolean isProductExist = getProductCodeAndSellPrice.next();
 
-            if (getQuantity.getString(1) == null) { // check if the product is available or not
-                Message.displayMassage("Warning", "This product is not available");
+            int productCode, sellPrice;
+
+            if (!isProductExist) {
+                Message.displayMassage("Warning", "This product does not exist");
+                return;
+            } else {
+                productCode = Integer.parseInt(getProductCodeAndSellPrice.getString(1).trim());
+                sellPrice = Integer.parseInt(getProductCodeAndSellPrice.getString(2).trim());
+            }
+
+            Statement stmt = con.createStatement(); // get available quantity
+            ResultSet getQuantity = stmt.executeQuery("select S.productQuantity From storedProducts S  where S.StorageID= " + storageID + " and S.productCode= " + productCode);
+            boolean isProductAvailable = getQuantity.next();
+
+            if (!isProductAvailable) { // check if the product is available or not
+                Message.displayMassage("Warning", "This product is not available in this branch");
                 return;
             }
             int availableQuantity = Integer.parseInt(getQuantity.getString(1));
 
+
             if (requiredQuantity < availableQuantity) { // Quantity required is less than available
                 remainingQuantity = availableQuantity - requiredQuantity;
-                Statement stmt2 = con.createStatement();
-                ResultSet updateQuantity = stmt2.executeQuery("Update storedProducts S set S.productQuantity = " + remainingQuantity + "  where S.StorageID= " + storageID + " and S.productCode= " + parCode);
-                updateQuantity.next();
+                psCustomerBill = con.prepareStatement("Update storedProducts S set S.productQuantity=" + remainingQuantity + " where S.StorageID= " + storageID + " and S.productCode= " + productCode);
             } else {
-                Statement stmt2 = con.createStatement();
-                ResultSet updateQuantity = stmt2.executeQuery("drop S.productQuantity from storedProducts S where S.StorageID= " + storageID + " and S.productCode= " + parCode);
-                updateQuantity.next();
+                psCustomerBill = con.prepareStatement("DELETE from storedProducts S where S.StorageID= " + storageID + " and S.productCode= " + productCode);
             }
+            psCustomerBill.executeUpdate();
 
             PreparedStatement psCustomerBillDetails = con.prepareStatement("INSERT into CustomerBillDetails(CustomerBillID," +
                     "ProductCode,SellingPrice,Quantity ) " + "values(?,?,?,?)");
 
-            Statement stmt5 = con.createStatement();
-            ResultSet getProductCodeAndSellPrice = stmt5.executeQuery("Select P.productCode, P.sellingPrice From product P where P.parCode=" + parCode);
-            getProductCodeAndSellPrice.next();
 
             // set customer bill id
             psCustomerBillDetails.setInt(1, customerBillID);
             // set the product code
-            psCustomerBillDetails.setInt(2, Integer.parseInt(getProductCodeAndSellPrice.getString(1)));
+            psCustomerBillDetails.setInt(2, productCode);
             // set the selling price
-            psCustomerBillDetails.setInt(3, Integer.parseInt(getProductCodeAndSellPrice.getString(2)));
+            psCustomerBillDetails.setInt(3, sellPrice);
             // set the quantity
             psCustomerBillDetails.setInt(4, requiredQuantity);
             psCustomerBillDetails.executeUpdate();
@@ -415,7 +424,7 @@ public class NewCustomerController implements Initializable {
         this.txtPhoneNumber.clear();
         this.txtStreetName.clear();
         this.txtBuldingNumber.clear();
-        this.txtStreetName.clear();
+        this.txtRegionName.clear();
         this.txtParCode.clear();
         this.txtQuantityOf.clear();
         this.txtdeposit.clear();
@@ -426,11 +435,12 @@ public class NewCustomerController implements Initializable {
         this.hBox4.setDisable(false);
         this.btAddCustomer.setDisable(false);
         this.hboxProductCodeAndQu.setVisible(false);
-        hboxProductCodeAndQu.setDisable(false);
+        this.hboxProductCodeAndQu.setDisable(false);
         this.btSave.setVisible(false);
-        btAddToBill.setDisable(false);
+        this.btAddToBill.setDisable(false);
         this.btAddToBill.setVisible(false);
         this.brPrintBill.setVisible(false);
+        this.hboxValueOFdeposit.setVisible(false);
 
     }
 
@@ -456,7 +466,7 @@ public class NewCustomerController implements Initializable {
            only digits
          */
         try {
-            int temp = Integer.parseInt(number);
+            long temp = Long.parseLong(number);
             return number.matches("\\d+") && temp > 0;
         } catch (NumberFormatException e) {
             return false;

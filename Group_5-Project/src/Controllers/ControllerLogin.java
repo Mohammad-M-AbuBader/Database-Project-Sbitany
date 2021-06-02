@@ -63,7 +63,7 @@ public class ControllerLogin {
             String passwd = this.txtPasswd.getText().trim();
 
             // get the employee id and branch id for this accountant
-            ResultSet resultSet = statement.executeQuery("SELECT E.employeeID, E.branchID from employee E where E.employeeUserName='" + uName + "' and E.employeePassword='" + passwd + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT E.employeeID, E.branchID from employee E where E.employeeUserName='" + uName + "' and E.employeePassword='" + passwd + "'"+" and E.employeeFiringDate is null");
             boolean result = resultSet.next();
 
             if (!result) { // this account does not exist

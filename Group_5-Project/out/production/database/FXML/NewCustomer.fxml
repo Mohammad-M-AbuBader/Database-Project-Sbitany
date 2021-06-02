@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NewCustomerController">
    <children>
-      <HBox fx:id="hBox3" layoutX="33.0" layoutY="372.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
+      <HBox fx:id="hBox4" layoutX="33.0" layoutY="372.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
          <children>
             <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
@@ -187,7 +187,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Button fx:id="btAddCustomer" layoutX="190.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleBtAddCustomer" prefHeight="38.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Add Customer" visible="false">
+      <Button fx:id="btAddCustomer" layoutX="190.0" layoutY="451.0" mnemonicParsing="false" onAction="#handleBtAddCustomer" prefHeight="38.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Add Customer">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
