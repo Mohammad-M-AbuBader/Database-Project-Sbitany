@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import java.util.Calendar;
 import java.net.URL;
 import java.sql.*;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -75,7 +76,6 @@ public class NewCustomerController implements Initializable {
     @FXML // fx:id="txtdeposit"
     private TextField txtdeposit; // Value injected by FXMLLoader
 
-
     @FXML // fx:id="btAddCustomer"
     private Button btAddCustomer; // Value injected by FXMLLoader
 
@@ -89,8 +89,6 @@ public class NewCustomerController implements Initializable {
     private Button brPrintBill; // Value injected by FXMLLoader
 
     private static Connection con;
-
-   // String villageName = combVillage.getValue();
 
     private PreparedStatement psCustomerBill;
 
@@ -178,14 +176,13 @@ public class NewCustomerController implements Initializable {
             return;
         }
 
-        int cityID;
-        int villageID;
-
         try {
             // find customer if exist
             Statement stmt = con.createStatement();
             ResultSet getPersonalID = stmt.executeQuery("select C.customerID From  customer C  where C.cardID= " + Integer.parseInt(txtIDCard.getText().trim()));
             getPersonalID.next();
+
+            int cityID;
 
             // find city ID
             Statement stmt2 = con.createStatement();
@@ -193,8 +190,31 @@ public class NewCustomerController implements Initializable {
             getCityID.next();
             cityID = Integer.parseInt(getCityID.getString(1));
 
-            Statement stmt3 = con.createStatement(); // get the village id
-            ResultSet getVillageID = stmt3.executeQuery("select V.VillageID From Village V ,City C where V.cityID = " + cityID + " and V.villageName='" + villageName + "'");
+            String villageID;
+            if (combVillage == null) {
+                villageID = null;
+            } else {
+                Statement stmt3 = con.createStatement(); // get the village id
+                ResultSet getVillageID = stmt3.executeQuery("SELECT V.VillageID From Village V ,City C where V.cityID = " + cityID + " and V.villageName='" + combVillage.getValue() + "'");
+                getVillageID.next();
+
+                if (getVillageID.getString(1) == null) { // village does not exist
+
+                    String insertNewVillage = "INSERT INTO village(villageName, cityID) values(?, ?)";
+                    PreparedStatement psInsertVillage = con.prepareStatement(insertNewVillage);
+                    psInsertVillage.setString(1, combVillage.getValue().trim());
+                    psInsertVillage.setInt(2, cityID);
+                    psInsertVillage.executeUpdate();
+
+                    Statement statement = con.createStatement(); // get the id for the new village
+                    ResultSet set = statement.executeQuery("SELECT V.villageID from village V where V.villageID=(Select max(V.villageID) from village V )");
+                    set.next();
+                    villageID = set.getString(1).trim();
+
+                } else {
+                    villageID = getVillageID.getString(1).trim();
+                }
+            }
 
             PreparedStatement psCustomer;
 
@@ -213,12 +233,10 @@ public class NewCustomerController implements Initializable {
             psCustomer.setInt(3, cityID);// set the city id fot this customer
             psCustomer.setString(4, txtPhoneNumber.getText().trim());// set the phone number for this customer
 
-            if (combVillage == null) { // no village name entered
+            if (villageID == null) { // no village name entered
                 psCustomer.setNull(5, Types.NULL);
             } else { // the village name is entered
-                getVillageID.next();
-                villageID = Integer.parseInt(getVillageID.getString(1));
-                psCustomer.setInt(5, villageID);
+                psCustomer.setInt(5, Integer.parseInt(villageID));
             }
 
             if (txtRegionName.getText().trim().isEmpty()) { // no region name entered
@@ -257,7 +275,7 @@ public class NewCustomerController implements Initializable {
             psCustomerBill.executeUpdate();
 
             Statement stmt5 = con.createStatement(); // get the CustomerBillID of the new bill
-            ResultSet getCustomerBillID = stmt5.executeQuery("select C.CustomerBillID from customerBill C  where CustomerBillID=(Select max(C.customerBillID) from customerBill C)");
+            ResultSet getCustomerBillID = stmt5.executeQuery("select C.CustomerBillID from customerBill C where CustomerBillID=(Select max(C.customerBillID) from customerBill C)");
             getCustomerBillID.next();
             // save the CustomerBillID to use it in customer bill details
             customerBillID = Integer.parseInt(getCustomerBillID.getString(1));
@@ -334,6 +352,7 @@ public class NewCustomerController implements Initializable {
 
             this.txtParCode.clear();
             this.txtQuantityOf.clear();
+            this.btSave.setVisible(true);
 
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
@@ -388,7 +407,6 @@ public class NewCustomerController implements Initializable {
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
 
     private void setDefault() {
@@ -444,5 +462,4 @@ public class NewCustomerController implements Initializable {
             return false;
         }
     }
-
 }

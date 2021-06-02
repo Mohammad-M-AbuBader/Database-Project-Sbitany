@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NewCustomerController">
    <children>
-      <HBox fx:id="hBox3" layoutX="33.0" layoutY="372.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
+      <HBox fx:id="hBox4" layoutX="33.0" layoutY="372.0" prefHeight="29.0" prefWidth="498.0" spacing="5.0">
          <children>
             <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
