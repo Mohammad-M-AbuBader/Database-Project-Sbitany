@@ -21,6 +21,12 @@ public class BranchAccountantController {
 
     @FXML // fx:id="btLogout"
     private Button btLogout; // Value injected by FXMLLoader
+    private static int branchID, employeeID;
+
+    public static void setInfo(int branchID, int employeeID) {
+        BranchAccountantController.branchID = branchID;
+        BranchAccountantController.employeeID = employeeID;
+    }
 
     public void handleBtProducts() {
         try {
@@ -45,6 +51,7 @@ public class BranchAccountantController {
             window.setTitle("Product Order");
             window.setScene(new Scene(root));
             window.setResizable(false);
+            NewCustomerController.setInfo(branchID, employeeID);
             window.show();
         } catch (IOException exception) {
             Message.displayMassage("Warning", exception.getMessage());
@@ -94,6 +101,8 @@ public class BranchAccountantController {
             window.setResizable(false);
             Stage currentStage = (Stage) this.btLogout.getScene().getWindow();
             currentStage.close();
+            branchID = 0;
+            employeeID = 0;
             window.show();
         } catch (IOException exception) {
             Message.displayMassage("Warning", exception.getMessage());
@@ -102,7 +111,18 @@ public class BranchAccountantController {
 
     @FXML
     void handleBtNewCustomer() {
-
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/NewCustomer.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Login");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            NewCustomerController.setInfo(branchID, employeeID);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
 

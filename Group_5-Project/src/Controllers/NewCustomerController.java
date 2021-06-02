@@ -17,10 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.net.URL;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 
@@ -77,18 +75,26 @@ public class NewCustomerController implements Initializable {
     @FXML // fx:id="txtdeposit"
     private TextField txtdeposit; // Value injected by FXMLLoader
 
-    @FXML // fx:id="brCreateBill"
-    private Button brCreateBill; // Value injected by FXMLLoader
 
-    private Connection con;
+    @FXML // fx:id="btAddCustomer"
+    private Button btAddCustomer; // Value injected by FXMLLoader
 
-    String villageName = combVillage.getValue();
+    @FXML // fx:id="brAddToBill"
+    private Button btAddToBill; // Value injected by FXMLLoader
+
+    @FXML // fx:id="btSave"
+    private Button btSave; // Value injected by FXMLLoader
+
+    @FXML // fx:id="brPrintBill"
+    private Button brPrintBill; // Value injected by FXMLLoader
+
+    private static Connection con;
+
+   // String villageName = combVillage.getValue();
 
     private PreparedStatement psCustomerBill;
 
-    private static int numberOfQuantity = 0, branchID, employeeID, customerBillID, patches;
-
-    private boolean status; // will be true if the new customer will be add or update his info
+    private static int branchID, employeeID, storageID, customerBillID, valueOfBill;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,38 +133,54 @@ public class NewCustomerController implements Initializable {
     }
 
 
+    // fill comboBox villages Name
     private void fill(ComboBox<String> comboBox, String[] Village) {
         for (String s : Village) comboBox.getItems().add(s);
     }
 
-    public void handleBtCreateBill() {
-        if (txtName.getText().trim().isEmpty()) {
+
+    // actions in the button add customer
+    public void handleBtAddCustomer() {
+
+        if (txtName.getText().trim().isEmpty()) { // get the customer name
             Message.displayMassage("Warning", "Please Enter the name ");
             return;
         }
-        if (txtIDCard.getText().trim().isEmpty() && isNumber(txtIDCard.getText().trim())) {
-            Message.displayMassage("Warning", "Please Enter the valid personal ID ");
+
+        if (txtIDCard.getText().trim().isEmpty()) { // get the customer personal ID
+            Message.displayMassage("Warning", "Please enter the personal ID ");
+            return;
+        } else if (!isNumber(txtIDCard.getText().trim())) {
+            Message.displayMassage("Warning", "Please enter valid personal ID ");
             return;
         }
-        if (txtPhoneNumber.getText().trim().isEmpty() && isNumber(txtPhoneNumber.getText().trim())) {
-            Message.displayMassage("Warning", "Please Enter the valid phone number ");
+
+        if (txtPhoneNumber.getText().trim().isEmpty()) { // get the customer phone
+            Message.displayMassage("Warning", "Please enter the  phone number ");
+            return;
+        } else if (!isNumber(txtPhoneNumber.getText().trim())) {
+            Message.displayMassage("Warning", "Please enter valid  phone number ");
             return;
         }
-        if (combCity == null) {
+
+        if (combCity == null) { // get the customer city
             Message.displayMassage("Warning", "Please chose the city ");
             return;
         }
+
         String buildingNumber;
-        if (!txtBuldingNumber.getText().trim().isEmpty() && isNumber(txtBuldingNumber.getText().trim())) {
-            buildingNumber = txtBuldingNumber.getText().trim();
-        } else if (txtBuldingNumber.getText().trim().isEmpty()) {
+        if (txtBuldingNumber.getText().trim().isEmpty()) {
             buildingNumber = null;
+        } else if (isNumber(txtBuldingNumber.getText().trim())) {
+            buildingNumber = txtBuldingNumber.getText().trim();
         } else {
             Message.displayMassage("Warning", "Please enter valid building number ");
             return;
         }
+
         int cityID;
         int villageID;
+
         try {
             // find customer if exist
             Statement stmt = con.createStatement();
@@ -240,115 +262,172 @@ public class NewCustomerController implements Initializable {
             // save the CustomerBillID to use it in customer bill details
             customerBillID = Integer.parseInt(getCustomerBillID.getString(1));
 
+            // set controller visible
             this.hBox1.setDisable(true);
             this.hBox2.setDisable(true);
             this.hBox3.setDisable(true);
             this.hBox4.setDisable(true);
-            this.brCreateBill.setDisable(true);
-            this.status = true;
+            this.btAddCustomer.setDisable(true);
+            this.hboxProductCodeAndQu.setVisible(true);
+            this.btSave.setVisible(true);
+            this.btAddToBill.setVisible(true);
 
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
-    public void btAddBill() {
-        try {
-            if (txtParCode.getText().trim().isEmpty() && !isNumber(txtParCode.getText().trim())) {
-                System.out.println("Enter ParCode");
-                return;
-
-            }
-
-            Statement stmt = con.createStatement();
-            ResultSet getQuantity = stmt.executeQuery("select S.productQuantity From  storedProducts S  where S.StorageID= ? and S.productCode= " + txtParCode.getText().trim());
-            getQuantity.next();
-
-            if (Integer.parseInt(txtQuantityOf.getText().trim()) < Integer.parseInt(getQuantity.getString(1))) {
-                numberOfQuantity = (Integer.parseInt(getQuantity.getString(1)) - Integer.parseInt(txtQuantityOf.getText().trim()));
-
-                Statement stmt2 = con.createStatement();
-                ResultSet updateQuantity = stmt2.executeQuery("Update storedProducts set   productQuantity = " + numberOfQuantity + "   where S.StorageID= ? and S.productCode= " + txtParCode.getText().trim());
-                updateQuantity.next();
-            } else {
-                numberOfQuantity = (Integer.parseInt(txtQuantityOf.getText().trim()) - Integer.parseInt(getQuantity.getString(1)));
-                Statement stmt2 = con.createStatement();
-                ResultSet updateQuantity = stmt2.executeQuery("Drop S.productQuantity From  storedProducts S  where S.StorageID= ? and S.productCode= " + txtParCode.getText().trim());
-                updateQuantity.next();
-            }
-
-
-            PreparedStatement psCustomerBillDetails = con.prepareStatement("insert into CustomerBillDetails(CustomerBillID," +
-                    "ProductCode,SellingPrice,Quantity" +
-                    ") " +
-                    "values(?,?,?,?,?,)");
-
-            psCustomerBillDetails.setInt(1, customerBillID);
-            psCustomerBillDetails.setInt(2, Integer.parseInt(txtParCode.getText().trim()));
-
-            Statement stmt5 = con.createStatement();
-            ResultSet getSellingPrice = stmt5.executeQuery("Select S.sellingPrice From  SockedProducts S  where S.StorageID= ? and S.productCode= " + txtParCode.getText().trim());
-            getSellingPrice.next();
-            psCustomerBillDetails.setInt(3, getSellingPrice.getShort(1));
-            psCustomerBillDetails.setInt(4, numberOfQuantity);
-
-            psCustomerBillDetails.executeUpdate();
-
-
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
-
-    }
-
+    // actions in the button add to bill
     public void handleBtAddToBill() {
 
-        btAddBill();
+        // get the par code
+        if (txtParCode.getText().trim().isEmpty()) {
+            Message.displayMassage("Warning", "Please enter the par code of the product");
+            return;
+        } else if (!isNumber(txtParCode.getText().trim())) {
+            Message.displayMassage("Warning", "Please enter valid par code of the product");
+            return;
+        }
+        try {
+
+            int parCode = Integer.parseInt(txtParCode.getText().trim());
+            int requiredQuantity = Integer.parseInt(txtQuantityOf.getText().trim());
+            int remainingQuantity;
+
+            Statement stmt = con.createStatement(); // get available quantity
+            ResultSet getQuantity = stmt.executeQuery("select S.productQuantity From storedProducts S  where S.StorageID= " + storageID + " and S.productCode= " + parCode);
+            getQuantity.next();
+
+            if (getQuantity.getString(1) == null) { // check if the product is available or not
+                Message.displayMassage("Warning", "This product is not available");
+                return;
+            }
+            int availableQuantity = Integer.parseInt(getQuantity.getString(1));
+
+            if (requiredQuantity < availableQuantity) { // Quantity required is less than available
+                remainingQuantity = availableQuantity - requiredQuantity;
+                Statement stmt2 = con.createStatement();
+                ResultSet updateQuantity = stmt2.executeQuery("Update storedProducts S set S.productQuantity = " + remainingQuantity + "  where S.StorageID= " + storageID + " and S.productCode= " + parCode);
+                updateQuantity.next();
+            } else {
+                Statement stmt2 = con.createStatement();
+                ResultSet updateQuantity = stmt2.executeQuery("drop S.productQuantity from storedProducts S where S.StorageID= " + storageID + " and S.productCode= " + parCode);
+                updateQuantity.next();
+            }
+
+            PreparedStatement psCustomerBillDetails = con.prepareStatement("INSERT into CustomerBillDetails(CustomerBillID," +
+                    "ProductCode,SellingPrice,Quantity ) " + "values(?,?,?,?)");
+
+            Statement stmt5 = con.createStatement();
+            ResultSet getProductCodeAndSellPrice = stmt5.executeQuery("Select P.productCode, P.sellingPrice From product P where P.parCode=" + parCode);
+            getProductCodeAndSellPrice.next();
+
+            // set customer bill id
+            psCustomerBillDetails.setInt(1, customerBillID);
+            // set the product code
+            psCustomerBillDetails.setInt(2, Integer.parseInt(getProductCodeAndSellPrice.getString(1)));
+            // set the selling price
+            psCustomerBillDetails.setInt(3, Integer.parseInt(getProductCodeAndSellPrice.getString(2)));
+            // set the quantity
+            psCustomerBillDetails.setInt(4, requiredQuantity);
+            psCustomerBillDetails.executeUpdate();
+
+            this.txtParCode.clear();
+            this.txtQuantityOf.clear();
+
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
+    }
+
+
+    // actions in the button save and calculate the bill
+    public void saveAndCalculateTheBill() {
+        hboxProductCodeAndQu.setDisable(true);
+        btAddToBill.setDisable(true);
+        this.btSave.setVisible(false);
+        try {
+            String getValueOfBill = "SELECT SUM(C.sellingPrice * C.quantity) from customerbilldetails C where customerBillID=" + customerBillID;
+            Statement stmtValueOfBill = con.createStatement();
+            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery(getValueOfBill);
+            resultValueOfBill.next();
+
+            valueOfBill = Integer.parseInt(resultValueOfBill.getString(1));
+            Message.displayMassage("Value of bill", "The value of this bill is " + valueOfBill);
+            hboxValueOFdeposit.setVisible(true);
+            this.brPrintBill.setVisible(true);
+
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
 
     }
 
     public void handleBtPrintBill() {
+        int paidValue;
+
+        if (txtdeposit.getText().trim().isEmpty()) {
+            Message.displayMassage("Warning", "Please enter the paid value");
+            return;
+        } else if (!isNumber(txtdeposit.getText().trim())) {
+            Message.displayMassage("Warning", "Please enter valid paid value");
+            return;
+        }
+        paidValue = Integer.parseInt(txtdeposit.getText().trim());
+
+        int patches = valueOfBill - paidValue;
+
         try {
-            String sqlUpdate = "UPDATE CustomerBill " + "SET  valueOfBill=?,deposit=? ,patches=?" + " where CustomerBillID=" + customerBillID;
+            String sqlUpdate = "UPDATE CustomerBill C " + "SET C.valueOfBill=?, C.deposit=? ,C.patches=?  where C.customerBillID=" + customerBillID;
             psCustomerBill = con.prepareStatement(sqlUpdate);
-            Statement stmtValueOfBill;
-            ResultSet resultValueOfBill;
-            if (isNumber(txtQuantityOf.getText().trim())) {
-                stmtValueOfBill = con.createStatement();
-                resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.valueOfBill*" + numberOfQuantity + ") FROM customerbillDetails C where C.customerBillID=" + customerBillID);
-                resultValueOfBill.next();
-                psCustomerBill.setInt(1, Integer.parseInt(resultValueOfBill.getString(1)));
-            } else {
-                System.out.println("Enter Number");
-                return;
-            }
-            if (isNumber(txtdeposit.getText().trim()))
-                psCustomerBill.setInt(2, Integer.parseInt(txtdeposit.getText().trim()));
-            else {
-                System.out.println("Enter number");
-                return;
-            }
-
-            patches = Integer.parseInt(resultValueOfBill.getString(1)) - Integer.parseInt(txtdeposit.getText().trim());
-
+            psCustomerBill.setInt(1, valueOfBill);
+            psCustomerBill.setInt(2, paidValue);
             psCustomerBill.setInt(3, patches);
             psCustomerBill.executeUpdate();
-
-            txtdeposit.setText("");
-            txtQuantityOf.setText("");
-
-
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
+            this.setDefault();
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
-
 
     }
 
+    private void setDefault() {
+        this.txtName.clear();
+        this.txtIDCard.clear();
+        this.txtPhoneNumber.clear();
+        this.txtStreetName.clear();
+        this.txtBuldingNumber.clear();
+        this.txtStreetName.clear();
+        this.txtParCode.clear();
+        this.txtQuantityOf.clear();
+        this.txtdeposit.clear();
+
+        this.hBox1.setDisable(false);
+        this.hBox2.setDisable(false);
+        this.hBox3.setDisable(false);
+        this.hBox4.setDisable(false);
+        this.btAddCustomer.setDisable(false);
+        this.hboxProductCodeAndQu.setVisible(false);
+        hboxProductCodeAndQu.setDisable(false);
+        this.btSave.setVisible(false);
+        btAddToBill.setDisable(false);
+        this.btAddToBill.setVisible(false);
+        this.brPrintBill.setVisible(false);
+
+    }
 
     public static void setInfo(int branchID, int employeeID) {
-        branchID = branchID;
-        employeeID = employeeID;
+        NewCustomerController.branchID = branchID;
+        NewCustomerController.employeeID = employeeID;
+        try {
+            Statement stmtGetStorageID = con.createStatement();
+            ResultSet getStorageID = stmtGetStorageID.executeQuery("SELECT S.storageID from storages S where S.branchID = " + branchID);
+            getStorageID.next();
+            NewCustomerController.storageID = Integer.parseInt(getStorageID.getString(1));
+        } catch (SQLException sqlException) {
+            Message.displayMassage("Warning", sqlException.getMessage());
+        }
+
     }
 
     /**

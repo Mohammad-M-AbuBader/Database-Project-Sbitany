@@ -54,11 +54,11 @@
                         <Image url="@../Icons/userss.png" />
                     </image>
                 </ImageView>
-                <TextField layoutX="130.0" layoutY="268.0" prefHeight="30.0" prefWidth="195.0" promptText="User Name" style="-fx-border-width: 0px0px2px0px; -fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-font-size: 16; -fx-border-style: solid; -fx-max-height: 30;">
+                <TextField fx:id="txtUserName" layoutX="130.0" layoutY="268.0" prefHeight="30.0" prefWidth="195.0" promptText="User Name" style="-fx-border-width: 0px0px2px0px; -fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-font-size: 16; -fx-border-style: solid; -fx-max-height: 30;">
                     <font>
                         <Font size="15.0" />
                     </font></TextField>
-                <PasswordField layoutX="130.0" layoutY="323.0" prefHeight="30.0" prefWidth="195.0" promptText="Password" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff; -fx-background-radius: 0; -fx-font-size: 16; -fx-border-style: solid; -fx-max-height: 30;">
+                <PasswordField fx:id="txtPasswd" layoutX="130.0" layoutY="323.0" prefHeight="30.0" prefWidth="195.0" promptText="Password" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff; -fx-background-radius: 0; -fx-font-size: 16; -fx-border-style: solid; -fx-max-height: 30;">
                     <font>
                         <Font size="15.0" />
                     </font></PasswordField>
@@ -72,7 +72,7 @@
                         <Image url="@../Icons/key.png" />
                     </image>
                 </ImageView>
-                <Button alignment="TOP_CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="419.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="195.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: #4a4fda; -fx-text-fill: #ffffff; -fx-font-size: 16; -fx-border-width: 1; -fx-border-color: black; -fx-font-weight: bold; -fx-border-style: solid;" text="Login" textAlignment="CENTER" textFill="#1c2297" wrapText="true">
+                <Button fx:id="btLogin" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleBtLogin" prefHeight="37.0" prefWidth="195.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-background-color: #4a4fda; -fx-text-fill: #ffffff; -fx-font-size: 16; -fx-border-width: 1; -fx-border-color: black; -fx-font-weight: bold; -fx-border-style: solid;" text="Login" textAlignment="CENTER" textFill="#1c2297" wrapText="true">
                     <font>
                         <Font size="18.0" />
                     </font>
