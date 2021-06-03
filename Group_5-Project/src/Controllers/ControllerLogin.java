@@ -62,7 +62,7 @@ public class ControllerLogin {
             String passwd = this.txtPasswd.getText().trim();
 
             // get the employee id and branch id for this accountant
-            ResultSet resultSet = statement.executeQuery("SELECT E.employeeID, E.branchID from employee E where E.employeeUserName='" + uName + "' and E.employeePassword='" + passwd + "'"+" and E.employeeFiringDate is null");
+            ResultSet resultSet = statement.executeQuery("SELECT E.employeeID, E.branchID, E.jobTitleID from employee E where E.employeeUserName='" + uName + "' and E.employeePassword='" + passwd + "'" + " and E.employeeFiringDate is null");
             boolean result = resultSet.next();
 
             if (!result) { // this account does not exist
@@ -73,12 +73,21 @@ public class ControllerLogin {
             }
             int employeeID = Integer.parseInt(resultSet.getString(1).trim());
             int branchID = Integer.parseInt(resultSet.getString(2).trim());
+
             BranchAccountantController.setInfo(branchID, employeeID); // send this values to branch accountant controller
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BranchAccountant.fxml")));
+            String windowFxml = "BranchAccountant.fxml";
+            String title = "Branch Accountant";
+
+            if (resultSet.getString(3).equals("6")) {
+                windowFxml = "GeneralManager.fxml";
+                title = "GeneralManager";
+                GeneralManagerController.setInfo(branchID, employeeID);
+            }
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/" + windowFxml)));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Branch Accountant");
+            window.setTitle(title);
             window.setScene(new Scene(root));
             window.setResizable(false);
             Stage currentStage = (Stage) this.btLogin.getScene().getWindow();

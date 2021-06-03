@@ -25,6 +25,13 @@ public class GeneralManagerController {
     @FXML // fx:id="btLogout"
     private Button btLogout; // Value injected by FXMLLoader
 
+    private static int employeeID, branchID;
+
+    public static void setInfo(int branchID, int employeeID){
+        GeneralManagerController.employeeID = employeeID;
+        GeneralManagerController.branchID = branchID;
+    }
+
     public void handleBtBranches() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Branches.fxml")));

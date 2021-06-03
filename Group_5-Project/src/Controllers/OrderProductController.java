@@ -1,7 +1,7 @@
 /**
  * @autor: Mohammad AbuBader
  * ID: 1190478
- * At: 24-5-2021 10:02 AM
+ * At: 3/6/2021 4:27 AM
  */
 package Controllers;
 
@@ -33,6 +33,7 @@ public class OrderProductController implements Initializable {
     private ComboBox<String> cmbStorageName; // Value injected by FXMLLoader
 
     private Connection con;
+
     int remainingQuantity, requiredQuantity,
             availableQuantityFromSourceStorage, sourceBranchID,
             sourceStorageID, destinationStorageID;
@@ -115,14 +116,12 @@ public class OrderProductController implements Initializable {
                 Message.displayMassage("Warning", "This Product dose not Exist");
             } else {
 
-
                 availableQuantityFromSourceStorage = Integer.parseInt(checkProductCode.getString(1));
                 requiredQuantity = Integer.parseInt(txtQuantityOf.getText().trim());
 
                 Statement getQuantityFromDestinationStorageStatement = con.createStatement();
                 ResultSet getQuantityFromDestinationStorage = getQuantityFromDestinationStorageStatement.executeQuery("select S.productQuantity From  storedProducts S  where S.StorageID=" + destinationStorageID + " and S.productCode= " + Integer.parseInt(txtCodeProduct.getText().trim()));
                 boolean isQuantityExist = getQuantityFromDestinationStorage.next();
-
 
                 if (requiredQuantity < availableQuantityFromSourceStorage) {
                     remainingQuantity = availableQuantityFromSourceStorage - requiredQuantity;
@@ -162,7 +161,6 @@ public class OrderProductController implements Initializable {
                 }
                 psStorageProducts.executeUpdate();
 
-
                 //  writing the movement
                 Calendar calendar = Calendar.getInstance();
                 psStorageProducts = con.prepareStatement("insert into branchGetFrom (getAt," +
@@ -181,6 +179,7 @@ public class OrderProductController implements Initializable {
                 txtCodeProduct.clear();
                 txtQuantityOf.clear();
                 txtEmployeeID.clear();
+                Message.displayMassage("Successfully","Product ordering and transaction registration completed successfully");
             }
 
         } catch (SQLException sqlException) {

@@ -101,8 +101,6 @@ public class BranchAccountantController {
             window.setResizable(false);
             Stage currentStage = (Stage) this.btLogout.getScene().getWindow();
             currentStage.close();
-            branchID = 0;
-            employeeID = 0;
             window.show();
         } catch (IOException exception) {
             Message.displayMassage("Warning", exception.getMessage());
