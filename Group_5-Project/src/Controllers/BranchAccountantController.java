@@ -51,7 +51,7 @@ public class BranchAccountantController {
             window.setTitle("Product Order");
             window.setScene(new Scene(root));
             window.setResizable(false);
-            NewCustomerController.setInfo(branchID, employeeID);
+            OrderProductController.setInfo(branchID);
             window.show();
         } catch (IOException exception) {
             Message.displayMassage("Warning", exception.getMessage());

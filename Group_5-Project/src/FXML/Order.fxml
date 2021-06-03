@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="622.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OrderProductController">
+<AnchorPane prefHeight="622.0" prefWidth="539.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OrderProductController">
     <children>
         <Pane layoutX="-9.0" layoutY="-7.0" prefHeight="145.0" prefWidth="619.0" style="-fx-background-color: #4a4fda;">
             <children>
@@ -38,7 +38,7 @@
                 </Label>
             </children>
         </Pane>
-      <Button fx:id="brOrder" layoutX="169.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBtOrder" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Order">
+      <Button fx:id="btOrder" layoutX="169.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBtOrder" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Order">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
@@ -124,7 +124,7 @@
                         <Image url="@../Icons/barnch.png" />
                      </image>
                   </ImageView>
-                  <ComboBox fx:id="cmbStorageName" onAction="#cbxBranchStorage" prefHeight="39.0" prefWidth="247.0" promptText="Branch Storage" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+                  <ComboBox fx:id="cmbStorageName" prefHeight="39.0" prefWidth="247.0" promptText="Branch Storage" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
                      <HBox.margin>
                         <Insets left="25.0" top="10.0" />
                      </HBox.margin>
