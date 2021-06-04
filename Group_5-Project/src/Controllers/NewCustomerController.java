@@ -9,6 +9,7 @@ package Controllers;
 import DataBaseClasses.Address;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -149,7 +150,7 @@ public class NewCustomerController implements Initializable {
         if (txtIDCard.getText().trim().isEmpty()) { // get the customer personal ID
             Message.displayMassage("Warning", "Please enter the personal ID ");
             return;
-        } else if (!isNumber(txtIDCard.getText().trim())) {
+        } else if (!Methods.isNumber(txtIDCard.getText().trim())) {
             Message.displayMassage("Warning", "Please enter valid personal ID ");
             return;
         }
@@ -157,7 +158,7 @@ public class NewCustomerController implements Initializable {
         if (txtPhoneNumber.getText().trim().isEmpty()) { // get the customer phone
             Message.displayMassage("Warning", "Please enter the phone number ");
             return;
-        } else if (!isNumber(txtPhoneNumber.getText().trim())) {
+        } else if (!Methods.isNumber(txtPhoneNumber.getText().trim())) {
             Message.displayMassage("Warning", "Please enter valid phone number ");
             return;
         }
@@ -170,7 +171,7 @@ public class NewCustomerController implements Initializable {
         String buildingNumber;
         if (txtBuldingNumber.getText().trim().isEmpty()) {
             buildingNumber = null;
-        } else if (isNumber(txtBuldingNumber.getText().trim())) {
+        } else if (Methods.isNumber(txtBuldingNumber.getText().trim())) {
             buildingNumber = txtBuldingNumber.getText().trim();
         } else {
             Message.displayMassage("Warning", "Please enter valid building number ");
@@ -291,7 +292,7 @@ public class NewCustomerController implements Initializable {
             this.btAddToBill.setVisible(true);
 
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            Message.displayMassage("Warning",sqlException.getMessage());
         }
     }
 
@@ -302,7 +303,7 @@ public class NewCustomerController implements Initializable {
         if (txtParCode.getText().trim().isEmpty()) {
             Message.displayMassage("Warning", "Please enter the par code of the product");
             return;
-        } else if (!isNumber(txtParCode.getText().trim())) {
+        } else if (!Methods.isNumber(txtParCode.getText().trim())) {
             Message.displayMassage("Warning", "Please enter valid par code of the product");
             return;
         }
@@ -375,7 +376,7 @@ public class NewCustomerController implements Initializable {
         btAddToBill.setDisable(true);
         this.btSave.setVisible(false);
         try {
-            String getValueOfBill = "SELECT SUM(C.sellingPrice * C.quantity) from customerbilldetails C where customerBillID=" + customerBillID;
+            String getValueOfBill = "SELECT SUM(C.sellingPrice * C.quantity) from customerbilldetails C where C.customerBillID=" + customerBillID;
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery(getValueOfBill);
             resultValueOfBill.next();
@@ -397,7 +398,7 @@ public class NewCustomerController implements Initializable {
         if (txtdeposit.getText().trim().isEmpty()) {
             Message.displayMassage("Warning", "Please enter the paid value");
             return;
-        } else if (!isNumber(txtdeposit.getText().trim())) {
+        } else if (!Methods.isNumber(txtdeposit.getText().trim())) {
             Message.displayMassage("Warning", "Please enter valid paid value");
             return;
         }
@@ -441,7 +442,6 @@ public class NewCustomerController implements Initializable {
         this.btAddToBill.setVisible(false);
         this.brPrintBill.setVisible(false);
         this.hboxValueOFdeposit.setVisible(false);
-
     }
 
     public static void setInfo(int branchID, int employeeID) {
@@ -458,18 +458,4 @@ public class NewCustomerController implements Initializable {
 
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            long temp = Long.parseLong(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

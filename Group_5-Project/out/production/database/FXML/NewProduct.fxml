@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="633.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.NewProductController">
+   <children>
+      <HBox layoutX="22.0" layoutY="310.0" prefHeight="43.0" prefWidth="498.0" spacing="10.0">
+         <children>
+            <TextField fx:id="txtPurchasingPrice" prefHeight="35.0" prefWidth="392.0" promptText="Purchasing Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtSellingPrice" prefHeight="35.0" prefWidth="392.0" promptText="Selling Price" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Pane prefHeight="166.0" prefWidth="633.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="29.0" layoutY="19.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT" size="52.0" />
+               </font>
+            </Label>
+            <Label layoutX="203.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <HBox layoutX="30.0" layoutY="235.0" prefHeight="44.0" prefWidth="482.0" spacing="10.0">
+         <children>
+            <TextField fx:id="txtProductName" prefHeight="35.0" prefWidth="392.0" promptText="Product Name" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtManufacturerCompany" prefHeight="35.0" prefWidth="392.0" promptText="Manufacturer Company" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </opaqueInsets>
+      </HBox>
+      <HBox layoutX="22.0" layoutY="461.0" prefHeight="62.0" prefWidth="520.0" spacing="10.0">
+         <children>
+            <ComboBox fx:id="combCategories" onAction="#handleComboCatogres" prefHeight="35.0" prefWidth="227.0" promptText="Categories" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </ComboBox>
+            <TextField fx:id="txtCategoriesName" prefHeight="35.0" prefWidth="227.0" promptText="New Categories" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" visible="false">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="15.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox layoutX="22.0" layoutY="385.0" prefHeight="35.0" prefWidth="498.0" spacing="10.0">
+         <children>
+            <TextField fx:id="txtParCode" prefHeight="35.0" prefWidth="392.0" promptText="Par Code" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtDescriptions" prefHeight="35.0" prefWidth="392.0" promptText="Descriptions" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <Button fx:id="btInsertNewProduct" layoutX="157.0" layoutY="570.0" mnemonicParsing="false" onAction="#btHandleInsertNewProduct" prefHeight="50.0" prefWidth="279.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Insert NewProduct">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

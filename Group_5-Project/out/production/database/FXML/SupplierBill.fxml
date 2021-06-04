@@ -109,7 +109,7 @@
          </children>
       </HBox>
       <ComboBox fx:id="combBranchName" layoutX="666.0" layoutY="223.0" onAction="#handleCombBranchName" prefHeight="42.0" prefWidth="215.0" promptText="Branch Name" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
-      <VBox alignment="CENTER_LEFT" layoutX="332.0" layoutY="128.0" prefHeight="156.0" prefWidth="184.0" spacing="10.0" style="-fx-background-color: #ffffff;">
+      <VBox alignment="CENTER_LEFT" layoutX="332.0" layoutY="133.0" prefHeight="151.0" prefWidth="184.0" spacing="10.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label prefHeight="36.0" prefWidth="165.0" style="-fx-background-color: transparent;" text="Search for the bill by:">
                <font>
@@ -136,7 +136,7 @@
             </RadioButton>
          </children>
       </VBox>
-      <Button fx:id="btRefresh" layoutX="31.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="42.0" prefWidth="242.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh">
+      <Button fx:id="btRefresh" layoutX="4.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="42.0" prefWidth="148.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -152,5 +152,10 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
+      <Button fx:id="btInsertNewBill" layoutX="160.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleBtInsertNewBill" prefHeight="42.0" prefWidth="148.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Insert New Bill">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
