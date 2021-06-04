@@ -64,17 +64,17 @@ public class NewProductController implements Initializable {
             return;
         }
 
-        if (txtPurchasingPrice.getText().trim().isEmpty() || !isNumeric(txtPurchasingPrice)) {
+        if (txtPurchasingPrice.getText().trim().isEmpty() || !isNumber(txtPurchasingPrice.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid purchasing price");
             return;
         }
 
-        if (txtSellingPrice.getText().trim().isEmpty() || !isNumeric(txtSellingPrice)) {
+        if (txtSellingPrice.getText().trim().isEmpty() || !isNumber(txtSellingPrice.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid selling price");
             return;
         }
 
-        if (txtParCode.getText().trim().isEmpty() || !isNumeric(txtParCode)) {
+        if (txtParCode.getText().trim().isEmpty() || !isNumber(txtParCode.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid product code");
             return;
         }
@@ -174,15 +174,18 @@ public class NewProductController implements Initializable {
 
     }
 
-    public static boolean isNumeric(TextField textField) {
-        String input = textField.getText().trim();
-        // check if the text is a Int value
+    /**
+     * To check the value of the entered numberOfShares if contain only digits or not
+     */
+    public static boolean isNumber(String number) {
+        /* To check the entered number of shares, that it consists of
+           only digits
+         */
         try {
-            Integer.parseInt(input);
+            Long temp = Long.parseLong(number);
+            return number.matches("\\d+") && temp > 0;
         } catch (NumberFormatException e) {
             return false;
         }
-        return true;
-
     }
 }
