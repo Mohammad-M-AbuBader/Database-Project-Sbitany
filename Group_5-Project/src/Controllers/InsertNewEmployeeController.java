@@ -20,7 +20,7 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable {
+public class InsertNewEmployeeController implements Initializable {
 
 
     @FXML // fx:id="txtName"
@@ -106,6 +106,15 @@ public class RegisterController implements Initializable {
                 Message.displayMassage("Warning", "Please select job title");
                 return;
             }
+
+            String passwd;
+            if (jobTitleID != 1) {
+                if (this.txtPassword.getText().trim().isEmpty()) {
+                    Message.displayMassage("Warning", "Please enter the password");
+                    return;
+                } else passwd = this.txtPassword.getText().trim();
+            } else passwd = null;
+
             String name = this.txtName.getText().trim();
             Calendar calendar = Calendar.getInstance();
             Date date = Date.valueOf(dateOFBirth.getValue());
@@ -116,15 +125,18 @@ public class RegisterController implements Initializable {
             PreparedStatement psEmployee = con.prepareStatement("INSERT INTO Employee (employeeCard,employeeName,employeePhone" +
                     ",employeeDateOfBirth,employeeSalary,employeeEmail,employeeUserName,employeePassword,employeeHiringDate," +
                     "employeeFiringDate,jobTitleID,cityID,villageID,branchID) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
             psEmployee.setInt(1, idCard);
             psEmployee.setString(2, name);
             psEmployee.setString(3, phone);
             psEmployee.setDate(4, date);
             psEmployee.setInt(5, salary);
+
             int space = name.indexOf(' ');
             String firstName;
-            if (space < 0) firstName = name.substring(0, space);
+            if (space >= 0) firstName = name.substring(0, space);
             else firstName = name;
+
             psEmployee.setString(6, firstName + "@Sbitany.com");
             psEmployee.setDate(9, new java.sql.Date(calendar.getTime().getTime()));
             psEmployee.setNull(10, Types.NULL);
@@ -135,9 +147,27 @@ public class RegisterController implements Initializable {
             if (villageID == 0) psEmployee.setNull(13, Types.NULL);
             else psEmployee.setInt(13, villageID);
 
+            psEmployee.setNull(7, Types.NULL);
+            if (passwd == null) psEmployee.setNull(8, Types.NULL);
+            else psEmployee.setString(8, passwd);
+
             psEmployee.setInt(14, branchID);
+            psEmployee.executeUpdate();
 
-
+            String uName;
+            if (jobTitleID != 1) {
+                Statement sqlLastEmployee = con.createStatement();
+                ResultSet set = sqlLastEmployee.executeQuery("SELECT E.employeeID from Employee E where E.employeeID = (SELECT MAX(E1.EmployeeID) from Employee E1)");
+                set.next();
+                int id = Integer.parseInt(set.getString(1).trim());
+                uName = id + "@Sbitany";
+                psEmployee = con.prepareStatement("UPDATE Employee E set E.employeeUserName=? where E.employeeID=?");
+                psEmployee.setString(1, uName);
+                psEmployee.setInt(2, id);
+                psEmployee.executeUpdate();
+                Message.displayMassage("Employee User Name", "The employee ID is: " + id + " and his userName: " + uName);
+            }
+            this.setDefault();
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -178,7 +208,7 @@ public class RegisterController implements Initializable {
     public void handleCombBranch() {
         try {
             Statement sqlBranch = con.createStatement();
-            ResultSet getBranchID = sqlBranch.executeQuery("SELECT B.BranchID From Branch B where B.branchName='" + this.combBranch.getValue().trim());
+            ResultSet getBranchID = sqlBranch.executeQuery("SELECT B.BranchID From Branch B where B.branchName='" + this.combBranch.getValue().trim() + "'");
             getBranchID.next();
             branchID = Integer.parseInt(getBranchID.getString(1).trim());
         } catch (SQLException sqlException) {
@@ -189,10 +219,23 @@ public class RegisterController implements Initializable {
     //  get city ID
     public void handleCombCity() {
         try {
+            combVillage.getItems().clear();
             Statement sqlCity = con.createStatement();
             ResultSet getCityID = sqlCity.executeQuery("SELECT C.cityID From City C where C.CityName='" + this.combCity.getValue().trim() + "'");
             getCityID.next();
             cityID = Integer.parseInt(getCityID.getString(1));
+            switch (combCity.getValue()) {
+                case "Bethlahem" -> fill(combVillage, Address.bethlahem);
+                case "Hebron" -> fill(combVillage, Address.hebron);
+                case "Jenen" -> fill(combVillage, Address.jenen);
+                case "Jericho" -> fill(combVillage, Address.jericho);
+                case "Nablus" -> fill(combVillage, Address.nablus);
+                case "Qalqilya" -> fill(combVillage, Address.qalqilya);
+                case "Ramallah" -> fill(combVillage, Address.ramallah);
+                case "Salfit" -> fill(combVillage, Address.salfit);
+                case "Tubas" -> fill(combVillage, Address.tubas);
+                default -> fill(combVillage, Address.tulkarm);
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -204,8 +247,9 @@ public class RegisterController implements Initializable {
             villageID = 0;
         } else {
             try {
+                String strVillageID = "SELECT V.VillageID From Village V where V.cityID = " + cityID + " and V.villageName='" + this.combVillage.getValue().trim() + "'";
                 Statement sqlVillage = con.createStatement();
-                ResultSet getVillageID = sqlVillage.executeQuery("SELECT V.VillageID From Village V where V.cityID = " + cityID + " and V.villageName='" + this.combVillage.getValue().trim() + "'");
+                ResultSet getVillageID = sqlVillage.executeQuery(strVillageID);
                 boolean result = getVillageID.next();
                 if (result) { // the village is exist
                     villageID = Integer.parseInt(getVillageID.getString(1).trim());
@@ -214,6 +258,7 @@ public class RegisterController implements Initializable {
                     ps.setInt(1, cityID);
                     ps.setString(2, this.combVillage.getValue().trim());
                     ps.executeUpdate();
+                    getVillageID = sqlVillage.executeQuery(strVillageID);
                     getVillageID.next();
                     villageID = Integer.parseInt(getVillageID.getString(1));
                 }
@@ -227,10 +272,15 @@ public class RegisterController implements Initializable {
     public void handleCombJob() {
         try {
             Statement sqlJobTitle = con.createStatement();
-            ResultSet getJobTitleID = sqlJobTitle.executeQuery("SELECT J.jobTitleID From jobTitle J where J.JobTitleName='" + this.combJob.getValue().trim() + "'");
+            ResultSet getJobTitleID = sqlJobTitle.executeQuery("SELECT J.jobTitleID From jobTitle J where J.JobName='" + this.combJob.getValue().trim() + "'");
             getJobTitleID.next();
             jobTitleID = Integer.parseInt(getJobTitleID.getString(1).trim());
-            this.hboxPasswd.setVisible(!this.combJob.getValue().equals("Sales Employee"));
+            if (!this.combJob.getValue().equals("Sales Employee")) {
+                this.hboxPasswd.setVisible(true);
+            } else {
+                this.hboxPasswd.setVisible(false);
+                this.txtPassword.clear();
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -243,20 +293,14 @@ public class RegisterController implements Initializable {
         }
     }
 
-    // display villages for selected city
-    public void handleCombVillage() {
-        switch (combCity.getValue()) {
-            case "Bethlahem" -> fill(combVillage, Address.bethlahem);
-            case "Hebron" -> fill(combVillage, Address.hebron);
-            case "Jenen" -> fill(combVillage, Address.jenen);
-            case "Jericho " -> fill(combVillage, Address.jericho);
-            case "Nablus " -> fill(combVillage, Address.nablus);
-            case "Qalqilya " -> fill(combVillage, Address.qalqilya);
-            case "Ramallah " -> fill(combVillage, Address.ramallah);
-            case "Salfit " -> fill(combVillage, Address.salfit);
-            case "Tubas " -> fill(combVillage, Address.tubas);
-            default -> fill(combVillage, Address.tulkarm);
-        }
+
+    private void setDefault() {
+        this.txtName.clear();
+        this.dateOFBirth.getEditor().clear();
+        this.txtIDCard.clear();
+        this.txtPhoneNumber.clear();
+        this.txtSalary.clear();
+        this.hboxPasswd.setVisible(false);
     }
 
     /**

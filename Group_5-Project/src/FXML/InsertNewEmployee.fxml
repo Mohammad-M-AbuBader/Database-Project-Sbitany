@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="572.0" prefWidth="545.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RegisterController">
+<VBox prefHeight="572.0" prefWidth="545.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.InsertNewEmployeeController">
    <children>
       <HBox prefHeight="70.0" prefWidth="457.0">
          <children>
@@ -168,7 +168,7 @@
                   <Insets left="30.0" top="13.0" />
                </HBox.margin>
             </ImageView>
-            <ComboBox fx:id="combVillage" onAction="#handleCombVillage" prefWidth="180.0" promptText="Village" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
+            <ComboBox fx:id="combVillage" prefWidth="180.0" promptText="Village" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;">
                <HBox.margin>
                   <Insets left="15.0" top="15.0" />
                </HBox.margin>

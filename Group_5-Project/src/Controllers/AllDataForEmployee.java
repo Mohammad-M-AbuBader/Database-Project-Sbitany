@@ -9,15 +9,22 @@ import DataBaseClasses.Employee;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AllDataForEmployee implements Initializable {
@@ -128,18 +135,13 @@ public class AllDataForEmployee implements Initializable {
 
             rs.close();
             stmt.close();
-            this.refresh();
+            this.execute(" where E.employeeFiringDate is null");
         } catch (SQLException sqlException) {
             System.out.println(sqlException.getMessage());
         }
 
     }
 
-    private void refresh() {
-        this.txtSearch.clear();
-        this.tableEmployee.getItems().clear();
-        this.execute(" where E.employeeFiringDate is not null");
-    }
 
     public void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
@@ -160,7 +162,7 @@ public class AllDataForEmployee implements Initializable {
                     this.txtSearch.clear();
                     return;
                 }
-                this.execute("  where E.employeeID="+ Integer.parseInt(this.txtSearch.getText().trim()));
+                this.execute("  where E.employeeID=" + Integer.parseInt(this.txtSearch.getText().trim()));
 
             } catch (SQLException sqlException) {
                 System.out.println(sqlException.getMessage());
@@ -169,7 +171,9 @@ public class AllDataForEmployee implements Initializable {
     }
 
     public void handleBtRefresh() {
-        this.refresh();
+        this.txtSearch.clear();
+        this.tableEmployee.getItems().clear();
+        this.execute(" where E.employeeFiringDate is null");
     }
 
     public void handleComboBoxBranches() {
@@ -203,6 +207,21 @@ public class AllDataForEmployee implements Initializable {
             this.showCompanyAccountant();
         }
 
+    }
+
+    // insert new employee
+    public void handleBtNewEmployee() {
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/InsertNewEmployee.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Insert New Employee");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
     private void showFiringEmployee() {
@@ -295,9 +314,10 @@ public class AllDataForEmployee implements Initializable {
             stmt.close();
 
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
+
 
     /**
      * To check the value of the entered numberOfShares if contain only digits or not
