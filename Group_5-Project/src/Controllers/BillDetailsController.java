@@ -9,12 +9,15 @@ package Controllers;
 import DataBaseClasses.BillDetails;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -59,8 +62,12 @@ public class BillDetailsController implements Initializable {
     private TextField txtPatches; // Value injected by FXMLLoader
 
     private static boolean typeOfBill = true; // true: customer,,,, false: supplier
-    private int billID;
+    private static int billID;
     private Connection con;
+
+    public static void setBillID(int billID) {
+        BillDetailsController.billID = billID;
+    }
 
     public static void setTypeOfBill(boolean typeOfBill) {
         BillDetailsController.typeOfBill = typeOfBill;
@@ -75,11 +82,9 @@ public class BillDetailsController implements Initializable {
         this.cmPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         if (typeOfBill) {
-            billID = CustomerBillController.billID;
             this.customerBill();
             typeOfBill = false;
         } else {
-            billID = SupplierBillController.billID;
             this.supplierBill();
             typeOfBill = true;
         }
@@ -90,11 +95,7 @@ public class BillDetailsController implements Initializable {
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from customerbill C  where C.customerBillID=" + billID);
-            boolean isExist = resultSet.next();
-            if (!isExist) {
-                Message.displayMassage("Warning", billID + " Does not exist");
-                return;
-            }
+            resultSet.next();
 
             txtBillId.setText(billID + "");
             textReleasseDate.setText(resultSet.getString(2));
@@ -102,7 +103,6 @@ public class BillDetailsController implements Initializable {
             txtFrom.setText("Sbitany");
             txtDeposit.setText(resultSet.getString(7));
             txtPatches.setText(resultSet.getString(8));
-
 
             int customerID = Integer.parseInt(resultSet.getString(4).trim());
             statement = con.createStatement();
@@ -138,7 +138,8 @@ public class BillDetailsController implements Initializable {
 
             if (!isExist) {
                 Message.displayMassage("Warning", billID + " Does not exist ");
-                return;
+                Stage currentStage = (Stage) this.txtFrom.getScene().getWindow();
+                currentStage.close();
             }
 
             // get bill info

@@ -303,6 +303,19 @@ public class NewSupplierBillController implements Initializable {
             psSupplierBill.setInt(3, patches);
             psSupplierBill.executeUpdate();
             this.setDefault();
+            try {
+                BillDetailsController.setTypeOfBill(false);
+                BillDetailsController.setBillID(supplierBillID);
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("Bill Details");
+                window.setScene(new Scene(root));
+                window.setResizable(false);
+                window.show();
+            } catch (IOException exception) {
+                Message.displayMassage("Warning", exception.getMessage());
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }

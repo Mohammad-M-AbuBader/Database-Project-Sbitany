@@ -11,16 +11,23 @@ import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import Utilities.Methods;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.net.URL;
 import java.sql.*;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -292,7 +299,7 @@ public class NewCustomerController implements Initializable {
             this.btAddToBill.setVisible(true);
 
         } catch (SQLException sqlException) {
-            Message.displayMassage("Warning",sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
@@ -414,6 +421,19 @@ public class NewCustomerController implements Initializable {
             psCustomerBill.setInt(3, patches);
             psCustomerBill.executeUpdate();
             this.setDefault();
+            try {
+                BillDetailsController.setTypeOfBill(false);
+                BillDetailsController.setBillID(customerBillID);
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
+                Stage window = new Stage();
+                window.initModality(Modality.APPLICATION_MODAL);
+                window.setTitle("Bill Details");
+                window.setScene(new Scene(root));
+                window.setResizable(false);
+                window.show();
+            } catch (IOException exception) {
+                Message.displayMassage("Warning", exception.getMessage());
+            }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }

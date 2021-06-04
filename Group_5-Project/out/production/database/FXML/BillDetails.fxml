@@ -111,7 +111,7 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <Label layoutX="498.0" layoutY="680.0" prefHeight="38.0" prefWidth="87.0" text="Patches: " textAlignment="RIGHT">
+      <Label fx:id="lblPatches" layoutX="498.0" layoutY="680.0" prefHeight="38.0" prefWidth="87.0" text="Patches: " textAlignment="RIGHT">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

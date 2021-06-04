@@ -159,7 +159,19 @@ public class SupplierBillController implements Initializable {
 
     private void detailsOf() {
         try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * from supplierbill S  where S.SupplierBillID=" + billID);
+            boolean isExist = resultSet.next();
+
+            if (!isExist) {
+                Message.displayMassage("Warning", billID + " Does not exist ");
+                this.txtSearch.clear();
+                this.rbDetailsOf.setSelected(false);
+                return;
+            }
+
             BillDetailsController.setTypeOfBill(false);
+            BillDetailsController.setBillID(billID);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -171,7 +183,7 @@ public class SupplierBillController implements Initializable {
                 this.rbDetailsOf.setSelected(false);
             });
             window.show();
-        } catch (IOException exception) {
+        } catch (IOException | SQLException exception) {
             Message.displayMassage("Warning", exception.getMessage());
         }
     }
