@@ -66,7 +66,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btSearchCustomerBill" contentDisplay="TOP" layoutX="14.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleBtSearch" styleClass="btSearch" stylesheets="@../Style/style.css" text="Search">
+      <Button fx:id="btSearchCustomerBill" contentDisplay="TOP" layoutX="14.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleBtSearch" styleClass="btSearch" stylesheets="@../Style/Style.css" text="Search">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -138,7 +138,7 @@
             </RadioButton>
          </children>
       </VBox>
-      <Button fx:id="btRefresh" layoutX="19.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="42.0" prefWidth="242.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh">
+      <Button fx:id="btRefresh" layoutX="19.0" layoutY="236.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="42.0" prefWidth="242.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

@@ -54,7 +54,7 @@
                         <Insets bottom="8.0" />
                     </HBox.margin>
                 </TextField>
-                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -89,7 +89,7 @@
                   <Insets />
               </opaqueInsets>
           </TableView>
-      <Button fx:id="btQuantityOf" layoutX="872.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleBtQuantityOf" prefHeight="39.0" prefWidth="168.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Quantity Of" />
+      <Button fx:id="btQuantityOf" layoutX="872.0" layoutY="186.0" mnemonicParsing="false" onAction="#handleBtQuantityOf" prefHeight="39.0" prefWidth="168.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Quantity Of" />
           <Label layoutX="19.0" layoutY="672.0" style="-fx-background-color: #ffffff;" text="Total Products">
               <font>
                   <Font name="System Bold" size="20.0" />
@@ -100,6 +100,6 @@
                   <Font name="System Bold" size="18.0" />
               </font>
           </Label>
-      <Button layoutX="514.0" layoutY="182.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button layoutX="514.0" layoutY="182.0" mnemonicParsing="false" onAction="#refresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
     </children>
 </AnchorPane>

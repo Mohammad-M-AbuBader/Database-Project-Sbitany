@@ -362,7 +362,7 @@
         </HBox>
         <AnchorPane prefHeight="88.0" prefWidth="525.0">
             <children>
-                <Button layoutX="131.0" layoutY="4.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" styleClass="buttonBack" stylesheets="@../Style/style.css" text="Back" textFill="WHITE">
+                <Button layoutX="131.0" layoutY="4.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" styleClass="buttonBack" stylesheets="@../Style/Style.css" text="Back" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="22.0" />
                     </font>

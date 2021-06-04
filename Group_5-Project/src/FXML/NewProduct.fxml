@@ -126,7 +126,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <Button fx:id="btInsertNewProduct" layoutX="157.0" layoutY="570.0" mnemonicParsing="false" onAction="#btHandleInsertNewProduct" prefHeight="50.0" prefWidth="279.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Insert NewProduct">
+      <Button fx:id="btInsertNewProduct" layoutX="157.0" layoutY="570.0" mnemonicParsing="false" onAction="#btHandleInsertNewProduct" prefHeight="50.0" prefWidth="279.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Insert NewProduct">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

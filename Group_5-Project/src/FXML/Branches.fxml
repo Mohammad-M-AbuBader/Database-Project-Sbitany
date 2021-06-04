@@ -78,7 +78,7 @@
                         <Insets bottom="8.0" />
                     </HBox.margin>
                 </TextField>
-                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+                <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -184,11 +184,11 @@
       </GridPane>
       <HBox alignment="CENTER" layoutX="20.0" layoutY="617.0" prefHeight="80.0" prefWidth="442.0" spacing="40.0">
          <children>
-            <Button fx:id="btAdd" mnemonicParsing="false" onAction="#handleBtAdd" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Add" />
-            <Button fx:id="btUpdate" mnemonicParsing="false" onAction="#handleBtUpdate" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Update" />
-            <Button fx:id="btDelete" mnemonicParsing="false" onAction="#handleBtDelete" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Delete" />
+            <Button fx:id="btAdd" mnemonicParsing="false" onAction="#handleBtAdd" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Add" />
+            <Button fx:id="btUpdate" mnemonicParsing="false" onAction="#handleBtUpdate" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Update" />
+            <Button fx:id="btDelete" mnemonicParsing="false" onAction="#handleBtDelete" prefHeight="39.0" prefWidth="100.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Delete" />
          </children>
       </HBox>
-      <Button fx:id="btRefresh" layoutX="1369.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button fx:id="btRefresh" layoutX="1369.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
     </children>
 </AnchorPane>

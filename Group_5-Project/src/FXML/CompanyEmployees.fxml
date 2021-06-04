@@ -42,7 +42,7 @@
       </Pane>
       <HBox alignment="CENTER" layoutX="1024.0" layoutY="147.0" prefHeight="51.0" prefWidth="316.0" spacing="12.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="1024.0" AnchorPane.topAnchor="147.0">
          <children>
-            <Button fx:id="btSearch" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSearch" styleClass="btSearch" stylesheets="@../Style/style.css" text="Search">
+            <Button fx:id="btSearch" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSearch" styleClass="btSearch" stylesheets="@../Style/Style.css" text="Search">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -110,6 +110,6 @@
             <ComboBox fx:id="cbxShow" onAction="#handleComboBoxShow" prefHeight="33.0" prefWidth="226.0" promptText="Display" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
          </children>
       </HBox>
-      <Button fx:id="btRefresh" layoutX="594.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button fx:id="btRefresh" layoutX="594.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
    </children>
 </AnchorPane>
