@@ -43,14 +43,13 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableSupplier" editable="true" layoutX="23.0" layoutY="290.0" prefHeight="418.0" prefWidth="859.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="tableSupplier" editable="true" layoutX="64.0" layoutY="283.0" prefHeight="418.0" prefWidth="787.0">
          <columns>
-            <TableColumn fx:id="cmSupplierID" editable="false" prefWidth="110.0" text="Supplier ID" />
-            <TableColumn fx:id="cmSupplierBillID" editable="false" prefWidth="150.0" text="Supplier Bill ID" />
-            <TableColumn fx:id="cmOrderAt" editable="false" prefWidth="150.0" text="Relese Date" />
-            <TableColumn fx:id="cmValueOfBill" editable="false" prefWidth="140.0" text="Value of bill" />
-            <TableColumn fx:id="cmDeposit" editable="false" minWidth="150.0" prefWidth="40.0" text="deposit" />
-            <TableColumn fx:id="cmPatches" editable="false" minWidth="150.0" prefWidth="40.0" text="patches" />
+            <TableColumn fx:id="cmSupplierBillID" editable="false" prefWidth="165.5999813079834" text="Supplier Bill ID" />
+            <TableColumn fx:id="cmOrderAt" editable="false" prefWidth="170.39996337890625" text="Relese Date" />
+            <TableColumn fx:id="cmValueOfBill" editable="false" prefWidth="154.39999389648438" text="Value of bill" />
+            <TableColumn fx:id="cmDeposit" editable="false" minWidth="103.199951171875" prefWidth="148.0" text="deposit" />
+            <TableColumn fx:id="cmPatches" editable="false" minWidth="62.39996337890625" prefWidth="146.4000244140625" text="patches" />
          </columns>
          <opaqueInsets>
             <Insets />
@@ -80,9 +79,9 @@
             </Label>
          </graphic>
       </Button>
-      <HBox layoutX="19.0" layoutY="715.0" prefHeight="62.0" prefWidth="866.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
+      <HBox layoutX="59.0" layoutY="715.0" prefHeight="62.0" prefWidth="794.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
          <children>
-            <AnchorPane prefHeight="62.0" prefWidth="870.0">
+            <AnchorPane prefHeight="62.0" prefWidth="791.0">
                <children>
                   <Label fx:id="lblNumberOfBills" layoutX="14.0" layoutY="11.0" prefHeight="39.0" prefWidth="166.0" style="-fx-background-color: transparent;" text=" Number Of Bills" textFill="WHITE">
                      <font>
@@ -94,12 +93,12 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="lblValues" layoutX="592.0" layoutY="11.0" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="Value Of Bills:" textFill="WHITE">
+                  <Label fx:id="lblValues" layoutX="512.0" layoutY="11.0" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="Value Of Bills:" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtValueOfBills" editable="false" layoutX="746.0" layoutY="10.0" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                  <TextField fx:id="txtValueOfBills" editable="false" layoutX="667.0" layoutY="10.0" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -108,8 +107,8 @@
             </AnchorPane>
          </children>
       </HBox>
-      <ComboBox fx:id="combBranchName" layoutX="666.0" layoutY="223.0" onAction="#handleCombBranchName" prefHeight="42.0" prefWidth="215.0" promptText="Branch Name" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
-      <VBox alignment="CENTER_LEFT" layoutX="332.0" layoutY="133.0" prefHeight="151.0" prefWidth="184.0" spacing="10.0" style="-fx-background-color: #ffffff;">
+      <ComboBox fx:id="combSuppliersNames" layoutX="658.0" layoutY="223.0" onAction="#handleCombSupplierBills" prefHeight="42.0" prefWidth="222.0" promptText="Select supplier name" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
+      <VBox alignment="CENTER_LEFT" layoutX="339.0" layoutY="132.0" prefHeight="151.0" prefWidth="184.0" spacing="20.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label prefHeight="36.0" prefWidth="165.0" style="-fx-background-color: transparent;" text="Search for the bill by:">
                <font>
@@ -124,11 +123,6 @@
                   <ToggleGroup fx:id="tgSearch" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="rbSupplierID" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Supplier ID:" toggleGroup="$tgSearch">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </RadioButton>
             <RadioButton fx:id="rbDetailsOf" mnemonicParsing="false" style="-fx-background-color: #ffffff;" text="Details Of Bill:" toggleGroup="$tgSearch">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -141,13 +135,13 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Label layoutX="535.0" layoutY="226.0" prefHeight="36.0" prefWidth="95.0" style="-fx-background-color: transparent;" text="Branch bills:">
+      <Label layoutX="523.0" layoutY="226.0" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: transparent;" text="Supplier Bills">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="combShow" layoutX="658.0" layoutY="166.0" onAction="#handleCombShow" prefHeight="42.0" prefWidth="222.0" promptText="Select One" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
-      <Label layoutX="535.0" layoutY="169.0" prefHeight="36.0" prefWidth="95.0" style="-fx-background-color: transparent;" text="Show">
+      <ComboBox fx:id="combShow" layoutX="658.0" layoutY="166.0" onAction="#handleCombShow" prefHeight="42.0" prefWidth="222.0" promptText="Select one" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
+      <Label layoutX="523.0" layoutY="169.0" prefHeight="36.0" prefWidth="95.0" style="-fx-background-color: transparent;" text="Show">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

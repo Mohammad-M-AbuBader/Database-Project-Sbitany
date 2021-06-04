@@ -25,12 +25,6 @@ public class GeneralManagerController {
     @FXML // fx:id="btLogout"
     private Button btLogout; // Value injected by FXMLLoader
 
-    private static int employeeID, branchID;
-
-    public static void setInfo(int branchID, int employeeID){
-        GeneralManagerController.employeeID = employeeID;
-        GeneralManagerController.branchID = branchID;
-    }
 
     public void handleBtBranches() {
         try {
@@ -95,7 +89,7 @@ public class GeneralManagerController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Customer.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Company Employees");
+            window.setTitle("Customers");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();
@@ -124,7 +118,7 @@ public class GeneralManagerController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/SupplierBill.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Customers Bills");
+            window.setTitle("Suppliers Bills");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();
@@ -138,7 +132,7 @@ public class GeneralManagerController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/CustomerBill.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Suppliers Bills");
+            window.setTitle("Customers Bills");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();

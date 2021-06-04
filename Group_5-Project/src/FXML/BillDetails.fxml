@@ -36,7 +36,7 @@
       <TableView fx:id="billTableView" editable="true" layoutX="245.0" layoutY="250.0" mouseTransparent="true" prefHeight="370.0" prefWidth="403.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmCodeProducts" prefWidth="127.19999694824219" text="Product Code" />
-            <TableColumn fx:id="cmPurchasingPrice" prefWidth="128.0" text="Purchasing price" />
+            <TableColumn fx:id="cmPrice" prefWidth="128.0" text="Price" />
             <TableColumn fx:id="cmQuantity" prefWidth="144.79998779296875" text="Quantity" />
          </columns>
          <opaqueInsets>
@@ -96,7 +96,7 @@
             <Font size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="txtDeposit" editable="false" layoutX="136.0" layoutY="682.0" prefHeight="34.0" prefWidth="218.0" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
+      <TextField fx:id="txtDeposit" editable="false" layoutX="142.0" layoutY="682.0" prefHeight="34.0" prefWidth="206.0" style="-fx-border-width: 0px0px2px0px; -fx-background-color: transparent; -fx-border-color: #4a4fda;">
          <font>
             <Font size="15.0" />
          </font>

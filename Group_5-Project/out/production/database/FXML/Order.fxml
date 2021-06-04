@@ -38,7 +38,7 @@
                 </Label>
             </children>
         </Pane>
-      <Button fx:id="btOrder" layoutX="169.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBtOrder" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Order">
+      <Button fx:id="btOrder" layoutX="169.0" layoutY="543.0" mnemonicParsing="false" onAction="#handleBtOrder" prefHeight="50.0" prefWidth="262.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Order">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

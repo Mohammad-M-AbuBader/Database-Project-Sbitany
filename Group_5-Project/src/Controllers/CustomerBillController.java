@@ -10,15 +10,22 @@ import DataBaseClasses.CustomerBill;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomerBillController implements Initializable {
@@ -78,6 +85,8 @@ public class CustomerBillController implements Initializable {
     private RadioButton rbDetailsOf; // Value injected by FXMLLoader
 
     private Connection con;
+
+    public static int billID;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -169,6 +178,7 @@ public class CustomerBillController implements Initializable {
                 return;
             }
         }
+        billID = Integer.parseInt(this.txtSearch.getText().trim());
         if (this.rbBillNumber.isSelected()) {
             this.searchByBillID();
         } else if (this.rbCustomerPersonalID.isSelected()) {
@@ -202,7 +212,22 @@ public class CustomerBillController implements Initializable {
     }
 
     private void detailsOf() {
-
+        try {
+            BillDetailsController.setTypeOfBill(true);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Bill Details");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.setOnCloseRequest(e -> {
+                this.txtSearch.clear();
+                this.rbDetailsOf.setSelected(false);
+            });
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
 

@@ -54,7 +54,7 @@
                   <Insets bottom="8.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+            <Button fx:id="btSearch" mnemonicParsing="false" onAction="#handleBtSearch" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -86,7 +86,7 @@
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Button fx:id="btRefresh" layoutX="876.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/style.css" text="Refresh" />
+      <Button fx:id="btRefresh" layoutX="876.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
       <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" layoutX="868.0" layoutY="635.0" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
          <font>
             <Font name="System Bold" size="15.0" />

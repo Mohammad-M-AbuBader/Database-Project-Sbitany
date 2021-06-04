@@ -82,7 +82,6 @@ public class ControllerLogin {
             if (resultSet.getString(3).equals("6")) {
                 windowFxml = "GeneralManager.fxml";
                 title = "GeneralManager";
-                GeneralManagerController.setInfo(branchID, employeeID);
             }
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/" + windowFxml)));
             Stage window = new Stage();

@@ -24,7 +24,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="btOrderProduct" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtOrderProduct" prefHeight="110.0" prefWidth="276.0" stylesheets="@../Style/style.css" text="Order Product" textFill="#4a4fda" GridPane.columnIndex="2">
+                <Button fx:id="btOrderProduct" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtOrderProduct" prefHeight="110.0" prefWidth="276.0" stylesheets="@../Style/Style.css" text="Order Product" textFill="#4a4fda" GridPane.columnIndex="2">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -40,7 +40,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btEmployees" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtEmployees" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/style.css" text="Employees" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button fx:id="btEmployees" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtEmployees" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/Style.css" text="Employees" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -56,7 +56,7 @@
                   </Label>
                </graphic>
                 </Button>
-                <Button fx:id="btLogout" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtLogout" prefHeight="110.0" prefWidth="282.0" stylesheets="@../Style/style.css" text="Logout" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button fx:id="btLogout" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtLogout" prefHeight="110.0" prefWidth="282.0" stylesheets="@../Style/Style.css" text="Logout" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -72,7 +72,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btNewCoustomer" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtNewCustomer" prefHeight="117.0" prefWidth="278.0" stylesheets="@../Style/style.css" text="New Customer" textFill="#4a4fda">
+                <Button fx:id="btNewCoustomer" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtNewCustomer" prefHeight="117.0" prefWidth="278.0" stylesheets="@../Style/Style.css" text="New Customer" textFill="#4a4fda">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -88,7 +88,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btProducts" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtProducts" prefHeight="110.0" prefWidth="296.0" stylesheets="@../Style/style.css" text="Products" textFill="#4a4fda" GridPane.columnIndex="1">
+                <Button fx:id="btProducts" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtProducts" prefHeight="110.0" prefWidth="296.0" stylesheets="@../Style/Style.css" text="Products" textFill="#4a4fda" GridPane.columnIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -104,7 +104,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btBranches" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranches" prefHeight="110.0" prefWidth="291.0" stylesheets="@../Style/style.css" text="Branches" textFill="#4a4fda" GridPane.rowIndex="1">
+                <Button fx:id="btBranches" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranches" prefHeight="110.0" prefWidth="291.0" stylesheets="@../Style/Style.css" text="Branches" textFill="#4a4fda" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>

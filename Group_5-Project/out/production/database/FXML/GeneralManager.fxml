@@ -25,7 +25,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button fx:id="btBranches" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranches" prefHeight="110.0" prefWidth="291.0" stylesheets="@../Style/style.css" text="Branches" textFill="#4a4fda" GridPane.columnIndex="2">
+                <Button fx:id="btBranches" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranches" prefHeight="110.0" prefWidth="291.0" stylesheets="@../Style/Style.css" text="Branches" textFill="#4a4fda" GridPane.columnIndex="2">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -41,7 +41,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btBranchGet" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranchGet" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/style.css" text="Record Movements" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <Button fx:id="btBranchGet" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtBranchGet" prefHeight="130.0" prefWidth="283.0" stylesheets="@../Style/Style.css" text="Record Movements" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -57,7 +57,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btLogout" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtLogout" prefHeight="110.0" prefWidth="282.0" stylesheets="@../Style/style.css" text="Logout" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                <Button fx:id="btLogout" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtLogout" prefHeight="110.0" prefWidth="282.0" stylesheets="@../Style/Style.css" text="Logout" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -73,7 +73,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btEmployee" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtEmployee" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/style.css" text="Employees" textFill="#4a4fda" GridPane.rowIndex="1">
+                <Button fx:id="btEmployee" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtEmployee" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/Style.css" text="Employees" textFill="#4a4fda" GridPane.rowIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -89,7 +89,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btCustomres" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtCustomres" prefHeight="110.0" prefWidth="292.0" stylesheets="@../Style/style.css" text="Customers" textFill="#4a4fda" GridPane.columnIndex="1">
+                <Button fx:id="btCustomres" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtCustomres" prefHeight="110.0" prefWidth="292.0" stylesheets="@../Style/Style.css" text="Customers" textFill="#4a4fda" GridPane.columnIndex="1">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -105,7 +105,7 @@
                         </Label>
                     </graphic>
                 </Button>
-                <Button fx:id="btProducts" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtProducts" prefHeight="110.0" prefWidth="296.0" stylesheets="@../Style/style.css" text="Products" textFill="#4a4fda">
+                <Button fx:id="btProducts" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtProducts" prefHeight="110.0" prefWidth="296.0" stylesheets="@../Style/Style.css" text="Products" textFill="#4a4fda">
                     <font>
                         <Font name="System Bold" size="19.0" />
                     </font>
@@ -121,7 +121,7 @@
                         </Label>
                     </graphic>
                 </Button>
-            <Button fx:id="btSupplierBills" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSupplierBills" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/style.css" text="Supplier Bills" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btSupplierBills" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSupplierBills" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/Style.css" text="Supplier Bills" textFill="#4a4fda" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -137,7 +137,7 @@
                   </Label>
                </graphic>
             </Button>
-            <Button fx:id="btCustomerBills" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtCustomerBills" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/style.css" text="Customers Bills" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btCustomerBills" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtCustomerBills" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/Style.css" text="Customers Bills" textFill="#4a4fda" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
@@ -153,7 +153,7 @@
                   </Label>
                </graphic>
             </Button>
-            <Button fx:id="btSuppliers" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSuppliers" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/style.css" text="Suppliers" textFill="#4a4fda" GridPane.rowIndex="2">
+            <Button fx:id="btSuppliers" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleBtSuppliers" prefHeight="130.0" prefWidth="294.0" stylesheets="@../Style/Style.css" text="Suppliers" textFill="#4a4fda" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>

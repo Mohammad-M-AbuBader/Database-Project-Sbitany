@@ -1,6 +1,6 @@
 /**
- * @autor: Mohammad AbuBader
- * ID: 1190478
+ * @autor: Mohammad AbuBader, Ameer Eleyan
+ * ID: 1190478, 1191076
  * At: 1-6-2021  12:00 AM
  */
 
@@ -9,20 +9,17 @@ package Controllers;
 import DataBaseClasses.SupplierBill;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,9 +38,6 @@ public class SupplierBillController implements Initializable {
     @FXML // fx:id="tableSupplier"
     private TableView<SupplierBill> tableSupplier; // Value injected by FXMLLoader
 
-    @FXML // fx:id="cmSupplierID"
-    private TableColumn<SupplierBill, String> cmSupplierID; // Value injected by FXMLLoader
-
     @FXML // fx:id="cmSupplierBillID"
     private TableColumn<SupplierBill, String> cmSupplierBillID; // Value injected by FXMLLoader
 
@@ -61,12 +55,6 @@ public class SupplierBillController implements Initializable {
     @FXML // fx:id="txtSearch"
     private TextField txtSearch; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btSearchSupplierBill"
-    private Button btSearchSupplierBill; // Value injected by FXMLLoader
-
-    @FXML // fx:id="lblNumberOfBills"
-    private Label lblNumberOfBills; // Value injected by FXMLLoader
-
     @FXML // fx:id="txNumberOfBill"
     private TextField txNumberOfBill; // Value injected by FXMLLoader
 
@@ -77,50 +65,23 @@ public class SupplierBillController implements Initializable {
     private TextField txtValueOfBills; // Value injected by FXMLLoader
 
     @FXML // fx:id="combBranchName"
-    private ComboBox<String > combBranchName; // Value injected by FXMLLoader
+    private ComboBox<String> combSuppliersNames; // Value injected by FXMLLoader
 
     @FXML // fx:id="rbBillNumber"
     private RadioButton rbBillNumber; // Value injected by FXMLLoader
 
-    @FXML // fx:id="tgSearch"
-    private ToggleGroup tgSearch; // Value injected by FXMLLoader
-
-    @FXML // fx:id="rbSupplierID"
-    private RadioButton rbSupplierID; // Value injected by FXMLLoader
 
     @FXML // fx:id="rbDetailsOf"
     private RadioButton rbDetailsOf; // Value injected by FXMLLoader
 
-    @FXML // fx:id="btRefresh"
-    private Button btRefresh; // Value injected by FXMLLoader
 
     @FXML // fx:id="combShow"
     private ComboBox<String> combShow; // Value injected by FXMLLoader
 
-
-
-
-    @FXML
-    void handleBtRefresh(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleBtSearch(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleCombBranchName(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleCombShow(ActionEvent event) {
-
-    }
-
     private Connection con;
+
+    public static int billID;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -130,14 +91,13 @@ public class SupplierBillController implements Initializable {
         this.tableSupplier.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
                 "'Times New Roman'; -fx-font-size:15; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
-        cmSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
         cmSupplierBillID.setCellValueFactory(new PropertyValueFactory<>("supplierBillID"));
         cmOrderAt.setCellValueFactory(new PropertyValueFactory<>("orderAt"));
         cmValueOfBill.setCellValueFactory(new PropertyValueFactory<>("valueOfBill"));
         cmDeposit.setCellValueFactory(new PropertyValueFactory<>("deposit"));
         cmPatches.setCellValueFactory(new PropertyValueFactory<>("patches"));
         this.refresh(" ");
-        this.fillCombBranchName();
+        this.fillCombSupplierNames();
         this.combShow.getItems().add("The paid bills");
         this.combShow.getItems().add("The unpaid bill");
 
@@ -147,23 +107,20 @@ public class SupplierBillController implements Initializable {
         this.tableSupplier.getItems().clear();
         this.txtSearch.clear();
         this.rbBillNumber.setSelected(false);
-        this.rbSupplierID.setSelected(false);
         this.rbDetailsOf.setSelected(false);
         try {
             String getSupplierBill = "SELECT * from SupplierBill S " + str;
             Statement statNumberOfBill = con.createStatement();
-            ResultSet resultNumberOfBill = statNumberOfBill.executeQuery("SELECT COUNT(*) FROM SupplierBill C " + str);
-            resultNumberOfBill.next();
-            if (resultNumberOfBill.getString(1) != null)
-                txNumberOfBill.setText(resultNumberOfBill.getString(1));
+            ResultSet resultNumberOfBill = statNumberOfBill.executeQuery("SELECT COUNT(*) FROM SupplierBill S " + str);
+            boolean isExist = resultNumberOfBill.next();
+            if (isExist) txNumberOfBill.setText(resultNumberOfBill.getString(1));
             else txNumberOfBill.setText("0");
 
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.valueOfBill) FROM SupplierBill S " + str);
-            resultValueOfBill.next();
+            boolean isExist2 = resultValueOfBill.next();
             this.lblValues.setText("Value Of Bills:");
-            if (resultValueOfBill.getString(1) != null)
-                txtValueOfBills.setText(resultValueOfBill.getString(1));
+            if (isExist2) txtValueOfBills.setText(resultValueOfBill.getString(1));
             else txtValueOfBills.setText("0");
 
             Statement stmt = con.createStatement();
@@ -174,11 +131,9 @@ public class SupplierBillController implements Initializable {
                 SupplierBill supplierBill = new SupplierBill();
                 supplierBill.setSupplierBillID(rs.getString(1));
                 supplierBill.setOrderAt(rs.getString(2));
-                supplierBill.setSupplierID(rs.getString(3));
                 supplierBill.setValueOfBill(rs.getString(4));
                 supplierBill.setDeposit(rs.getString(5));
                 supplierBill.setPatches(rs.getString(6));
-
 
                 this.tableSupplier.getItems().add(supplierBill);
                 flag = false;
@@ -191,33 +146,36 @@ public class SupplierBillController implements Initializable {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
+
     @FXML
     void handleBtRefresh() {
         refresh(" ");
     }
 
     private void searchByBillID() {
-        this.refresh("  where S.supplierBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
+        this.refresh(" where S.supplierBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
     }
-    private void searchBySupplierID() {
+
+
+    private void detailsOf() {
         try {
-            Statement customerID = con.createStatement();
-            ResultSet resultSupplierID = customerID.executeQuery("select S.SupplierID From Supplier S where S.SupplierID =" + Integer.parseInt((txtSearch.getText().trim())));
-            boolean isExist = resultSupplierID.next();
-            if (isExist)
-                this.refresh(" Where S.SupplierID=" + Integer.parseInt(resultSupplierID.getString(1).trim()));
-            else {
-                Message.displayMassage("Warning", this.txtSearch.getText().trim() + " Does not have bills");
+            BillDetailsController.setTypeOfBill(false);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Bill Details");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.setOnCloseRequest(e -> {
                 this.txtSearch.clear();
-            }
-        } catch (SQLException sqlException) {
-            Message.displayMassage("Warning", sqlException.getMessage());
+                this.rbDetailsOf.setSelected(false);
+            });
+            window.show();
+        } catch (IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
         }
     }
 
-    private void detailsOf() {
-
-    }
     @FXML
     void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
@@ -227,10 +185,9 @@ public class SupplierBillController implements Initializable {
                 return;
             }
         }
+        billID = Integer.parseInt(this.txtSearch.getText().trim());
         if (this.rbBillNumber.isSelected()) {
             this.searchByBillID();
-        } else if (this.rbSupplierID.isSelected()) {
-            this.searchBySupplierID();
         } else if (this.rbDetailsOf.isSelected()) {
             this.detailsOf();
         } else {
@@ -238,44 +195,51 @@ public class SupplierBillController implements Initializable {
         }
 
     }
-    private void fillCombBranchName() {
+
+    private void fillCombSupplierNames() {
         try {
-            String sqlBranchesName = "SELECT B.branchName from branch B";
+            String sqlBranchesName = "SELECT S.supplierName from Supplier S";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sqlBranchesName);
             while (rs.next()) {
-                if (rs.getString(1).trim().equals("Main Company")) continue;
-                this.combBranchName.getItems().add(rs.getString(1).trim());
+                this.combSuppliersNames.getItems().add(rs.getString(1).trim());
             }
             stmt.close();
             rs.close();
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
+
     @FXML
-    void handleCombBranchName() {
+    void handleCombSupplierBills() {
         this.tableSupplier.getItems().clear();
         try {
-            String bName = this.combBranchName.getValue().trim();
-            String getBranchID = "SELECT B.branchID from branch B where B.branchName= '" + bName + "'";
+            String supplierName = this.combSuppliersNames.getValue().trim();
+            String getSupplierID = "SELECT S.supplierID from supplier S where S.supplierName= '" + supplierName + "'";
             Statement bID = con.createStatement();
-            ResultSet resultBId = bID.executeQuery(getBranchID);
+            ResultSet resultBId = bID.executeQuery(getSupplierID);
             resultBId.next();
-            int branchID = Integer.parseInt(resultBId.getString(1).trim());
-            this.refresh(" where S.branchID=" + branchID);
+            int supplierID = Integer.parseInt(resultBId.getString(1).trim());
+            this.refresh(" where S.supplierID=" + supplierID);
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
+
     }
 
 
+    @FXML
+    void handleCombShow() {
+        if (this.combShow.getValue().equals("The paid bills")) getPaidBills();
+        else getUnpaidBills();
+    }
+
     private void getPaidBills() {
         try {
-            this.refresh(" where C.patches=0");
+            this.refresh(" where S.patches=0");
             Statement stmtValueOfBill = con.createStatement();
-            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.deposit) FROM SupplierBillID S where S.patches=0");
+            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.deposit) FROM SupplierBill S where S.patches=0");
             resultValueOfBill.next();
             this.lblValues.setText("Total paid bills:");
             this.txtValueOfBills.setText(resultValueOfBill.getString(1));
@@ -286,9 +250,9 @@ public class SupplierBillController implements Initializable {
 
     private void getUnpaidBills() {
         try {
-            this.refresh(" where C.patches>0");
+            this.refresh(" where S.patches>0");
             Statement stmtValueOfBill = con.createStatement();
-            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.patches) FROM SupplierBillID S where S.patches>0");
+            ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.patches)  FROM SupplierBill S where S.patches>0");
             resultValueOfBill.next();
             this.lblValues.setText("Total unpaid bills:");
             this.txtValueOfBills.setText(resultValueOfBill.getString(1));
@@ -296,18 +260,15 @@ public class SupplierBillController implements Initializable {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
-    @FXML
-    void handleCombShow() {
-        if (this.combShow.getValue().equals("The paid bills")) getPaidBills();
-        else getUnpaidBills();
-    }
 
-    public void handleBtInsertNewBill(){
+
+    @FXML
+    void handleBtInsertNewBill() {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/NewSupplierBill.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Company Branches");
+            window.setTitle("Insert New Supplier Bill");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();

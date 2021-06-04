@@ -67,7 +67,7 @@
                   <Insets bottom="8.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="btQuantityOf" mnemonicParsing="false" onAction="#handleBtQuantity" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/style.css">
+            <Button fx:id="btQuantityOf" mnemonicParsing="false" onAction="#handleBtQuantity" prefHeight="34.0" prefWidth="44.0" styleClass="btSearch" stylesheets="@../Style/Style.css">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

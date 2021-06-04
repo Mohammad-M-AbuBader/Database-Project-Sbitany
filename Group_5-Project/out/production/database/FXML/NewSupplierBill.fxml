@@ -115,7 +115,7 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </opaqueInsets>
       </HBox>
-      <Button fx:id="btCreateBill" layoutX="180.0" layoutY="349.0" mnemonicParsing="false" onAction="#btHandleCreateBill" prefHeight="49.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="New Bill">
+      <Button fx:id="btCreateBill" layoutX="180.0" layoutY="349.0" mnemonicParsing="false" onAction="#btHandleCreateBill" prefHeight="49.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="New Bill">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -159,7 +159,7 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="btAddToBill" layoutX="41.0" layoutY="460.0" mnemonicParsing="false" onAction="#btHandleAddToBill" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Add to bill" visible="false">
+      <Button fx:id="btAddToBill" layoutX="41.0" layoutY="460.0" mnemonicParsing="false" onAction="#btHandleAddToBill" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Add to bill" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -187,17 +187,17 @@
             </TextField>
          </children>
       </HBox>
-      <Button fx:id="btPrintBill" layoutX="181.0" layoutY="667.0" mnemonicParsing="false" onAction="#handleBtPrintBill" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="PrintBill" visible="false">
+      <Button fx:id="btPrintBill" layoutX="181.0" layoutY="667.0" mnemonicParsing="false" onAction="#handleBtPrintBill" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="PrintBill" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btAddNewProduct" layoutX="316.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleBtNewProduct" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Add New Product" visible="false">
+      <Button fx:id="btAddNewProduct" layoutX="316.0" layoutY="460.0" mnemonicParsing="false" onAction="#handleBtNewProduct" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Add New Product" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btSaveAndCalculate" layoutX="181.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleBtSave" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/style.css" text="Save And Calcualte" visible="false">
+      <Button fx:id="btSaveAndCalculate" layoutX="181.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleBtSave" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="Save And Calcualte" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
