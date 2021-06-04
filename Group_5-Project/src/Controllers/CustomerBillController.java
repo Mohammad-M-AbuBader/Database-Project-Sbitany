@@ -9,6 +9,7 @@ package Controllers;
 import DataBaseClasses.CustomerBill;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -94,9 +95,6 @@ public class CustomerBillController implements Initializable {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         con = connection.connectSbitanyDB();
 
-        this.tableCustomerBill.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:15; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
-
         cmBillID.setCellValueFactory(new PropertyValueFactory<>("customerBillID"));
         cmCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         cmEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
@@ -105,13 +103,13 @@ public class CustomerBillController implements Initializable {
         cmValueOfBill.setCellValueFactory(new PropertyValueFactory<>("valueOfBill"));
         cmDeposit.setCellValueFactory(new PropertyValueFactory<>("deposit"));
         cmPatches.setCellValueFactory(new PropertyValueFactory<>("patches"));
-        this.refresh(" ");
+        this.execute(" ");
         this.fillCombBranchName();
         this.combShow.getItems().add("The paid bills");
         this.combShow.getItems().add("The unpaid bill");
     }
 
-    private void refresh(String str) {
+    private void execute(String str) {
         this.tableCustomerBill.getItems().clear();
         this.txtSearch.clear();
         this.rbBillNumber.setSelected(false);
@@ -122,16 +120,15 @@ public class CustomerBillController implements Initializable {
             Statement statNumberOfBill = con.createStatement();
             ResultSet resultNumberOfBill = statNumberOfBill.executeQuery("SELECT COUNT(*) FROM customerbill C " + str);
             resultNumberOfBill.next();
-            if (resultNumberOfBill.getString(1) != null)
-                txNumberOfBill.setText(resultNumberOfBill.getString(1));
+
+            if (resultNumberOfBill.getString(1) != null) txNumberOfBill.setText(resultNumberOfBill.getString(1));
             else txNumberOfBill.setText("0");
 
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.valueOfBill) FROM customerbill C " + str);
             resultValueOfBill.next();
             this.lblValues.setText("Value Of Bills:");
-            if (resultValueOfBill.getString(1) != null)
-                txtValueOfBills.setText(resultValueOfBill.getString(1));
+            if (resultValueOfBill.getString(1) != null) txtValueOfBills.setText(resultValueOfBill.getString(1));
             else txtValueOfBills.setText("0");
 
             Statement stmt = con.createStatement();
@@ -156,8 +153,7 @@ public class CustomerBillController implements Initializable {
                 flag = false;
             }
             if (flag) {
-                Message.displayMassage("Warning", "There are no bills");
-                this.txtSearch.clear();
+                Message.displayMassage("Warning", "Does not exist");
             }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
@@ -166,13 +162,13 @@ public class CustomerBillController implements Initializable {
 
     @FXML
     void handleBtRefresh() {
-        refresh(" ");
+        execute(" ");
     }
 
     @FXML
     void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
-            if (!isNumber(this.txtSearch.getText().trim())) {
+            if (!Methods.isNumber(this.txtSearch.getText().trim())) {
                 Message.displayMassage("Warning", " The ID is invalid ");
                 this.txtSearch.clear();
                 return;
@@ -192,7 +188,7 @@ public class CustomerBillController implements Initializable {
     }
 
     private void searchByBillID() {
-        this.refresh("  where C.customerBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
+        this.execute("  where C.customerBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
     }
 
     private void searchByBCustomerPersonalID() {
@@ -201,7 +197,7 @@ public class CustomerBillController implements Initializable {
             ResultSet resultCustomerID = customerID.executeQuery("select C.customerID From customer C where C.cardID =" + Integer.parseInt((txtSearch.getText().trim())));
             boolean isExist = resultCustomerID.next();
             if (isExist)
-                this.refresh(" Where C.customerID=" + Integer.parseInt(resultCustomerID.getString(1).trim()));
+                this.execute(" Where C.customerID=" + Integer.parseInt(resultCustomerID.getString(1).trim()));
             else {
                 Message.displayMassage("Warning", this.txtSearch.getText().trim() + " Does not have bills");
                 this.txtSearch.clear();
@@ -268,7 +264,7 @@ public class CustomerBillController implements Initializable {
             ResultSet resultBId = bID.executeQuery(getBranchID);
             resultBId.next();
             int branchID = Integer.parseInt(resultBId.getString(1).trim());
-            this.refresh(" where C.branchID=" + branchID);
+            this.execute(" where C.branchID=" + branchID);
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -284,7 +280,7 @@ public class CustomerBillController implements Initializable {
 
     private void getPaidBills() {
         try {
-            this.refresh(" where C.patches=0");
+            this.execute(" where C.patches=0");
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.deposit) FROM customerbill C where C.patches=0");
             resultValueOfBill.next();
@@ -297,7 +293,7 @@ public class CustomerBillController implements Initializable {
 
     private void getUnpaidBills() {
         try {
-            this.refresh(" where C.patches>0");
+            this.execute(" where C.patches>0");
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(C.patches) FROM customerbill C where C.patches>0");
             resultValueOfBill.next();
@@ -308,18 +304,4 @@ public class CustomerBillController implements Initializable {
         }
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

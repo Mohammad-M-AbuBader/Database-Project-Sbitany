@@ -9,6 +9,7 @@ package Controllers;
 import DataBaseClasses.Employee;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -24,7 +25,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class CompanyEmployeeController implements Initializable {
+public class SpecificDataOfEmployeeController implements Initializable {
 
 
     @FXML // fx:id="txtEmployeeID"
@@ -72,8 +73,6 @@ public class CompanyEmployeeController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         con = connection.connectSbitanyDB();
-        this.tableEmployee.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
         cmEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         cmEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
@@ -85,16 +84,15 @@ public class CompanyEmployeeController implements Initializable {
         cmJobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitleID"));
         cmAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        String getBranchesName = "SELECT B.branchName from branch B";
-
         try {
+
+            String getBranchesName = "SELECT B.branchName from branch B";
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getBranchesName);
 
-            while (rs.next()) {
-                this.cbxBranch.getItems().add(rs.getString(1).trim());
-            }
+            while (rs.next()) this.cbxBranch.getItems().add(rs.getString(1).trim());
+
             this.cbxShow.getItems().add("Firing Employees");
             this.cbxShow.getItems().add("Branch Accountants");
             this.cbxShow.getItems().add("Branch Managers");
@@ -105,30 +103,26 @@ public class CompanyEmployeeController implements Initializable {
 
             rs.close();
             stmt.close();
-            this.refresh(" where E.employeeFiringDate is null");
+            this.execute(" where E.employeeFiringDate is null");
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
     @FXML
     void handleBtRefresh() {
-        this.refresh(" where E.employeeFiringDate is null");
+        this.execute(" where E.employeeFiringDate is null");
     }
 
-    private void refresh(String str) {
+    private void execute(String str) {
         this.tableEmployee.getItems().clear();
-
         try {
 
-            ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
-            Connection con = connection.connectSbitanyDB();
             String getEmployee = "SELECT * from Employee E " + str;
-
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getEmployee);
-
+            boolean flag = true;
             while (rs.next()) {
                 Employee employee = new Employee();
                 String id = rs.getString(1);
@@ -166,43 +160,31 @@ public class CompanyEmployeeController implements Initializable {
                 }
                 rs5.next();
                 employee.setAddress(rs5.getString(1));
-
                 this.tableEmployee.getItems().add(employee);
+                flag = false;
             }
 
+            if (flag) {
+                Message.displayMassage("Warning", txtEmployeeID.getText().trim() + " Does not exist");
+                return;
+            }
             rs.close();
             stmt.close();
 
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
     @FXML
     void handleBtSearch() {
         if (!this.txtEmployeeID.getText().trim().isEmpty()) {
-            if (!isNumber(this.txtEmployeeID.getText().trim())) {
+            if (!Methods.isNumber(this.txtEmployeeID.getText().trim())) {
                 Message.displayMassage("Warning", this.txtEmployeeID.getText() + " is invalid ");
                 this.txtEmployeeID.clear();
                 return;
             }
-            String search = "SELECT * from employee E where E.employeeFiringDate is null and E.employeeID=" + Integer.parseInt(this.txtEmployeeID.getText().trim());
-
-            try {
-                assert con != null;
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(search);
-                boolean empty = rs.next();
-                if (!empty) {
-                    Message.displayMassage("Warning", this.txtEmployeeID.getText() + " Does not exist ");
-                    this.txtEmployeeID.clear();
-                    return;
-                }
-                this.refresh(" where E.employeeID=" + Integer.parseInt(this.txtEmployeeID.getText().trim()));
-
-            } catch (SQLException sqlException) {
-                System.out.println(sqlException.getMessage());
-            }
+            this.execute(" where E.employeeID=" + Integer.parseInt(this.txtEmployeeID.getText().trim()));
         }
     }
 
@@ -224,35 +206,34 @@ public class CompanyEmployeeController implements Initializable {
         } else {
             this.showGeneralManger();
         }
-
     }
 
     private void showFiringEmployee() {
-        this.refresh(" where E.employeeFiringDate is not null");
+        this.execute(" where E.employeeFiringDate is not null");
     }
 
     private void showBranchAccountants() {
-        this.refresh(" where E.jobTitleID=1 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=1 and E.employeeFiringDate is null");
     }
 
     private void showBranchManagers() {
-        this.refresh(" where E.jobTitleID=3 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=3 and E.employeeFiringDate is null");
     }
 
     private void showSalesEmployees() {
-        this.refresh(" where E.jobTitleID=2 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=2 and E.employeeFiringDate is null");
     }
 
     private void showPersonnelOfficer() {
-        this.refresh(" where E.jobTitleID=5 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=5 and E.employeeFiringDate is null");
     }
 
     private void showCompanyAccountant() {
-        this.refresh(" where E.jobTitleID=4 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=4 and E.employeeFiringDate is null");
     }
 
     private void showGeneralManger() {
-        this.refresh(" where E.jobTitleID=6 and E.employeeFiringDate is null");
+        this.execute(" where E.jobTitleID=6 and E.employeeFiringDate is null");
     }
 
     @FXML
@@ -265,22 +246,9 @@ public class CompanyEmployeeController implements Initializable {
             ResultSet resultBId = bID.executeQuery(getBranchID);
             resultBId.next();
             int branchID = Integer.parseInt(resultBId.getString(1).trim());
-            this.refresh(" where E.branchID=" + branchID);
+            this.execute(" where E.branchID=" + branchID);
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
-        }
-    }
-
-    // To check the value of the entered numberOfShares if contain only digits or not
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 

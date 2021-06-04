@@ -72,13 +72,16 @@
        -fx-text-fill: #ffffff;
   }
 
-   .table{
-    -fx-background-color: #ffffff;
-    -fx-border-color: #000000;
-    -fx-border-width:2;
-    -fx-font-family:'Times New Roman';
-    -fx-font-size:15;
-    -fx-text-fill: #000000;
-    -fx-font-weight: BOLd;
-    }
+
+  .table{
+     -fx-background-color: #ffffff;
+     -fx-border-color: #000000;
+     -fx-border-width:2;
+     -fx-font-family:'Times New Roman';
+     -fx-font-size:15;
+     -fx-text-fill: #000000;
+     -fx-font-weight: BOLd;
+ }
+
+
 

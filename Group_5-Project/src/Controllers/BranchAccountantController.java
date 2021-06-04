@@ -48,7 +48,7 @@ public class BranchAccountantController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Order.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Product Order");
+            window.setTitle("Order Products");
             window.setScene(new Scene(root));
             window.setResizable(false);
             OrderProductController.setInfo(branchID);
@@ -65,7 +65,7 @@ public class BranchAccountantController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BranchesForAccountant.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Company Employee");
+            window.setTitle("Branches");
             window.setScene(new Scene(root));
             window.setResizable(false);
             window.show();
@@ -78,7 +78,7 @@ public class BranchAccountantController {
     @FXML
     void handleBtEmployees() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/CompanyEmployees.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/SpecificDataOfEmployee.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Company Employee");
@@ -113,7 +113,7 @@ public class BranchAccountantController {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/NewCustomer.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Login");
+            window.setTitle("New Customer");
             window.setScene(new Scene(root));
             window.setResizable(false);
             NewCustomerController.setInfo(branchID, employeeID);
@@ -122,7 +122,6 @@ public class BranchAccountantController {
             Message.displayMassage("Warning", exception.getMessage());
         }
     }
-
 
 }
 

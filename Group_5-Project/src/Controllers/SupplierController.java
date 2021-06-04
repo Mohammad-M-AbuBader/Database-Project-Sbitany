@@ -8,11 +8,9 @@ package Controllers;
 import DataBaseClasses.Supplier;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
-import javafx.event.ActionEvent;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class SupplierController  implements Initializable {
+public class SupplierController implements Initializable {
 
     @FXML // fx:id="tableSupplier"
     private TableView<Supplier> tableSupplier; // Value injected by FXMLLoader
@@ -51,7 +49,6 @@ public class SupplierController  implements Initializable {
     @FXML // fx:id="txSupplierID"
     private TextField txSupplierID; // Value injected by FXMLLoader
 
-
     Connection con;
 
     @Override
@@ -64,10 +61,10 @@ public class SupplierController  implements Initializable {
         cmSupplierPhone.setCellValueFactory(new PropertyValueFactory<>("supplierPhone"));
         cmSupplierEmail.setCellValueFactory(new PropertyValueFactory<>("supplierEmail"));
         cmSupplierFax.setCellValueFactory(new PropertyValueFactory<>("supplierFax"));
-        this.refresh(" ");
+        this.execute(" ");
     }
 
-    private void refresh(String str) {
+    private void execute(String str) {
         this.tableSupplier.getItems().clear();
         this.txSupplierID.clear();
         try {
@@ -83,7 +80,7 @@ public class SupplierController  implements Initializable {
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getSupplier);
-
+            boolean flag = true;
             while (rs.next()) {
                 Supplier supplier = new Supplier();
                 String id = rs.getString(1);
@@ -93,8 +90,11 @@ public class SupplierController  implements Initializable {
                 supplier.setSupplierEmail(rs.getString(4));
                 supplier.setSupplierFax(rs.getString(5));
 
-
                 this.tableSupplier.getItems().add(supplier);
+                flag = false;
+            }
+            if (flag) {
+                Message.displayMassage("Warning", "Does not exist");
             }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
@@ -103,62 +103,19 @@ public class SupplierController  implements Initializable {
 
     @FXML
     void handleBtRefresh() {
-        this.refresh(" ");
+        this.execute(" ");
     }
 
     @FXML
     void handleBtSearch() {
         if (!this.txSupplierID.getText().trim().isEmpty()) {
-            if (!isNumber(this.txSupplierID.getText().trim())) {
+            if (!Methods.isNumber(this.txSupplierID.getText().trim())) {
                 Message.displayMassage("Warning", " Supplier ID is invalid ");
                 this.txSupplierID.clear();
                 return;
             }
         }
-
-        String search = "SELECT * from Supplier S where S.SupplierID=" + Integer.parseInt(this.txSupplierID.getText().trim());
-
-        try {
-            assert con != null;
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(search);
-            boolean empty = rs.next();
-            if (!empty) {
-                Message.displayMassage("Warning", this.txSupplierID.getText() + " Does not exist ");
-                this.txSupplierID.clear();
-                return;
-            }
-            Supplier supplier = new Supplier();
-            String id = rs.getString(1);
-            supplier.setSupplierID(id);
-            supplier.setSupplierName(rs.getString(2));
-            supplier.setSupplierPhone(rs.getString(3));
-            supplier.setSupplierEmail(rs.getString(4));
-            supplier.setSupplierFax(rs.getString(5));
-
-            this.tableSupplier.getItems().clear();
-            this.tableSupplier.getItems().add(supplier);
-            this.txSupplierID.clear();
-
-        } catch (SQLException sqlException) {
-            Message.displayMassage("Warning",sqlException.getMessage());
-        }
-
-    }
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        this.execute("where S.SupplierID=" + Integer.parseInt(this.txSupplierID.getText().trim()));
     }
 
 }

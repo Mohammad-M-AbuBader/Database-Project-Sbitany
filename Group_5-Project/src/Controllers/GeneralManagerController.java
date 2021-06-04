@@ -72,7 +72,7 @@ public class GeneralManagerController {
 
     public void handleBtEmployee() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/GeneralMangerEmployees.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/AllCompanyEmployees.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setTitle("Company Employees");

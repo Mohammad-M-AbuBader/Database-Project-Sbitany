@@ -75,7 +75,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <TableView fx:id="tableBranches" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1014.0">
+      <TableView fx:id="tableBranches" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1014.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmBranchId" editable="false" prefWidth="85.59997272491455" sortable="false" text="ID" />
             <TableColumn fx:id="cmBranchName" editable="false" prefWidth="298.40000915527344" sortable="false" text="Name" />

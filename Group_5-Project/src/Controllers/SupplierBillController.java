@@ -9,6 +9,7 @@ package Controllers;
 import DataBaseClasses.SupplierBill;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -96,14 +97,14 @@ public class SupplierBillController implements Initializable {
         cmValueOfBill.setCellValueFactory(new PropertyValueFactory<>("valueOfBill"));
         cmDeposit.setCellValueFactory(new PropertyValueFactory<>("deposit"));
         cmPatches.setCellValueFactory(new PropertyValueFactory<>("patches"));
-        this.refresh(" ");
+        this.execute(" ");
         this.fillCombSupplierNames();
         this.combShow.getItems().add("The paid bills");
         this.combShow.getItems().add("The unpaid bill");
 
     }
 
-    private void refresh(String str) {
+    private void execute(String str) {
         this.tableSupplier.getItems().clear();
         this.txtSearch.clear();
         this.rbBillNumber.setSelected(false);
@@ -140,7 +141,6 @@ public class SupplierBillController implements Initializable {
             }
             if (flag) {
                 Message.displayMassage("Warning", "There are no bills");
-                this.txtSearch.clear();
             }
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
@@ -149,11 +149,11 @@ public class SupplierBillController implements Initializable {
 
     @FXML
     void handleBtRefresh() {
-        refresh(" ");
+        execute(" ");
     }
 
     private void searchByBillID() {
-        this.refresh(" where S.supplierBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
+        this.execute(" where S.supplierBillID=" + Integer.parseInt(this.txtSearch.getText().trim()));
     }
 
 
@@ -191,7 +191,7 @@ public class SupplierBillController implements Initializable {
     @FXML
     void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
-            if (!isNumber(this.txtSearch.getText().trim())) {
+            if (!Methods.isNumber(this.txtSearch.getText().trim())) {
                 Message.displayMassage("Warning", " The ID is invalid ");
                 this.txtSearch.clear();
                 return;
@@ -233,7 +233,7 @@ public class SupplierBillController implements Initializable {
             ResultSet resultBId = bID.executeQuery(getSupplierID);
             resultBId.next();
             int supplierID = Integer.parseInt(resultBId.getString(1).trim());
-            this.refresh(" where S.supplierID=" + supplierID);
+            this.execute(" where S.supplierID=" + supplierID);
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
@@ -249,7 +249,7 @@ public class SupplierBillController implements Initializable {
 
     private void getPaidBills() {
         try {
-            this.refresh(" where S.patches=0");
+            this.execute(" where S.patches=0");
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.deposit) FROM SupplierBill S where S.patches=0");
             resultValueOfBill.next();
@@ -262,7 +262,7 @@ public class SupplierBillController implements Initializable {
 
     private void getUnpaidBills() {
         try {
-            this.refresh(" where S.patches>0");
+            this.execute(" where S.patches>0");
             Statement stmtValueOfBill = con.createStatement();
             ResultSet resultValueOfBill = stmtValueOfBill.executeQuery("SELECT SUM(S.patches)  FROM SupplierBill S where S.patches>0");
             resultValueOfBill.next();
@@ -286,21 +286,6 @@ public class SupplierBillController implements Initializable {
             window.show();
         } catch (IOException exception) {
             Message.displayMassage("Warning", exception.getMessage());
-        }
-    }
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 

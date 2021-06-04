@@ -10,12 +10,14 @@ import DataBaseClasses.QuantityOf;
 
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.net.URL;
 
 import java.sql.Connection;
@@ -46,16 +48,14 @@ public class QuantityOfController implements Initializable {
         con = connection.connectSbitanyDB();
         this.cmStorageName.setCellValueFactory(new PropertyValueFactory<>("storageName"));
         this.cmQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        this.quantityTableView.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
     }
 
     public void handleBtQuantity() {
         if (!this.txQuantityOf.getText().trim().isEmpty()) {
 
-            if (!isNumber(this.txQuantityOf.getText().trim())) {
-               Message.displayMassage("Warning", " Product code is invalid ");
+            if (!Methods.isNumber(this.txQuantityOf.getText().trim())) {
+                Message.displayMassage("Warning", " Product code is invalid ");
                 this.txQuantityOf.clear();
                 return;
             }
@@ -68,11 +68,11 @@ public class QuantityOfController implements Initializable {
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(quantityOf);
                 boolean isExist = rs.next();
-                if(isExist){
+                if (isExist) {
                     QuantityOf quantity = new QuantityOf(rs.getString(1), rs.getString(2));
                     this.quantityTableView.getItems().add(quantity);
-                }else{
-                    Message.displayMassage("Warning"," This product is not currently available ");
+                } else {
+                    Message.displayMassage("Warning", " This product is not currently available ");
                     return;
                 }
                 while (rs.next()) {
@@ -81,22 +81,8 @@ public class QuantityOfController implements Initializable {
                 }
 
             } catch (SQLException sqlException) {
-                Message.displayMassage("Warning",sqlException.getMessage());
+                Message.displayMassage("Warning", sqlException.getMessage());
             }
-
-        }
-    }
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    private static boolean isNumber(String number) {
-        // To check the entered number of shares, that it consists of only digits
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 

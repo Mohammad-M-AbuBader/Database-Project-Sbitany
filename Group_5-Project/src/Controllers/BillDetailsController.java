@@ -9,15 +9,13 @@ package Controllers;
 import DataBaseClasses.BillDetails;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+
 
 import java.net.URL;
 import java.sql.Connection;
@@ -93,6 +91,8 @@ public class BillDetailsController implements Initializable {
 
     private void customerBill() {
         try {
+
+            // get bill info
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from customerbill C  where C.customerBillID=" + billID);
             resultSet.next();
@@ -104,6 +104,7 @@ public class BillDetailsController implements Initializable {
             txtDeposit.setText(resultSet.getString(7));
             txtPatches.setText(resultSet.getString(8));
 
+            // get customer name
             int customerID = Integer.parseInt(resultSet.getString(4).trim());
             statement = con.createStatement();
             resultSet = statement.executeQuery("select C.customerName from customer C where C.customerID=" + customerID);
@@ -111,9 +112,11 @@ public class BillDetailsController implements Initializable {
             txtTo.setText(resultSet.getString(1));
 
 
+            // get the products in the bill
             statement = con.createStatement();
             resultSet = statement.executeQuery("select  * from customerbilldetails C  where C.customerBillID=" + billID);
 
+            // add product to the table
             while (resultSet.next()) {
                 BillDetails billDetails = new BillDetails();
                 billDetails.setProductCode(resultSet.getString(2));
@@ -134,13 +137,8 @@ public class BillDetailsController implements Initializable {
         try {
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * from supplierbill S  where S.SupplierBillID=" + billID);
-            boolean isExist = resultSet.next();
+            resultSet.next();
 
-            if (!isExist) {
-                Message.displayMassage("Warning", billID + " Does not exist ");
-                Stage currentStage = (Stage) this.txtFrom.getScene().getWindow();
-                currentStage.close();
-            }
 
             // get bill info
             this.txtBillId.setText(billID + "");

@@ -99,7 +99,7 @@
                 <Insets />
             </opaqueInsets>
         </HBox>
-          <TableView fx:id="tableBranches" editable="true" layoutX="479.0" layoutY="232.0" onMouseClicked="#getSelected" prefHeight="431.0" prefWidth="994.0">
+          <TableView fx:id="tableBranches" editable="true" layoutX="479.0" layoutY="232.0" onMouseClicked="#getSelected" prefHeight="431.0" prefWidth="994.0" styleClass="table" stylesheets="@../Style/Style.css">
               <columns>
                   <TableColumn fx:id="cmBranchId" editable="false" prefWidth="72.79998779296875" sortable="false" text="ID" />
                   <TableColumn fx:id="cmBranchName" editable="false" prefWidth="300.0" sortable="false" text="Name" />

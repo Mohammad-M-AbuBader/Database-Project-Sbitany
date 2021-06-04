@@ -81,7 +81,7 @@
             <ComboBox fx:id="cbxBranch" onAction="#selectBranch" prefHeight="39.0" prefWidth="238.0" promptText="Branch" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
          </children>
       </HBox>
-      <TableView fx:id="tableEmployee" layoutX="10.0" layoutY="248.0" prefHeight="469.0" prefWidth="1335.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="tableEmployee" layoutX="10.0" layoutY="248.0" prefHeight="469.0" prefWidth="1335.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmEmployeeID" prefWidth="123.19997882843018" text="ID" />
             <TableColumn fx:id="cmPersonalID" prefWidth="148.00001525878906" text="Personal ID" />

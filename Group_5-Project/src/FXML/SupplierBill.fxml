@@ -43,7 +43,7 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableSupplier" editable="true" layoutX="64.0" layoutY="283.0" prefHeight="418.0" prefWidth="787.0">
+      <TableView fx:id="tableSupplier" editable="true" layoutX="64.0" layoutY="283.0" prefHeight="418.0" prefWidth="787.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmSupplierBillID" editable="false" prefWidth="165.5999813079834" text="Supplier Bill ID" />
             <TableColumn fx:id="cmOrderAt" editable="false" prefWidth="170.39996337890625" text="Relese Date" />

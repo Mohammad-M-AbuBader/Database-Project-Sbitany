@@ -7,6 +7,7 @@ package Controllers;
 
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -34,9 +35,8 @@ public class OrderProductController implements Initializable {
 
     private Connection con;
 
-    int remainingQuantity, requiredQuantity,
-            availableQuantityFromSourceStorage, sourceBranchID,
-            sourceStorageID, destinationStorageID;
+    int remainingQuantity, requiredQuantity, availableQuantityFromSourceStorage,
+            sourceBranchID, sourceStorageID, destinationStorageID;
 
     private static int destinationBranchID;
 
@@ -57,17 +57,17 @@ public class OrderProductController implements Initializable {
     public void handleBtOrder() {
         try {
 
-            if (txtCodeProduct.getText().trim().isEmpty() || !isNumber(txtCodeProduct.getText().trim())) {
+            if (txtCodeProduct.getText().trim().isEmpty() || !Methods.isNumber(txtCodeProduct.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter valid product code");
                 return;
             }
 
-            if (txtQuantityOf.getText().trim().isEmpty() || !isNumber(txtQuantityOf.getText().trim())) {
+            if (txtQuantityOf.getText().trim().isEmpty() || !Methods.isNumber(txtQuantityOf.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter valid quantity");
                 return;
             }
 
-            if (txtEmployeeID.getText().trim().isEmpty() || !isNumber(txtEmployeeID.getText().trim())) {
+            if (txtEmployeeID.getText().trim().isEmpty() || !Methods.isNumber(txtEmployeeID.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter valid employee ID");
                 return;
             }
@@ -179,7 +179,7 @@ public class OrderProductController implements Initializable {
                 txtCodeProduct.clear();
                 txtQuantityOf.clear();
                 txtEmployeeID.clear();
-                Message.displayMassage("Successfully","Product ordering and transaction registration completed successfully");
+                Message.displayMassage("Successfully", "Product ordering and transaction registration completed successfully");
             }
 
         } catch (SQLException sqlException) {
@@ -200,22 +200,6 @@ public class OrderProductController implements Initializable {
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
 
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            long temp = Long.parseLong(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.net.URL;
 import java.sql.*;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -475,7 +474,6 @@ public class NewCustomerController implements Initializable {
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
 
 }

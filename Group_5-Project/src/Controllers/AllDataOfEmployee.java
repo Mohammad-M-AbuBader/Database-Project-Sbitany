@@ -8,6 +8,7 @@ package Controllers;
 import DataBaseClasses.Employee;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +28,7 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllDataForEmployee implements Initializable {
+public class AllDataOfEmployee implements Initializable {
 
 
     @FXML // fx:id="txtSearch"
@@ -113,9 +114,6 @@ public class AllDataForEmployee implements Initializable {
         this.cmPhone.setCellValueFactory(new PropertyValueFactory<>("employeePhone"));
         this.cmAge.setCellValueFactory(new PropertyValueFactory<>("employeeAge"));
 
-        this.tableEmployee.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
-
         String getBranchesName = "SELECT B.branchName from branch B";
 
         try {
@@ -136,37 +134,21 @@ public class AllDataForEmployee implements Initializable {
             rs.close();
             stmt.close();
             this.execute(" where E.employeeFiringDate is null");
+
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
 
     }
 
-
     public void handleBtSearch() {
         if (!this.txtSearch.getText().trim().isEmpty()) {
-            if (!isNumber(this.txtSearch.getText().trim())) {
+            if (!Methods.isNumber(this.txtSearch.getText().trim())) {
                 Message.displayMassage("Warning", this.txtSearch.getText() + " is invalid ");
                 this.txtSearch.clear();
                 return;
             }
-            String search = "SELECT * from employee E where E.employeeID=" + Integer.parseInt(this.txtSearch.getText().trim());
-
-            try {
-                assert con != null;
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(search);
-                boolean empty = rs.next();
-                if (!empty) {
-                    Message.displayMassage("Warning", this.txtSearch.getText() + " Does not exist ");
-                    this.txtSearch.clear();
-                    return;
-                }
-                this.execute("  where E.employeeID=" + Integer.parseInt(this.txtSearch.getText().trim()));
-
-            } catch (SQLException sqlException) {
-                System.out.println(sqlException.getMessage());
-            }
+            this.execute("  where E.employeeID=" + Integer.parseInt(this.txtSearch.getText().trim()));
         }
     }
 
@@ -187,7 +169,7 @@ public class AllDataForEmployee implements Initializable {
             int branchID = Integer.parseInt(resultBId.getString(1).trim());
             this.execute(" where E.branchID=" + branchID);
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
@@ -206,7 +188,6 @@ public class AllDataForEmployee implements Initializable {
         } else {
             this.showCompanyAccountant();
         }
-
     }
 
     // insert new employee
@@ -258,7 +239,7 @@ public class AllDataForEmployee implements Initializable {
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getEmployee);
-
+            boolean flag = true;
             while (rs.next()) {
                 Employee employee = new Employee();
                 String id = rs.getString(1);
@@ -271,6 +252,7 @@ public class AllDataForEmployee implements Initializable {
                 employee.setEmployeeEmail(rs.getString(7));
                 employee.setEmployeeUserName(rs.getString(8));
                 employee.setEmployeePassword(rs.getString(9));
+
                 Statement stmt2 = con.createStatement();
                 ResultSet rs2 = stmt2.executeQuery("SELECT DATE_FORMAT(FROM_DAYS(DATEDIFF(now(),E.employeeDateOfBirth)), '%Y')+0 AS Age From Employee E where  E.employeeID=" + Integer.parseInt(id.trim()));
                 rs2.next();
@@ -301,9 +283,12 @@ public class AllDataForEmployee implements Initializable {
                 }
                 rs5.next();
                 employee.setAddress(rs5.getString(1));
-
-
+                flag = false;
                 this.tableEmployee.getItems().add(employee);
+            }
+            if (flag) {
+                Message.displayMassage("Warning",  "Does ot exist");
+                return;
             }
 
             Statement total = con.createStatement();
@@ -318,19 +303,4 @@ public class AllDataForEmployee implements Initializable {
         }
     }
 
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

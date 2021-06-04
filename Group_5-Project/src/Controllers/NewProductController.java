@@ -8,9 +8,9 @@ package Controllers;
 
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -64,17 +64,17 @@ public class NewProductController implements Initializable {
             return;
         }
 
-        if (txtPurchasingPrice.getText().trim().isEmpty() || !isNumber(txtPurchasingPrice.getText().trim())) {
+        if (txtPurchasingPrice.getText().trim().isEmpty() || !Methods.isNumber(txtPurchasingPrice.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid purchasing price");
             return;
         }
 
-        if (txtSellingPrice.getText().trim().isEmpty() || !isNumber(txtSellingPrice.getText().trim())) {
+        if (txtSellingPrice.getText().trim().isEmpty() || !Methods.isNumber(txtSellingPrice.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid selling price");
             return;
         }
 
-        if (txtParCode.getText().trim().isEmpty() || !isNumber(txtParCode.getText().trim())) {
+        if (txtParCode.getText().trim().isEmpty() || !Methods.isNumber(txtParCode.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid product code");
             return;
         }
@@ -144,7 +144,6 @@ public class NewProductController implements Initializable {
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
 
 
@@ -171,21 +170,6 @@ public class NewProductController implements Initializable {
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
-
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            Long temp = Long.parseLong(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

@@ -9,6 +9,7 @@ package Controllers;
 import DataBaseClasses.Product;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -80,7 +81,7 @@ public class ProductForBranchesController implements Initializable {
         cmCategoriesName.setCellValueFactory(new PropertyValueFactory<>("categoriesName"));
         cmParCode.setCellValueFactory(new PropertyValueFactory<>("parCode"));
         cmDescripition.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
-        this.refresh();
+        this.execute(" ");
     }
 
     @FXML
@@ -99,18 +100,22 @@ public class ProductForBranchesController implements Initializable {
     }
 
     @FXML
-    void refresh() {
+    void handleBtRefresh() {
+        this.execute(" ");
+    }
+
+    private void execute(String str) {
         this.txProductCode.clear();
         this.tvProducts.getItems().clear();
         try {
 
-            String getProducts = "SELECT * from product";
-            String getTotalProducts = "SELECT COUNT(*) from product";
+            String getProducts = "SELECT * from product P " + str;
+            String getTotalProducts = "SELECT COUNT(*) from product P " + str;
 
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getProducts);
-
+            boolean flag = true;
             while (rs.next()) {
                 Product product = new Product();
 
@@ -119,10 +124,9 @@ public class ProductForBranchesController implements Initializable {
                 product.setManufacturerCompany(rs.getString(3));
                 product.setSellingPrice(rs.getString(5));
                 product.setParCode(rs.getString(7));
-                if (rs.getString(8) != null)
-                    product.setDescriptions(rs.getString(8));
-                else
-                    product.setDescriptions("");
+
+                if (rs.getString(8) != null) product.setDescriptions(rs.getString(8));
+                else product.setDescriptions("");
 
                 String categoriesName = rs.getString(6).trim();
 
@@ -132,6 +136,11 @@ public class ProductForBranchesController implements Initializable {
 
                 product.setCategoriesName(rs2.getString(1));
                 this.tvProducts.getItems().add(product);
+                flag = false;
+            }
+            if (flag) {
+                Message.displayMassage("Warning", "Does not exist");
+                return;
             }
             rs = stmt.executeQuery(getTotalProducts);
             rs.next();
@@ -149,66 +158,14 @@ public class ProductForBranchesController implements Initializable {
     @FXML
     void handleBtSearch() {
         if (!this.txProductCode.getText().trim().isEmpty()) {
-            if (!isNumber(this.txProductCode.getText().trim())) {
+            if (!Methods.isNumber(this.txProductCode.getText().trim())) {
                 Message.displayMassage("Warning", " Product code is invalid ");
                 this.txProductCode.clear();
                 return;
             }
-
-            String search = "SELECT * from product P where P.productCode=" + Integer.parseInt(this.txProductCode.getText().trim());
-
-            try {
-                assert con != null;
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(search);
-                boolean empty = rs.next();
-                if (!empty) {
-                    Message.displayMassage("Warning", this.txProductCode.getText() + " Does not exist ");
-                    return;
-                }
-
-                Product product = new Product();
-                product.setProductCode(rs.getString(1));
-                product.setProductName(rs.getString(2));
-                product.setManufacturerCompany(rs.getString(3));
-                product.setSellingPrice(rs.getString(5));
-                product.setParCode(rs.getString(7));
-                if (rs.getString(8) != null)
-                    product.setDescriptions(rs.getString(8));
-                else
-                    product.setDescriptions("");
-
-                String categoriesName = rs.getString(6).trim();
-
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT C.catogresName from categories C where C.categoriesId=" + Integer.parseInt(categoriesName));
-                rs2.next();
-
-                product.setCategoriesName(rs2.getString(1));
-                this.tvProducts.getItems().clear();
-                this.tvProducts.getItems().add(product);
-                this.txProductCode.clear();
-
-            } catch (SQLException sqlException) {
-                Message.displayMassage("Warning", sqlException.getMessage());
-            }
-
+            this.execute(" where P.productCode=" + Integer.parseInt(this.txProductCode.getText().trim()));
         }
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    private static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }
 

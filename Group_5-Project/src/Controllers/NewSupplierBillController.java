@@ -169,11 +169,11 @@ public class NewSupplierBillController implements Initializable {
 
     public void btHandleAddToBill() {
 
-        if (txtProductCode.getText().trim().isEmpty() || !isNumber(txtProductCode.getText().trim())) {
+        if (txtProductCode.getText().trim().isEmpty() || !Methods.isNumber(txtProductCode.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid product code");
             return;
         }
-        if (txtQuantityOf.getText().trim().isEmpty() || !isNumber(txtQuantityOf.getText().trim())) {
+        if (txtQuantityOf.getText().trim().isEmpty() || !Methods.isNumber(txtQuantityOf.getText().trim())) {
             Message.displayMassage("Warning", "Please enter a valid quantity");
             return;
         }
@@ -374,18 +374,4 @@ public class NewSupplierBillController implements Initializable {
         }
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

@@ -9,11 +9,11 @@ package Controllers;
 import DataBaseClasses.Product;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,9 +38,6 @@ public class ProductController implements Initializable {
 
     @FXML // fx:id="txSearch"
     private TextField txSearch; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btQuantityOf"
-    private Button btQuantityOf; // Value injected by FXMLLoader
 
     @FXML // fx:id="txTotalProducts"
     private TextField txTotalProducts; // Value injected by FXMLLoader
@@ -72,16 +69,12 @@ public class ProductController implements Initializable {
     @FXML // fx:id="cmDescription"
     private TableColumn<Product, String> cmDescription; // Value injected by FXMLLoader
 
-    private Message message;
-
     private Connection con;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         con = connection.connectSbitanyDB();
-        this.tableProducts.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
         cmCodeProducts.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         cmNameProducts.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -91,52 +84,23 @@ public class ProductController implements Initializable {
         cmCategoriesName.setCellValueFactory(new PropertyValueFactory<>("categoriesName"));
         cmParCode.setCellValueFactory(new PropertyValueFactory<>("parCode"));
         cmDescription.setCellValueFactory(new PropertyValueFactory<>("descriptions"));
-        this.refresh();
+        this.execute(" ");
     }
 
 
     public void handleBtSearch() {
         if (!this.txSearch.getText().trim().isEmpty()) {
-            if (!isNumber(this.txSearch.getText().trim())) {
+            if (!Methods.isNumber(this.txSearch.getText().trim())) {
                 Message.displayMassage("Warning", " Product code is invalid ");
                 this.txSearch.clear();
                 return;
             }
-
-            String search = "SELECT * from product P where P.productCode=" + Integer.parseInt(this.txSearch.getText().trim());
-
-            try {
-                assert con != null;
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(search);
-                boolean empty = rs.next();
-                if (!empty) {
-                    Message.displayMassage("Warning", this.txSearch.getText() + " Does not exist ");
-                    return;
-                }
-                Product product = new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
-
-                String categoriesName = rs.getString(6).trim();
-
-                Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT C.catogresName from categories C where C.categoriesId=" + Integer.parseInt(categoriesName));
-                rs2.next();
-
-                product.setCategoriesName(rs2.getString(1));
-                this.tableProducts.getItems().clear();
-                this.tableProducts.getItems().add(product);
-                this.txSearch.clear();
-
-            } catch (SQLException sqlException) {
-                Message.displayMassage("Warning",sqlException.getMessage());
-            }
-
+            this.execute(" where P.productCode=" + Integer.parseInt(this.txSearch.getText().trim()));
         }
     }
 
     public void handleBtQuantity() {
-        try{
+        try {
             Parent root = load(Objects.requireNonNull(getClass().getResource("../FXML/QuantityOf.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -149,18 +113,22 @@ public class ProductController implements Initializable {
         }
     }
 
-    public void refresh() {
+    public void handleBtRefresh() {
+        this.execute(" ");
+    }
+
+    public void execute(String str) {
         this.txSearch.clear();
         this.tableProducts.getItems().clear();
         try {
 
-            String getProducts = "SELECT * from product";
-            String getTotalProducts = "SELECT COUNT(*) from product";
+            String getProducts = "SELECT * from product P " + str;
+            String getTotalProducts = "SELECT COUNT(*) from product P " + str;
 
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getProducts);
-
+            boolean flag = true;
             while (rs.next()) {
                 Product product = new Product(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
                         rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8));
@@ -173,6 +141,11 @@ public class ProductController implements Initializable {
 
                 product.setCategoriesName(rs2.getString(1));
                 this.tableProducts.getItems().add(product);
+                flag = false;
+            }
+            if (flag) {
+                Message.displayMassage("Warning", "Does not exist");
+                return;
             }
             rs = stmt.executeQuery(getTotalProducts);
             rs.next();
@@ -182,22 +155,8 @@ public class ProductController implements Initializable {
             stmt.close();
 
         } catch (SQLException sqlException) {
-            System.out.println(sqlException.getMessage());
+            Message.displayMassage("Warning", sqlException.getMessage());
         }
     }
 
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 }

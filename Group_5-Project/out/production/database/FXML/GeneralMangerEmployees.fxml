@@ -82,7 +82,7 @@
                 <ComboBox fx:id="combBranch" onAction="#handleComboBoxBranches" prefHeight="39.0" prefWidth="226.0" promptText="Branch" style="-fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-background-color: #ffffff;" />
             </children>
         </HBox>
-          <TableView fx:id="tableEmployee" layoutX="11.0" layoutY="259.0" prefHeight="446.0" prefWidth="1495.0" style="-fx-background-color: transparent;">
+          <TableView fx:id="tableEmployee" layoutX="11.0" layoutY="259.0" prefHeight="446.0" prefWidth="1495.0" styleClass="table" stylesheets="@../Style/Style.css">
               <columns>
                   <TableColumn fx:id="cmID" editable="false" prefWidth="78.39999198913574" sortable="false" text="ID" />
                   <TableColumn fx:id="cmPersonalID" editable="false" prefWidth="132.00003814697266" sortable="false" text="Parsonal ID" />

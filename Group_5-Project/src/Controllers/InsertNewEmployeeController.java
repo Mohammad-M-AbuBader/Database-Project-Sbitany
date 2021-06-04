@@ -9,6 +9,7 @@ import DataBaseClasses.Address;
 
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
+import Utilities.Methods;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -79,7 +80,7 @@ public class InsertNewEmployeeController implements Initializable {
                 Message.displayMassage("Warning", "Please select the date of birth");
                 return;
             }
-            if (this.txtIDCard.getText().trim().isEmpty() || !isNumber(this.txtIDCard.getText().trim())) {
+            if (this.txtIDCard.getText().trim().isEmpty() || !Methods.isNumber(this.txtIDCard.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter a valid personal ID");
                 return;
             }
@@ -87,7 +88,7 @@ public class InsertNewEmployeeController implements Initializable {
                 Message.displayMassage("Warning", "Please enter a valid phone number");
                 return;
             }
-            if (this.txtSalary.getText().trim().isEmpty() || !isNumber(this.txtSalary.getText().trim())) {
+            if (this.txtSalary.getText().trim().isEmpty() || !Methods.isNumber(this.txtSalary.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter a valid salary");
                 return;
             }
@@ -301,21 +302,6 @@ public class InsertNewEmployeeController implements Initializable {
         this.txtPhoneNumber.clear();
         this.txtSalary.clear();
         this.hboxPasswd.setVisible(false);
-    }
-
-    /**
-     * To check the value of the entered numberOfShares if contain only digits or not
-     */
-    public static boolean isNumber(String number) {
-        /* To check the entered number of shares, that it consists of
-           only digits
-         */
-        try {
-            int temp = Integer.parseInt(number);
-            return number.matches("\\d+") && temp > 0;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 
 }
