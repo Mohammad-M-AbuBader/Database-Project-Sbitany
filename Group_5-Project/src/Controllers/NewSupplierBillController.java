@@ -169,6 +169,14 @@ public class NewSupplierBillController implements Initializable {
         }
 
         try {
+            Statement sqlGetProductCode = con.createStatement();
+            ResultSet getProductCode = sqlGetProductCode.executeQuery("SELECT P.productCode from product P where P.productCode=" + Integer.parseInt(txtProductCode.getText().trim()));
+            boolean isExist = getProductCode.next();
+            if (!isExist) {
+                Message.displayMassage("Warning", "This product does not exist, please add it from 'Add new product'");
+                return;
+            }
+
             Statement CheckProductQuantityStatement = con.createStatement();
             int mainStorageID = 1;
             ResultSet CheckProductQuantity = CheckProductQuantityStatement.executeQuery("select S.productQuantity From  storedProducts S  where S.StorageID= " + mainStorageID + " and S.productCode= " + txtProductCode.getText().trim());
@@ -187,15 +195,15 @@ public class NewSupplierBillController implements Initializable {
                 psSupplierBill.setInt(2, Integer.parseInt(txtProductCode.getText().trim()));
                 psSupplierBill.setInt(3, Integer.parseInt(txtQuantityOf.getText().trim()));
             }
+            psSupplierBill.executeUpdate();
 
             psSupplierBill = con.prepareStatement("insert into supplierbilldetails(SupplierBillID," +
-                    "ProductCode,purchasingPrice,quantity ) " +
-                    "values(?,?,?,?)");
+                    "ProductCode,purchasingPrice,quantity ) " + "values(?,?,?,?)");
             psSupplierBill.setInt(1, supplierBillID);
             psSupplierBill.setInt(2, Integer.parseInt(txtProductCode.getText().trim()));
 
             Statement getPurchasingPriceStatement = con.createStatement();
-            ResultSet getPurchasingPrice = getPurchasingPriceStatement.executeQuery("select P.purchasingPrice From  Products P  where P.productCode= " + txtProductCode.getText().trim());
+            ResultSet getPurchasingPrice = getPurchasingPriceStatement.executeQuery("select P.purchasingPrice From product P where P.productCode= " + txtProductCode.getText().trim());
             getPurchasingPrice.next();
             int purchasingPrice = Integer.parseInt(getPurchasingPrice.getString(1));
 
@@ -281,6 +289,9 @@ public class NewSupplierBillController implements Initializable {
         this.txtProductCode.clear();
         this.txtQuantityOf.clear();
         this.txtDeposit.clear();
+        this.txtEmail.clear();
+        this.txtPhoneNumber.clear();
+        this.txtFaxNumber.clear();
 
         this.hboxNameAndEmail.setDisable(false);
         this.hboxFaxAndPhone.setDisable(false);
@@ -291,6 +302,7 @@ public class NewSupplierBillController implements Initializable {
         this.btAddToBill.setDisable(false);
         this.btAddToBill.setVisible(false);
         this.btPrintBill.setVisible(false);
+        this.btAddNewProduct.setVisible(false);
         this.hboxValueOFDeposit.setVisible(false);
     }
 

@@ -105,7 +105,7 @@ public class NewProductController implements Initializable {
 
             } else {
                 psProduct = con.prepareStatement("insert into Product (productName," +
-                        "manufacturerCompany,purchasingPrice,sellingPrice,categoriesId," +
+                        "manufacturerCompany,purchasingPrice,sellingPrice,catogresId," +
                         "parCode,descriptions) " + "values(?,?,?,?,?,?,?)");
 
                 psProduct.setString(1, txtProductName.getText().trim());
@@ -131,6 +131,7 @@ public class NewProductController implements Initializable {
                     psProduct.setNull(7, Types.NULL);
                 else psProduct.setString(7, txtDescriptions.getText().trim());
             }
+
             psProduct.executeUpdate();
             this.txtProductName.clear();
             this.txtDescriptions.clear();
@@ -138,6 +139,8 @@ public class NewProductController implements Initializable {
             this.txtManufacturerCompany.clear();
             this.txtPurchasingPrice.clear();
             this.txtSellingPrice.clear();
+            this.txtCategoriesName.clear();
+            this.txtCategoriesName.setVisible(false);
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
