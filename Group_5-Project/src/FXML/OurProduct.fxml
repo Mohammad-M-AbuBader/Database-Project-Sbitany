@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="658.0" prefWidth="753.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OurProductController">
+   <children>
+      <Pane layoutY="-7.0" prefHeight="146.0" prefWidth="766.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="14.0" layoutY="18.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT" size="52.0" />
+               </font>
+            </Label>
+            <Label layoutX="183.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="33.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="tableBranchProduct" editable="true" layoutX="200.0" layoutY="178.0" prefHeight="418.0" prefWidth="365.0" styleClass="table" stylesheets="@../Style/Style.css">
+         <columns>
+            <TableColumn fx:id="cmProductCode" editable="false" prefWidth="110.0" text="Product Code" />
+            <TableColumn fx:id="cmParCode" editable="false" prefWidth="130.0" text="Par Code" />
+            <TableColumn fx:id="cmQuantity" editable="false" prefWidth="120.0" text="Quantity" />
+         </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TableView>
+   </children>
+</AnchorPane>

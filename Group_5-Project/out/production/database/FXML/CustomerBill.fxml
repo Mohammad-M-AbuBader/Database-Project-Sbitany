@@ -43,7 +43,7 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableCustomerBill" layoutX="19.0" layoutY="290.0" prefHeight="418.0" prefWidth="1038.0" style="-fx-background-color: transparent;">
+      <TableView fx:id="tableCustomerBill" layoutX="19.0" layoutY="290.0" prefHeight="418.0" prefWidth="1038.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmBillID" editable="false" prefWidth="90.0" text="Bill ID" />
             <TableColumn fx:id="cmCustomerID" editable="false" prefWidth="90.0" text="Customer ID" />

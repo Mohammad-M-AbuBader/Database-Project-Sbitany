@@ -11,6 +11,7 @@ import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import Utilities.Methods;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,12 +68,16 @@ public class ProductForBranchesController implements Initializable {
 
     private Connection con;
 
+    private static int branchID;
+
+    public static void setBranchID(int branchID) {
+        ProductForBranchesController.branchID = branchID;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         con = connection.connectSbitanyDB();
-        this.tvProducts.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width:2; -fx-font-family:" +
-                "'Times New Roman'; -fx-font-size:17; -fx-text-fill: #000000; -fx-font-weight: BOLd; ");
 
         cmProductCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         cmProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -154,6 +159,30 @@ public class ProductForBranchesController implements Initializable {
         }
     }
 
+
+    @FXML
+    void handleBtMyProduct() {
+        try {
+
+            Statement stmtGetStorageID = con.createStatement();
+            ResultSet getStorageID = stmtGetStorageID.executeQuery("SELECT S.storageID from storages S where S.branchID = " + branchID);
+            getStorageID.next();
+
+            int storageID = Integer.parseInt(getStorageID.getString(1));
+            OurProductController.setStorageID(storageID);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/OurProduct.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Our Products In This Branch");
+            window.setScene(new Scene(root));
+            window.setResizable(false);
+            window.show();
+        } catch (SQLException | IOException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
+
+    }
 
     @FXML
     void handleBtSearch() {

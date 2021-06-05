@@ -76,7 +76,7 @@ public class InsertNewEmployeeController implements Initializable {
                 Message.displayMassage("Warning", "Please enter the name");
                 return;
             }
-            if (dateOFBirth == null) {
+            if (dateOFBirth.getValue() == null) {
                 Message.displayMassage("Warning", "Please select the date of birth");
                 return;
             }
@@ -84,7 +84,7 @@ public class InsertNewEmployeeController implements Initializable {
                 Message.displayMassage("Warning", "Please enter a valid personal ID");
                 return;
             }
-            if (this.txtPhoneNumber.getText().trim().isEmpty()) {
+            if (this.txtPhoneNumber.getText().trim().isEmpty() || !Methods.isNumber(this.txtPhoneNumber.getText().trim())) {
                 Message.displayMassage("Warning", "Please enter a valid phone number");
                 return;
             }
@@ -93,23 +93,23 @@ public class InsertNewEmployeeController implements Initializable {
                 return;
             }
 
-            if (this.combBranch == null) {
+            if (this.combBranch.getValue() == null) {
                 Message.displayMassage("Warning", "Please select the branch");
                 return;
             }
 
-            if (this.combCity == null) {
+            if (this.combCity.getValue() == null) {
                 Message.displayMassage("Warning", "Please select the city");
                 return;
             }
 
-            if (this.combJob == null) {
+            if (this.combJob.getValue() == null) {
                 Message.displayMassage("Warning", "Please select job title");
                 return;
             }
 
             String passwd;
-            if (jobTitleID != 1) {
+            if (jobTitleID != 2) {
                 if (this.txtPassword.getText().trim().isEmpty()) {
                     Message.displayMassage("Warning", "Please enter the password");
                     return;
@@ -156,17 +156,20 @@ public class InsertNewEmployeeController implements Initializable {
             psEmployee.executeUpdate();
 
             String uName;
-            if (jobTitleID != 1) {
-                Statement sqlLastEmployee = con.createStatement();
-                ResultSet set = sqlLastEmployee.executeQuery("SELECT E.employeeID from Employee E where E.employeeID = (SELECT MAX(E1.EmployeeID) from Employee E1)");
-                set.next();
-                int id = Integer.parseInt(set.getString(1).trim());
+            Statement sqlLastEmployee = con.createStatement();
+            ResultSet set = sqlLastEmployee.executeQuery("SELECT E.employeeID from Employee E where E.employeeID = (SELECT MAX(E1.EmployeeID) from Employee E1)");
+            set.next();
+            int id = Integer.parseInt(set.getString(1).trim());
+
+            if (jobTitleID != 2) {
                 uName = id + "@Sbitany";
                 psEmployee = con.prepareStatement("UPDATE Employee E set E.employeeUserName=? where E.employeeID=?");
                 psEmployee.setString(1, uName);
                 psEmployee.setInt(2, id);
                 psEmployee.executeUpdate();
                 Message.displayMassage("Employee User Name", "The employee ID is: " + id + " and his userName: " + uName);
+            } else {
+                Message.displayMassage("New Employee Info", "The employee ID is: " + id);
             }
             this.setDefault();
         } catch (SQLException sqlException) {
@@ -244,7 +247,7 @@ public class InsertNewEmployeeController implements Initializable {
     }
 
     private void hasAVillage() {
-        if (combVillage == null) {
+        if (combVillage.getValue() == null) {
             villageID = 0;
         } else {
             try {

@@ -30,6 +30,7 @@ public class BranchAccountantController {
 
     public void handleBtProducts() {
         try {
+            ProductForBranchesController.setBranchID(branchID);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/ProductForBranches.fxml")));
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);

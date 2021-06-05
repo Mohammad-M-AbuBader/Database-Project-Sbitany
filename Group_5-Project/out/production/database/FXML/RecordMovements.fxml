@@ -75,7 +75,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <TableView fx:id="tableRecordMovements" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1088.0">
+      <TableView fx:id="tableRecordMovements" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1088.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmTransferNumber" editable="false" prefWidth="165.59997272491455" sortable="false" text="Transfer Number" />
             <TableColumn fx:id="cmDate" editable="false" prefWidth="147.20005798339844" sortable="false" text="Date" />
@@ -97,7 +97,7 @@
       </Label>
       <Label layoutX="612.0" layoutY="646.0" prefHeight="30.0" prefWidth="316.0" style="-fx-background-color: #ffffff;" text="Number Of Record Movements">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
    </children>

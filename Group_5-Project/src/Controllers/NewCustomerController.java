@@ -111,9 +111,7 @@ public class NewCustomerController implements Initializable {
             assert con != null;
             Statement stmt1 = con.createStatement();
             ResultSet rs1 = stmt1.executeQuery("SELECT C.cityName From City C ");
-            while (rs1.next()) {
-                combCity.getItems().add(rs1.getString(1));
-            }
+            while (rs1.next()) combCity.getItems().add(rs1.getString(1));
 
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
@@ -169,7 +167,7 @@ public class NewCustomerController implements Initializable {
             return;
         }
 
-        if (combCity == null) { // get the customer city
+        if (combCity.getValue() == null) { // get the customer city
             Message.displayMassage("Warning", "Please chose the city ");
             return;
         }
@@ -199,13 +197,14 @@ public class NewCustomerController implements Initializable {
             cityID = Integer.parseInt(getCityID.getString(1));
 
             String villageID;
-            if (combVillage == null) {
+            if (combVillage.getValue() == null) {
                 villageID = null;
             } else {
 
                 Statement stmt3 = con.createStatement(); // get the village id
                 ResultSet getVillageID = stmt3.executeQuery("SELECT V.VillageID From Village V where V.cityID = " + cityID + " and V.villageName='" + combVillage.getValue() + "'");
                 boolean result = getVillageID.next();
+
                 if (!result) { // village does not exist
 
                     String insertNewVillage = "INSERT INTO village(villageName, cityID) values(?, ?)";
@@ -419,9 +418,8 @@ public class NewCustomerController implements Initializable {
             psCustomerBill.setInt(2, paidValue);
             psCustomerBill.setInt(3, patches);
             psCustomerBill.executeUpdate();
-            this.setDefault();
             try {
-                BillDetailsController.setTypeOfBill(false);
+                BillDetailsController.setTypeOfBill(true);
                 BillDetailsController.setBillID(customerBillID);
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/BillDetails.fxml")));
                 Stage window = new Stage();
@@ -430,6 +428,7 @@ public class NewCustomerController implements Initializable {
                 window.setScene(new Scene(root));
                 window.setResizable(false);
                 window.show();
+                this.setDefault();
             } catch (IOException exception) {
                 Message.displayMassage("Warning", exception.getMessage());
             }

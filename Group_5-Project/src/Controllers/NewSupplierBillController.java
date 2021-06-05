@@ -103,11 +103,11 @@ public class NewSupplierBillController implements Initializable {
             return;
         }
 
-        if (txtPhoneNumber.getText().trim().isEmpty()) {
-            Message.displayMassage("Warning", "Please enter the phone number");
+        if (txtPhoneNumber.getText().trim().isEmpty() || !Methods.isNumber(txtPhoneNumber.getText().trim())) {
+            Message.displayMassage("Warning", "Please enter  a valid phone number");
             return;
         }
-        if (txtFaxNumber.getText().trim().isEmpty()) {
+        if (txtFaxNumber.getText().trim().isEmpty() || !Methods.isNumber(txtFaxNumber.getText().trim())) {
             Message.displayMassage("Warning", "Please enter the fax number");
             return;
         }
@@ -259,6 +259,7 @@ public class NewSupplierBillController implements Initializable {
             this.txtPhoneNumber.clear();
             this.txtFaxNumber.clear();
         }
+        this.btCreateBill.setVisible(true);
     }
 
     public void handleBtSave() {
@@ -345,7 +346,7 @@ public class NewSupplierBillController implements Initializable {
         this.txtEmail.clear();
         this.txtPhoneNumber.clear();
         this.txtFaxNumber.clear();
-
+        this.btCreateBill.setVisible(false);
         this.hboxNameAndEmail.setVisible(false);
         this.hboxFaxAndPhone.setVisible(false);
         this.hboxNameAndEmail.setDisable(false);

@@ -115,7 +115,7 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </opaqueInsets>
       </HBox>
-      <Button fx:id="btCreateBill" layoutX="180.0" layoutY="349.0" mnemonicParsing="false" onAction="#btHandleCreateBill" prefHeight="49.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="New Bill">
+      <Button fx:id="btCreateBill" layoutX="180.0" layoutY="349.0" mnemonicParsing="false" onAction="#btHandleCreateBill" prefHeight="49.0" prefWidth="200.0" style="-fx-background-radius: 30; -fx-border-radius: 30; -fx-border-color: Black;" stylesheets="@../Style/Style.css" text="New Bill" visible="false">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -202,6 +202,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="combSuppliers" layoutX="189.0" layoutY="175.0" onAction="#handleCombSuppliers" prefHeight="34.0" prefWidth="182.0" promptText="Select the supplier" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
+      <ComboBox fx:id="combSuppliers" layoutX="197.0" layoutY="174.0" onAction="#handleCombSuppliers" prefHeight="34.0" prefWidth="182.0" promptText="Select the supplier" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
    </children>
 </AnchorPane>
