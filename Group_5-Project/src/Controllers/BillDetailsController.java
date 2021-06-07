@@ -32,6 +32,9 @@ public class BillDetailsController implements Initializable {
     @FXML // fx:id="cmCodeProducts"
     private TableColumn<BillDetails, String> cmCodeProducts; // Value injected by FXMLLoader
 
+    @FXML // fx:id="cmProductName"
+    private TableColumn<BillDetails, String> cmProductName; // Value injected by FXMLLoader
+
     @FXML // fx:id="cmPurchasingPrice"
     private TableColumn<BillDetails, String> cmPrice; // Value injected by FXMLLoader
 
@@ -59,6 +62,8 @@ public class BillDetailsController implements Initializable {
     @FXML // fx:id="txtPatches"
     private TextField txtPatches; // Value injected by FXMLLoader
 
+
+
     private static boolean typeOfBill = true; // true: customer,,,, false: supplier
     private static int billID;
     private Connection con;
@@ -76,6 +81,7 @@ public class BillDetailsController implements Initializable {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         con = connection.connectSbitanyDB();
         this.cmCodeProducts.setCellValueFactory(new PropertyValueFactory<>("productCode"));
+        this.cmProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         this.cmQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         this.cmPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
 
@@ -122,6 +128,12 @@ public class BillDetailsController implements Initializable {
                 billDetails.setProductCode(resultSet.getString(2));
                 billDetails.setPrice(resultSet.getString(3));
                 billDetails.setQuantity(resultSet.getString(4));
+
+                Statement statement2 = con.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery("select P.productName from Product P  where P.ProductCode=" + Integer.parseInt(resultSet.getString(2)));
+                resultSet2.next();
+
+                billDetails.setProductName(resultSet2.getString(1));
 
                 this.billTableView.getItems().add(billDetails);
             }

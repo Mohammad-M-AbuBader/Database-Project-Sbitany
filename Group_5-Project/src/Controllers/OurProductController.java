@@ -5,7 +5,6 @@
  */
 package Controllers;
 
-import DataBaseClasses.OurProduct;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;
@@ -35,6 +34,9 @@ public class OurProductController implements Initializable {
     @FXML // fx:id="cmQuantity"
     private TableColumn<OurProduct, String> cmQuantity; // Value injected by FXMLLoader
 
+    @FXML // fx:id="cmProductName"
+    private TableColumn<OurProduct, String> cmProductName; // Value injected by FXMLLoader
+
     public static int storageID;
 
     public static void setStorageID(int storageID) {
@@ -46,6 +48,7 @@ public class OurProductController implements Initializable {
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
         Connection con = connection.connectSbitanyDB();
         cmProductCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
+        cmProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         cmParCode.setCellValueFactory(new PropertyValueFactory<>("parCode"));
         cmQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
@@ -56,19 +59,20 @@ public class OurProductController implements Initializable {
             ResultSet rs = stmt.executeQuery("select * from storedproducts S where S.storageID=" + storageID+" order by S.productQuantity DESC");
 
             // get par code for the products
-            Statement getParCodeStatement;
-            ResultSet getParCode;
+            Statement getParCodeAndNameStatement;
+            ResultSet getParCodeAndName;
 
             while (rs.next()) {
-                getParCodeStatement = con.createStatement();
-                getParCode = getParCodeStatement.executeQuery("select  P.parCode from product P where P.productCode=" + Integer.parseInt(rs.getString(2).trim()));
-                getParCode.next();
+                getParCodeAndNameStatement = con.createStatement();
+                getParCodeAndName = getParCodeAndNameStatement.executeQuery("select  P.parCode,P.ProductName from product P where P.productCode=" + Integer.parseInt(rs.getString(2).trim()));
+                getParCodeAndName.next();
 
-                OurProduct quantityOf = new OurProduct();
-                quantityOf.setParCode(getParCode.getString(1));
-                quantityOf.setProductCode(rs.getString(2));
-                quantityOf.setQuantity(rs.getString(3));
-                this.tableBranchProduct.getItems().add(quantityOf);
+                OurProduct ourProduct = new OurProduct();
+                ourProduct.setParCode(getParCodeAndName.getString(1));
+                ourProduct.setProductName(getParCodeAndName.getString(2));
+                ourProduct.setProductCode(rs.getString(2));
+                ourProduct.setQuantity(rs.getString(3));
+                this.tableBranchProduct.getItems().add(ourProduct);
             }
             rs.close();
             stmt.close();

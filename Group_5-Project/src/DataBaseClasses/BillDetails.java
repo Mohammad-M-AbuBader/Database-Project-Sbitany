@@ -10,15 +10,25 @@ public class BillDetails {
     private String productCode;
     private String price;
     private String quantity;
+    private String productName;
 
     public BillDetails() {
     }
 
-    public BillDetails(String billID, String productCode, String price, String quantity) {
+    public BillDetails(String billID, String productCode, String price, String quantity,String productName) {
         this.billID = billID;
         this.productCode = productCode;
         this.price = price;
         this.quantity = quantity;
+        this.productName=productName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getPrice() {
@@ -55,6 +65,6 @@ public class BillDetails {
 
     @Override
     public String toString() {
-        return  "billID: " + billID + ", productCode: " + productCode + ", price: " + price + ", quantity: " + quantity;
+        return  "billID: " + billID + ", productCode: " + productCode + ", productName: " + productName + ", price: " + price + ", quantity: " + quantity;
     }
 }

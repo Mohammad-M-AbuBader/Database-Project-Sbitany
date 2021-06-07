@@ -85,6 +85,12 @@ public class CustomerBillController implements Initializable {
     @FXML // fx:id="rbDetailsOf"
     private RadioButton rbDetailsOf; // Value injected by FXMLLoader
 
+    @FXML // fx:id="fromDate"
+    private DatePicker fromDate; // Value injected by FXMLLoader
+
+    @FXML // fx:id="toDate"
+    private DatePicker toDate; // Value injected by FXMLLoader
+    
     private Connection con;
 
     public static int billID;

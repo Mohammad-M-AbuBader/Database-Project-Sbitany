@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="722.0" prefWidth="993.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.profitController">
+   <children>
+      <Pane layoutX="-10.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1026.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <Label layoutX="22.0" layoutY="12.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
+               <graphic>
+                  <ImageView fitHeight="117.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Icons/logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label layoutX="214.0" layoutY="35.0" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT" size="52.0" />
+               </font>
+            </Label>
+            <Label layoutX="183.0" layoutY="58.0" text="Welcome To SBITANY" textFill="WHITE">
+               <font>
+                  <Font name="Engravers MT" size="33.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <TableView fx:id="tableProfit" editable="true" layoutX="29.0" layoutY="193.0" prefHeight="418.0" prefWidth="948.0" styleClass="table" stylesheets="@../Style/Style.css">
+         <columns>
+            <TableColumn fx:id="cmProductName" editable="false" prefWidth="165.5999813079834" text="ProductName" />
+            <TableColumn fx:id="cmProductCode" editable="false" prefWidth="170.39996337890625" text="ProductCode" />
+            <TableColumn fx:id="cmSellingPrice" editable="false" minWidth="103.199951171875" prefWidth="148.0" text="Selling Price" />
+            <TableColumn fx:id="cmPurchasingPrice" editable="false" minWidth="62.39996337890625" prefWidth="146.4000244140625" text="Purchring Price" />
+            <TableColumn fx:id="cmQuantity" editable="false" prefWidth="154.39999389648438" text="Quantity" />
+            <TableColumn fx:id="cmQuantity1" editable="false" prefWidth="154.39999389648438" text="Profit" />
+         </columns>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TableView>
+      <HBox layoutX="-1.0" layoutY="641.0" prefHeight="62.0" prefWidth="1016.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
+         <children>
+            <AnchorPane prefHeight="62.0" prefWidth="1015.0">
+               <children>
+                  <Label fx:id="lblProfit" layoutX="730.0" layoutY="11.0" prefHeight="39.0" prefWidth="154.0" style="-fx-background-color: transparent;" text="Final Proft" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFinalProfit" editable="false" layoutX="885.0" layoutY="8.0" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
