@@ -120,8 +120,8 @@ public class NewProductController implements Initializable {
                     psCategories = con.prepareStatement("insert into categories (catogresName) " + "values(?)");
                     psCategories.setString(1, txtCategoriesName.getText().trim());
                     psCategories.executeUpdate();
-
                     getCategoriesID = getCategoriesIDStatement.executeQuery("select C.categoriesId From categories C where C.catogresName='" + txtCategoriesName.getText().trim() + "'");
+                    Message.displayMassage("Successfully","The new category has been added successfully");
                 }
                 getCategoriesID.next();
                 psProduct.setInt(5, Integer.parseInt(getCategoriesID.getString(1)));
@@ -133,6 +133,11 @@ public class NewProductController implements Initializable {
             }
 
             psProduct.executeUpdate();
+
+            Statement stmtProductID = con.createStatement();
+            ResultSet resultProductID = stmtProductID.executeQuery("SELECT P.productCode from product P where P.productCode = (SELECT MAX(P1.ProductCode) from product P1)");
+            resultProductID.next();
+            Message.displayMassage("Successfully", "The product code for the new product is " + resultProductID.getString(1));
             this.txtProductName.clear();
             this.txtDescriptions.clear();
             this.txtParCode.clear();

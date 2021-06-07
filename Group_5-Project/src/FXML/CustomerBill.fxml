@@ -160,7 +160,7 @@
          <children>
             <DatePicker fx:id="fromDate" promptText="FromDate" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
             <DatePicker fx:id="toDate" promptText="ToDate" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" />
-            <Button fx:id="btPrintProfit" mnemonicParsing="false" prefHeight="34.0" prefWidth="164.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Print Profit Report" />
+            <Button fx:id="btPrintProfit" mnemonicParsing="false" onAction="#handleBtPrintProfitReport" prefHeight="34.0" prefWidth="164.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Print Profit Report" />
          </children>
       </VBox>
    </children>

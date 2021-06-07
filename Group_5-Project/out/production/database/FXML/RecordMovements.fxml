@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="691.0" prefWidth="1129.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RecordMovementsController">
+<AnchorPane prefHeight="691.0" prefWidth="1231.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RecordMovementsController">
    <children>
-      <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1129.0" style="-fx-background-color: #4a4fda;">
+      <Pane layoutX="-1.0" layoutY="-7.0" prefHeight="136.0" prefWidth="1242.0" style="-fx-background-color: #4a4fda;">
          <children>
             <Label layoutX="29.0" layoutY="9.0" style="-fx-background-color: #ffffff; -fx-background-radius: 40;">
                <graphic>
@@ -75,13 +75,15 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <TableView fx:id="tableRecordMovements" editable="true" layoutX="14.0" layoutY="213.0" prefHeight="415.0" prefWidth="1088.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tableRecordMovements" editable="true" layoutX="20.0" layoutY="213.0" prefHeight="415.0" prefWidth="1192.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmTransferNumber" editable="false" prefWidth="165.59997272491455" sortable="false" text="Transfer Number" />
             <TableColumn fx:id="cmDate" editable="false" prefWidth="147.20005798339844" sortable="false" text="Date" />
             <TableColumn fx:id="cmEmployeeID" editable="false" prefWidth="156.79998779296875" sortable="false" text="Employee ID" />
-            <TableColumn fx:id="cmFrom" editable="false" prefWidth="140.7999267578125" sortable="false" text="From" />
-            <TableColumn fx:id="cmTo" editable="false" prefWidth="165.5999755859375" sortable="false" text="To" />
+            <TableColumn fx:id="cmEmployeeName" editable="false" prefWidth="165.59997272491455" sortable="false" text="Employee Name" />
+            <TableColumn fx:id="cmFrom" editable="false" minWidth="190.0" prefWidth="140.7999267578125" sortable="false" text="From" />
+            <TableColumn fx:id="cmTo" editable="false" minWidth="190.0" prefWidth="165.5999755859375" sortable="false" text="To" />
+            <TableColumn fx:id="cmProductName" editable="false" minWidth="150.0" prefWidth="168.79998779296875" sortable="false" text="Product Name" />
             <TableColumn fx:id="cmProductCode" editable="false" prefWidth="168.79998779296875" sortable="false" text="Product Code" />
             <TableColumn fx:id="cmQuantity" editable="false" prefWidth="142.4000244140625" sortable="false" text="Quantity" />
          </columns>
@@ -89,13 +91,13 @@
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Button fx:id="btRefresh" layoutX="981.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
-      <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" layoutX="948.0" layoutY="637.0" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
+      <Button fx:id="btRefresh" layoutX="1105.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtRefresh" prefHeight="34.0" prefWidth="104.0" styleClass="btRefresh" stylesheets="@../Style/Style.css" text="Refresh" />
+      <Label fx:id="lblNumBranches" alignment="CENTER" contentDisplay="CENTER" layoutX="1063.0" layoutY="638.0" prefHeight="38.0" prefWidth="153.0" style="-fx-background-color: #ffffff; -fx-border-color: #4a4fda; -fx-border-width: 0px0px2px0px;" textFill="#4a4fda">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="612.0" layoutY="646.0" prefHeight="30.0" prefWidth="316.0" style="-fx-background-color: #ffffff;" text="Number Of Record Movements">
+      <Label layoutX="726.0" layoutY="646.0" prefHeight="30.0" prefWidth="316.0" style="-fx-background-color: #ffffff;" text="Number Of Record Movements">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

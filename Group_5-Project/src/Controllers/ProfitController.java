@@ -2,7 +2,6 @@
  * @autor: Mohammad AbuBader
  * ID: 1190478
  * At: 6-7-2021  12:43 PM
- *
  */
 package Controllers;
 
@@ -18,13 +17,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
-public class profitController implements Initializable {
+public class ProfitController implements Initializable {
 
     @FXML // fx:id="tableProfit"
     private TableView<Profit> tableProfit; // Value injected by FXMLLoader
@@ -46,21 +42,24 @@ public class profitController implements Initializable {
 
     @FXML // fx:id="cmProfit"
     private TableColumn<Profit, String> cmProfit; // Value injected by FXMLLoader
-    @FXML // fx:id="lblProfit"
-    private Label lblProfit; // Value injected by FXMLLoader
+
 
     @FXML // fx:id="txtFinalProfit"
     private TextField txtFinalProfit; // Value injected by FXMLLoader
 
-    private Connection con;
-    private String releaseDate;
-    private int customerBillID,purchasingPrice,sellingPrice,quantity,profits,sum=0;
+    private static Date from, to;
+    private int sum = 0;
+
+    public static void setDates(Date from, Date to) {
+        ProfitController.from = from;
+        ProfitController.to = to;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ConnectionToSbitanyDatabase connection = new ConnectionToSbitanyDatabase();
-        con = connection.connectSbitanyDB();
+        Connection con = connection.connectSbitanyDB();
 
         this.cmProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         this.cmProductCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
@@ -69,48 +68,44 @@ public class profitController implements Initializable {
         this.cmQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         this.cmProfit.setCellValueFactory(new PropertyValueFactory<>("profit"));
 
-
         try {
 
+            assert con != null;
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT C.customerBillID from customerbill C where C.orederAt ='"+releaseDate+"'");
+
+            ResultSet rs = stmt.executeQuery("SELECT C.productCode,SUM(C.quantity),C.sellingPrice from customerbilldetails C " +
+                    "where C.customerBillID IN(Select C2.customerBillID from customerbill C2 where C2.customerBillID=C.customerBillID and C2.orederAt" +
+                    " between '" + from + "' and '" + to + "') group by C.productCode order by 1");
             while (rs.next()) {
                 Profit profit = new Profit();
-                customerBillID=Integer.parseInt(rs.getString(1));
+
+                profit.setProductCode(rs.getString(1));
+                profit.setQuantity(rs.getString(2));
+                profit.setSellingPrice(rs.getString(3));
+                int sellingPrice = Integer.parseInt(rs.getString(3));
 
                 Statement stmt2 = con.createStatement();
-                ResultSet rs2 = stmt2.executeQuery("SELECT * from customerbilldetails C where C.customerBillID =" + customerBillID);
-                while (rs2.next())
-                {
+                ResultSet rs2 = stmt2.executeQuery("select productName,purchasingPrice from product P where P.productCode=" + Integer.parseInt(rs.getString(1)));
+                rs2.next();
+                profit.setProductName(rs2.getString(1));
+                profit.setPurchasingPrice(rs2.getString(2));
+                int purchasingPrice = Integer.parseInt(rs2.getString(2));
 
-                    profit.setProductCode(rs2.getString(2));
-                    profit.setSellingPrice(rs2.getString(3));
-                    profit.setQuantity(rs2.getString(4));
+                // calculate profit
+                int quantity = Integer.parseInt(rs.getString(2));
+                int profits = ((sellingPrice - purchasingPrice) * quantity);
 
-                    Statement stmt3 = con.createStatement();
-                    ResultSet rs3 = stmt3.executeQuery("select productName,purchasingPrice from product P where P.productCode=" + Integer.parseInt(rs2.getString(2) ));
-                    rs3.next();
-
-                    profit.setProductName(rs3.getString(1));
-                    profit.setPurchasingPrice(rs3.getString(2));
-
-                    purchasingPrice=Integer.parseInt(rs3.getString(2));
-                    sellingPrice = Integer.parseInt(rs2.getString(3));
-                    quantity=Integer.parseInt(rs2.getString(4));
-                    profits=((sellingPrice-purchasingPrice)*quantity);
-
-                    profit.setProfit(String.valueOf(profits));
-                    sum+=profits;
-                }
-                rs2.close();
-                stmt2.close();
-
+                profit.setProfit(String.valueOf(profits));
+                sum += profits;
                 this.tableProfit.getItems().add(profit);
             }
+
+         
             rs.close();
             stmt.close();
             txtFinalProfit.setText(String.valueOf(sum));
-
+            from = null;
+            to = null;
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }

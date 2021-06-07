@@ -36,8 +36,9 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableBranchProduct" editable="true" layoutX="200.0" layoutY="178.0" prefHeight="418.0" prefWidth="365.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tableBranchProduct" editable="true" layoutX="122.0" layoutY="180.0" prefHeight="418.0" prefWidth="522.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
+            <TableColumn fx:id="cmProductName" editable="false" prefWidth="150.0" text="Product Name" />
             <TableColumn fx:id="cmProductCode" editable="false" prefWidth="110.0" text="Product Code" />
             <TableColumn fx:id="cmParCode" editable="false" prefWidth="130.0" text="Par Code" />
             <TableColumn fx:id="cmQuantity" editable="false" prefWidth="120.0" text="Quantity" />

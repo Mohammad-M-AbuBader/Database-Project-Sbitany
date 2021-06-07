@@ -15,12 +15,16 @@ public class BranchGetFrom {
     private String quantity;
     private String destinationBranchID;
     private String sourceBranchID;
+    private String productName;
+    private String employeeName;
 
 
     public BranchGetFrom() {
     }
 
-    public BranchGetFrom(String transferNumber, String getAt, String employeeID, String productCode, String quantity, String destinationBranchID, String sourceBranchID) {
+    public BranchGetFrom(String transferNumber,String productName ,String getAt, String employeeID,
+                         String productCode, String quantity,
+                         String destinationBranchID, String sourceBranchID,String employeeName) {
         this.transferNumber = transferNumber;
         this.getAt = getAt;
         this.employeeID = employeeID;
@@ -28,6 +32,24 @@ public class BranchGetFrom {
         this.quantity = quantity;
         this.destinationBranchID = destinationBranchID;
         this.sourceBranchID = sourceBranchID;
+        this.productName=productName;
+        this.employeeName=employeeName;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getQuantity() {
@@ -94,6 +116,8 @@ public class BranchGetFrom {
                 "transferNumber: " + transferNumber +
                         ", getAt: " + getAt +
                         ", employeeID: " + employeeID +
+                        ", employeeName: " + employeeName +
+                        ", productName: " + productName +
                         ", productCode: " + productCode +
                         ", quantity: " + quantity +
                         ", destinationBranchID: " + destinationBranchID +

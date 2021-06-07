@@ -22,10 +22,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -90,7 +89,7 @@ public class CustomerBillController implements Initializable {
 
     @FXML // fx:id="toDate"
     private DatePicker toDate; // Value injected by FXMLLoader
-    
+
     private Connection con;
 
     public static int billID;
@@ -150,6 +149,12 @@ public class CustomerBillController implements Initializable {
                 customerBill.setDeposit(rs.getString(7));
                 customerBill.setPatches(rs.getString(8));
                 customerBill.setEmployeeID(rs.getString(6));
+
+                int employeeID = Integer.parseInt(rs.getString(6).trim());
+                Statement stmtEmployeeID = con.createStatement();
+                ResultSet resultEmployeeName = stmtEmployeeID.executeQuery("SELECT E.employeeName from employee E where E.employeeID = " + employeeID);
+                resultEmployeeName.next();
+                customerBill.setEmployeeName(resultEmployeeName.getString(1).trim());
 
                 Statement stmtBranchName = con.createStatement();
                 ResultSet resultBranchName = stmtBranchName.executeQuery("select B.branchName From Branch B where B.BranchID =" + Integer.parseInt((rs.getString(5))));
@@ -281,6 +286,47 @@ public class CustomerBillController implements Initializable {
     void handleCombShow() {
         if (this.combShow.getValue().equals("The paid bills")) getPaidBills();
         else getUnpaidBills();
+    }
+
+    @FXML
+    void handleBtPrintProfitReport() {
+        try {
+            if (fromDate.getValue() == null) {
+                Message.displayMassage("Warning", "Please select the beginning date");
+                return;
+            }
+            if (toDate.getValue() == null) {
+                Message.displayMassage("Warning", "Please select the end date");
+                return;
+            }
+            // to check if the date is right
+            String compareTwoDate = "SELECT DATEDIFF('" + Date.valueOf(fromDate.getValue()) + "' , '" + Date.valueOf(toDate.getValue()) + "') AS DiffDate";
+            Statement stmtDate = con.createStatement();
+            ResultSet resultSet = stmtDate.executeQuery(compareTwoDate);
+            resultSet.next();
+
+            int isValid = Integer.parseInt(resultSet.getString(1).trim());
+            if (isValid == 1) {
+                Message.displayMassage("Warning", "Please enter a valid date");
+                return;
+            }
+
+            ProfitController.setDates(Date.valueOf(fromDate.getValue()), Date.valueOf(toDate.getValue()));
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../FXML/Profit.fxml")));
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Profits");
+            window.setScene(new Scene(root));
+            window.setOnCloseRequest(e -> {
+                fromDate.getEditor().clear();
+                toDate.getEditor().clear();
+            });
+            window.setResizable(false);
+            window.show();
+        } catch (IOException | SQLException exception) {
+            Message.displayMassage("Warning", exception.getMessage());
+        }
     }
 
 

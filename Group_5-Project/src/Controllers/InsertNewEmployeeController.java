@@ -117,7 +117,6 @@ public class InsertNewEmployeeController implements Initializable {
             } else passwd = null;
 
             String name = this.txtName.getText().trim();
-            Calendar calendar = Calendar.getInstance();
             Date date = Date.valueOf(dateOFBirth.getValue());
             int idCard = Integer.parseInt(this.txtIDCard.getText().trim());
             String phone = this.txtPhoneNumber.getText().trim();
@@ -138,6 +137,7 @@ public class InsertNewEmployeeController implements Initializable {
             if (space >= 0) firstName = name.substring(0, space);
             else firstName = name;
 
+            Calendar calendar = Calendar.getInstance();
             psEmployee.setString(6, firstName + "@Sbitany.com");
             psEmployee.setDate(9, new java.sql.Date(calendar.getTime().getTime()));
             psEmployee.setNull(10, Types.NULL);

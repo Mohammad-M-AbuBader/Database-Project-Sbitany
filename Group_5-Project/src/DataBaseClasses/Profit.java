@@ -2,26 +2,29 @@
  * @autor: Mohammad AbuBader
  * ID: 1190478
  * At: 6-7-2021  12:43 PM
- *
  */
 package DataBaseClasses;
 
 
-public class Profit   {
+public class Profit {
 
-
-    private  String  productName,productCode,sellingPrice,purchasingPrice,quantity,profit;
+    private String productName,
+            productCode,
+            sellingPrice,
+            purchasingPrice,
+            quantity,
+            profit;
 
     public Profit() {
     }
 
-    public Profit(String productName, String productCode, String sellingPrice, String purchasingPrice, String quantity,String profit) {
+    public Profit(String productName, String productCode, String sellingPrice, String purchasingPrice, String quantity, String profit) {
         this.productName = productName;
         this.productCode = productCode;
         this.sellingPrice = sellingPrice;
         this.purchasingPrice = purchasingPrice;
         this.quantity = quantity;
-        this.profit=profit;
+        this.profit = profit;
     }
 
     public String getProfit() {
@@ -76,7 +79,7 @@ public class Profit   {
     public String toString() {
         return
                 "productName: " + productName + ", productCode: " + productCode + ", sellingPrice: " + sellingPrice +
-                ", purchasingPrice: " + purchasingPrice + ", quantity: " + quantity + ", profit: " + profit  ;
+                        ", purchasingPrice: " + purchasingPrice + ", quantity: " + quantity + ", profit: " + profit;
 
     }
 

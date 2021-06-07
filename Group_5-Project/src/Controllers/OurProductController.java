@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import DataBaseClasses.OurProduct;
 import Utilities.ConnectionToSbitanyDatabase;
 import Utilities.Message;
 import javafx.fxml.FXML;

@@ -49,6 +49,10 @@ public class RecordMovementsController implements Initializable {
     @FXML // fx:id="cmTo"
     private TableColumn<BranchGetFrom, String> cmTo; // Value injected by FXMLLoader
 
+
+    @FXML // fx:id="cmProductName"
+    private TableColumn<BranchGetFrom, String> cmProductName; // Value injected by FXMLLoader
+
     @FXML // fx:id="cmProductCode"
     private TableColumn<BranchGetFrom, String> cmProductCode; // Value injected by FXMLLoader
 
@@ -57,6 +61,9 @@ public class RecordMovementsController implements Initializable {
 
     @FXML // fx:id="lblNumBranches"
     private Label lblNumBranches; // Value injected by FXMLLoader
+
+    @FXML // fx:id="cmEmployeeName"
+    private TableColumn<BranchGetFrom, String> cmEmployeeName; // Value injected by FXMLLoader
 
     private Connection con;
 
@@ -68,10 +75,13 @@ public class RecordMovementsController implements Initializable {
         this.cmTransferNumber.setCellValueFactory(new PropertyValueFactory<>("transferNumber"));
         this.cmDate.setCellValueFactory(new PropertyValueFactory<>("getAt"));
         this.cmEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        this.cmEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+        this.cmProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
         this.cmProductCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         this.cmQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         this.cmFrom.setCellValueFactory(new PropertyValueFactory<>("sourceBranchID"));
         this.cmTo.setCellValueFactory(new PropertyValueFactory<>("destinationBranchID"));
+
         this.execute(" ");
     }
 
@@ -112,6 +122,18 @@ public class RecordMovementsController implements Initializable {
                 branchGetFrom.setEmployeeID(rs.getString(3));
                 branchGetFrom.setProductCode(rs.getString(6));
                 branchGetFrom.setQuantity(rs.getString(7));
+
+                Statement  getEmployeeNameStatement = con.createStatement();
+                ResultSet getEmployeeName = getEmployeeNameStatement.executeQuery("select  E.employeeName from employee E where E.employeeID=" + Integer.parseInt(rs.getString(3).trim()));
+                getEmployeeName.next();
+
+                branchGetFrom.setEmployeeName(getEmployeeName.getString(1));
+
+                Statement  getProductNameStatement = con.createStatement();
+                ResultSet getProductName = getProductNameStatement.executeQuery("select  P.ProductName from product P where P.productCode=" + Integer.parseInt(rs.getString(6).trim()));
+                getProductName.next();
+
+                branchGetFrom.setProductName(getProductName.getString(1));
 
                 Statement stmt5 = con.createStatement();
                 ResultSet rs5 = stmt5.executeQuery("SELECT B.branchName" +

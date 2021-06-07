@@ -5,7 +5,6 @@
  */
 package DataBaseClasses;
 
-import java.util.Date;
 
 public class CustomerBill {
     private String customerBillID;
@@ -14,6 +13,7 @@ public class CustomerBill {
     private String customerID;
     private String branchID;
     private String employeeID;
+    private String employeeName;
     private String deposit;
     private String patches;
     private String branchName;
@@ -23,17 +23,18 @@ public class CustomerBill {
     }
 
     public CustomerBill(String customerOrderID, String releaseDate, String valueOfBill, String customerID,
-                        String branchID, String employeeID, String deposit, String patches,
-                       String branchName) {
+                        String branchID, String employeeID, String employeeName, String deposit, String patches,
+                        String branchName) {
         this.customerBillID = customerOrderID;
         this.releaseDate = releaseDate;
         this.valueOfBill = valueOfBill;
         this.customerID = customerID;
+        this.employeeName = employeeName;
         this.branchID = branchID;
         this.employeeID = employeeID;
         this.deposit = deposit;
         this.patches = patches;
-        this.branchName=branchName;
+        this.branchName = branchName;
     }
 
     public String getBranchName() {
@@ -76,6 +77,14 @@ public class CustomerBill {
         this.customerID = customerID;
     }
 
+    public String getEmployeeName() {
+        return this.employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
     public String getBranchID() {
         return branchID;
     }
@@ -113,7 +122,7 @@ public class CustomerBill {
         return
                 "customerBillID: " + customerBillID + ", orderAt: " + releaseDate + ", valueOfBill: " + valueOfBill +
                         ", customerID: " + customerID + ", branchID: " + branchID + ", employeeID: " + employeeID +
-                        ", deposit: " + deposit + ", patches: " + patches +", branchName: "+branchName;
+                        ", deposit: " + deposit + ", patches: " + patches + ", branchName: " + branchName;
 
 
     }
