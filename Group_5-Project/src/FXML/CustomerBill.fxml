@@ -50,7 +50,7 @@
             <TableColumn fx:id="cmCustomerID" editable="false" prefWidth="90.0" text="Customer ID" />
             <TableColumn fx:id="cmBranchName" editable="false" prefWidth="229.59996032714844" text="Branch Name" />
             <TableColumn fx:id="cmEmployeeID" editable="false" prefWidth="164.79998779296875" text="Employee ID" />
-            <TableColumn fx:id="cmEmployeeID1" editable="false" prefWidth="164.79998779296875" text="Employee Name" />
+            <TableColumn fx:id="cmEmployeeName" editable="false" prefWidth="164.79998779296875" text="Employee Name" />
             <TableColumn fx:id="cmReleaseDate" editable="false" minWidth="70.0" prefWidth="128.00006103515625" text="Relase date" />
             <TableColumn fx:id="cmValueOfBill" editable="false" minWidth="70.0" prefWidth="128.0" text="Value of bill" />
             <TableColumn fx:id="cmDeposit" editable="false" minWidth="70.0" prefWidth="107.199951171875" text="Deposit" />

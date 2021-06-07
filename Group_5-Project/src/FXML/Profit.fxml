@@ -38,7 +38,7 @@
             </Label>
          </children>
       </Pane>
-      <TableView fx:id="tableProfit" editable="true" layoutX="29.0" layoutY="193.0" prefHeight="418.0" prefWidth="948.0" styleClass="table" stylesheets="@../Style/Style.css">
+      <TableView fx:id="tableProfit" editable="true" layoutX="29.0" layoutY="185.0" prefHeight="418.0" prefWidth="948.0" styleClass="table" stylesheets="@../Style/Style.css">
          <columns>
             <TableColumn fx:id="cmProductName" editable="false" prefWidth="165.5999813079834" text="ProductName" />
             <TableColumn fx:id="cmProductCode" editable="false" prefWidth="170.39996337890625" text="ProductCode" />
@@ -54,18 +54,48 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </TableView>
-      <HBox layoutX="28.0" layoutY="641.0" prefHeight="62.0" prefWidth="948.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
+      <HBox layoutX="28.0" layoutY="612.0" prefHeight="105.0" prefWidth="948.0" spacing="40.0" style="-fx-background-color: #4a4fda;">
          <children>
-            <AnchorPane prefHeight="62.0" prefWidth="946.0">
+            <AnchorPane prefHeight="102.0" prefWidth="947.0">
                <children>
-                  <Label fx:id="lblProfit" layoutX="713.0" layoutY="9.0" prefHeight="39.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Total sales" textFill="WHITE">
+                  <Label fx:id="lblProfit" layoutX="612.0" layoutY="8.0" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: transparent;" text="Total Profits" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtFinalProfit" editable="false" layoutX="849.0" layoutY="7.0" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                  <TextField fx:id="txtTotalProfits" editable="false" layoutX="835.0" layoutY="14.0" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="lblProfit1" layoutX="24.0" layoutY="8.0" prefHeight="39.0" prefWidth="124.0" style="-fx-background-color: transparent;" text="Value Of Bills" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblProfit11" layoutX="24.0" layoutY="53.0" prefHeight="39.0" prefWidth="176.0" style="-fx-background-color: transparent;" text="Total Amounts Paid" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblProfit111" layoutX="612.0" layoutY="53.0" prefHeight="39.0" prefWidth="234.0" style="-fx-background-color: transparent;" text="Total Remaining Amounts" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtTotalRemaning" editable="false" layoutX="846.0" layoutY="51.0" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtValueOfBills" editable="false" layoutX="226.0" layoutY="14.0" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtTotalAmountPaid" editable="false" layoutX="232.0" layoutY="55.0" prefHeight="42.0" prefWidth="97.0" style="-fx-background-color: transparent; -fx-border-width: 0px0px2px0px; -fx-border-color: #4a4fda; -fx-text-fill: #ffffff;">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </TextField>
                </children>

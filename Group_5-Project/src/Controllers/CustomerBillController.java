@@ -45,6 +45,9 @@ public class CustomerBillController implements Initializable {
     @FXML // fx:id="cmEmployeeID"
     private TableColumn<CustomerBill, String> cmEmployeeID; // Value injected by FXMLLoader
 
+    @FXML // fx:id="cmEmployeeID"
+    private TableColumn<CustomerBill, String> cmEmployeeName; // Value injected by FXMLLoader
+
     @FXML // fx:id="cmReleaseDate"
     private TableColumn<CustomerBill, String> cmReleaseDate; // Value injected by FXMLLoader
 
@@ -103,6 +106,7 @@ public class CustomerBillController implements Initializable {
         cmBillID.setCellValueFactory(new PropertyValueFactory<>("customerBillID"));
         cmCustomerID.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         cmEmployeeID.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
+        cmEmployeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
         cmBranchName.setCellValueFactory(new PropertyValueFactory<>("branchName"));
         cmReleaseDate.setCellValueFactory(new PropertyValueFactory<>("releaseDate"));
         cmValueOfBill.setCellValueFactory(new PropertyValueFactory<>("valueOfBill"));

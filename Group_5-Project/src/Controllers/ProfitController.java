@@ -43,9 +43,18 @@ public class ProfitController implements Initializable {
     @FXML // fx:id="cmProfit"
     private TableColumn<Profit, String> cmProfit; // Value injected by FXMLLoader
 
+    @FXML
+    private TextField txtTotalProfits;
 
-    @FXML // fx:id="txtFinalProfit"
-    private TextField txtFinalProfit; // Value injected by FXMLLoader
+    @FXML
+    private TextField txtTotalRemaning;
+
+    @FXML
+    private TextField txtValueOfBills;
+
+    @FXML
+    private TextField txtTotalAmountPaid;
+
 
     private static Date from, to;
     private int sum = 0;
@@ -100,12 +109,20 @@ public class ProfitController implements Initializable {
                 this.tableProfit.getItems().add(profit);
             }
 
-         
-            rs.close();
-            stmt.close();
-            txtFinalProfit.setText(String.valueOf(sum));
+            // calculate totals
+            Statement values = con.createStatement();
+            ResultSet resultSet = values.executeQuery("SELECT SUM(C.valueOfBill), SUM(C.deposit) , SUM(C.patches) from customerBill C" +
+                    " where C.orederAt between '" + from + "' and '" + to + "'");
+            resultSet.next();
+
+            txtValueOfBills.setText(resultSet.getString(1));
+            txtTotalAmountPaid.setText(resultSet.getString(2));
+            txtTotalRemaning.setText(resultSet.getString(3));
+            txtTotalProfits.setText(String.valueOf(sum));
             from = null;
             to = null;
+            rs.close();
+            stmt.close();
         } catch (SQLException sqlException) {
             Message.displayMassage("Warning", sqlException.getMessage());
         }
