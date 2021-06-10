@@ -103,11 +103,11 @@ public class NewSupplierBillController implements Initializable {
             return;
         }
 
-        if (txtPhoneNumber.getText().trim().isEmpty() || !Methods.isNumber(txtPhoneNumber.getText().trim())) {
+        if (txtPhoneNumber.getText().trim().isEmpty() ) {
             Message.displayMassage("Warning", "Please enter  a valid phone number");
             return;
         }
-        if (txtFaxNumber.getText().trim().isEmpty() || !Methods.isNumber(txtFaxNumber.getText().trim())) {
+        if (txtFaxNumber.getText().trim().isEmpty() ) {
             Message.displayMassage("Warning", "Please enter the fax number");
             return;
         }
@@ -243,8 +243,8 @@ public class NewSupplierBillController implements Initializable {
                 getSupplier.next();
                 supplierID = Integer.parseInt(getSupplier.getString(1).trim());
                 this.txtName.setText(getSupplier.getString(2));
-                this.txtEmail.setText(getSupplier.getString(3));
-                this.txtPhoneNumber.setText(getSupplier.getString(4));
+                this.txtEmail.setText(getSupplier.getString(4));
+                this.txtPhoneNumber.setText(getSupplier.getString(3));
                 this.txtFaxNumber.setText(getSupplier.getString(5));
                 this.flag = true;
             } catch (SQLException sqlException) {

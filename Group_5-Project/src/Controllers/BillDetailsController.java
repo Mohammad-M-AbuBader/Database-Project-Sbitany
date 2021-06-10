@@ -63,7 +63,6 @@ public class BillDetailsController implements Initializable {
     private TextField txtPatches; // Value injected by FXMLLoader
 
 
-
     private static boolean typeOfBill = true; // true: customer,,,, false: supplier
     private static int billID;
     private Connection con;
@@ -100,18 +99,18 @@ public class BillDetailsController implements Initializable {
 
             // get bill info
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from customerbill C  where C.customerBillID=" + billID);
+            ResultSet resultSet = statement.executeQuery("select C.orederAt, C.valueOfBill, C.deposit, C.patches, C.customerID from customerbill C  where C.customerBillID=" + billID);
             resultSet.next();
 
             txtBillId.setText(billID + "");
-            textReleasseDate.setText(resultSet.getString(2));
-            txtValueOfBill.setText(resultSet.getString(3));
+            textReleasseDate.setText(resultSet.getString(1));
+            txtValueOfBill.setText(resultSet.getString(2));
             txtFrom.setText("Sbitany");
-            txtDeposit.setText(resultSet.getString(7));
-            txtPatches.setText(resultSet.getString(8));
+            txtDeposit.setText(resultSet.getString(3));
+            txtPatches.setText(resultSet.getString(4));
 
             // get customer name
-            int customerID = Integer.parseInt(resultSet.getString(4).trim());
+            int customerID = Integer.parseInt(resultSet.getString(5).trim());
             statement = con.createStatement();
             resultSet = statement.executeQuery("select C.customerName from customer C where C.customerID=" + customerID);
             resultSet.next();
@@ -120,17 +119,17 @@ public class BillDetailsController implements Initializable {
 
             // get the products in the bill
             statement = con.createStatement();
-            resultSet = statement.executeQuery("select  * from customerbilldetails C  where C.customerBillID=" + billID);
+            resultSet = statement.executeQuery("select  C.productCode, C.sellingPrice, C.quantity from customerbilldetails C  where C.customerBillID=" + billID);
 
             // add product to the table
             while (resultSet.next()) {
                 BillDetails billDetails = new BillDetails();
-                billDetails.setProductCode(resultSet.getString(2));
-                billDetails.setPrice(resultSet.getString(3));
-                billDetails.setQuantity(resultSet.getString(4));
+                billDetails.setProductCode(resultSet.getString(1));
+                billDetails.setPrice(resultSet.getString(2));
+                billDetails.setQuantity(resultSet.getString(3));
 
                 Statement statement2 = con.createStatement();
-                ResultSet resultSet2 = statement2.executeQuery("select P.productName from Product P  where P.ProductCode=" + Integer.parseInt(resultSet.getString(2)));
+                ResultSet resultSet2 = statement2.executeQuery("select P.productName from Product P where P.ProductCode=" + Integer.parseInt(resultSet.getString(1)));
                 resultSet2.next();
 
                 billDetails.setProductName(resultSet2.getString(1));
@@ -148,20 +147,20 @@ public class BillDetailsController implements Initializable {
     private void supplierBill() {
         try {
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * from supplierbill S  where S.SupplierBillID=" + billID);
+            ResultSet resultSet = statement.executeQuery("SELECT S.orederAt, S.valueOfBill, S.deposit, S.patches, S.supplierID from supplierbill S  where S.SupplierBillID=" + billID);
             resultSet.next();
 
 
             // get bill info
             this.txtBillId.setText(billID + "");
-            this.textReleasseDate.setText(resultSet.getString(2).trim());
+            this.textReleasseDate.setText(resultSet.getString(1).trim());
             this.txtTo.setText("Sbitany");
-            this.txtValueOfBill.setText(resultSet.getString(4).trim());
-            this.txtDeposit.setText(resultSet.getString(5).trim());
-            this.txtPatches.setText(resultSet.getString(6).trim());
+            this.txtValueOfBill.setText(resultSet.getString(2).trim());
+            this.txtDeposit.setText(resultSet.getString(3).trim());
+            this.txtPatches.setText(resultSet.getString(4).trim());
 
             // get supplier name
-            int supplierID = Integer.parseInt(resultSet.getString(3).trim());
+            int supplierID = Integer.parseInt(resultSet.getString(5).trim());
             statement = con.createStatement();
             resultSet = statement.executeQuery("SELECT S.supplierName from supplier S  where S.SupplierID=" + supplierID);
             resultSet.next();
@@ -169,14 +168,19 @@ public class BillDetailsController implements Initializable {
 
             // get the products in the bill
             statement = con.createStatement();
-            resultSet = statement.executeQuery("SELECT * from supplierBillDetails  S  where S.SupplierBillID=" + billID);
+            resultSet = statement.executeQuery("SELECT S.productCode, S.purchasingPrice , S.quantity from supplierBillDetails S where S.SupplierBillID=" + billID);
 
             // add product to the table
             while (resultSet.next()) {
                 BillDetails billDetails = new BillDetails();
-                billDetails.setProductCode(resultSet.getString(2));
-                billDetails.setPrice(resultSet.getString(3));
-                billDetails.setQuantity(resultSet.getString(4));
+                billDetails.setProductCode(resultSet.getString(1));
+                billDetails.setPrice(resultSet.getString(2));
+                billDetails.setQuantity(resultSet.getString(3));
+
+                Statement statement2 = con.createStatement();
+                ResultSet resultSet2 = statement2.executeQuery("select P.productName from Product P  where P.ProductCode=" + Integer.parseInt(resultSet.getString(1)));
+                resultSet2.next();
+                billDetails.setProductName(resultSet2.getString(1));
 
                 this.billTableView.getItems().add(billDetails);
             }

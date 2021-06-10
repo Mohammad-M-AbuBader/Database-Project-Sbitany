@@ -118,7 +118,7 @@ public class SpecificDataOfEmployeeController implements Initializable {
         this.tableEmployee.getItems().clear();
         try {
 
-            String getEmployee = "SELECT * from Employee E " + str;
+            String getEmployee = "SELECT E.employeeID, E.EmployeeCard, E.EmployeeName, E.EmployeePhone,E.employeeHiringDate, E.branchID, E.jobTitleID, E.villageID from Employee E " + str;
             assert con != null;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(getEmployee);
@@ -137,19 +137,19 @@ public class SpecificDataOfEmployeeController implements Initializable {
                 employee.setEmployeeAge(rs2.getString(1));
 
                 Statement stmt3 = con.createStatement();
-                ResultSet rs3 = stmt3.executeQuery("SELECT b.branchName From Branch b, Employee E where E.branchID= b.branchID  and E.employeeID=" + Integer.parseInt(id.trim()));
+                ResultSet rs3 = stmt3.executeQuery("SELECT B.branchName From Branch B where B.branchID=" + Integer.parseInt(rs.getString(6)));
                 rs3.next();
                 employee.setBranchName(rs3.getString(1));
 
-                employee.setEmployeeHiringDate(rs.getString(10));
+                employee.setEmployeeHiringDate(rs.getString(5));
 
                 Statement stmt4 = con.createStatement();
-                ResultSet rs4 = stmt4.executeQuery("SELECT j.jobName From JobTitle j , Employee E where E.jobTitleID= j.jobTitleID and E.employeeID=" + Integer.parseInt(id.trim()));
+                ResultSet rs4 = stmt4.executeQuery("SELECT J.jobName From JobTitle J where J.jobTitleID =" + Integer.parseInt(rs.getString(7)));
                 rs4.next();
                 employee.setJobTitleID(rs4.getString(1));
 
                 Statement stmt5 = con.createStatement();
-                String villageId = rs.getString(14);
+                String villageId = rs.getString(8);
                 ResultSet rs5;
                 if (villageId != null) {
                     rs5 = stmt5.executeQuery("SELECT CONCAT(C.cityname,', ' ,V.villageName)" +
