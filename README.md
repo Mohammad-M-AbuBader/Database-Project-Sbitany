@@ -15,4 +15,4 @@
 ----------------------------------------------------------
 ## Screenshots 📸
 ----------------------------------------------------------
-  -  <img src="[img_girl.jpg](https://raw.githubusercontent.com/AmeerEleyan/Database-Project-Sbitany/master/Screnshote's/accountent.PNG)" alt="Test" width="500" height="600"> 
+  -  <img src="https://raw.githubusercontent.com/AmeerEleyan/Database-Project-Sbitany/master/Screnshote's/accountent.PNG" alt="Test" width="500" height="600"> 
