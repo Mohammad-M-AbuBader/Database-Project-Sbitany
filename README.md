@@ -15,4 +15,8 @@
 ----------------------------------------------------------
 ## Screenshots 📸
 ----------------------------------------------------------
-  -  <img src="https://raw.githubusercontent.com/AmeerEleyan/Database-Project-Sbitany/master/Screnshote's/accountent.PNG" alt="Test" width="500" height="600"> 
+
+<figure>
+  <img src="https://raw.githubusercontent.com/AmeerEleyan/Database-Project-Sbitany/master/Screnshote's/accountent.PNG" width="auto" height="auto"> 
+  <figcaption>Branch accountant</figcaption>
+</figure>
