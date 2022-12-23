@@ -4,7 +4,7 @@
 <h3>Inroduction</h3>
 <p>E-commerce system for electrical household appliances for merchandise management, financial reports, and managing branches and employees</p>
 
-<h3>Installation:</h3>
+## Installation:
   - Install MySQL Workbench
   - Import <a href="https://developer.android.com/](https://github.com/AmeerEleyan/Database-Project-Sbitany/tree/master/DataBase/SbitanySQL)">Database</a> to MySQL      Workbench
   - Install <a href="https://download.oracle.com/java/19/latest/jdk-19_windows-x64_bin.exe">Java SDK >= 16</a>
