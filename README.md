@@ -1,4 +1,4 @@
-<h1 style="color=blue;">COMP333, Database System/h1>
+<h1 style="color=blue;">COMP333, Database System</h1>
 
 <h2> E-commerce system(Sbitnay) </h2>
 <h3>Inroduction</h3>
