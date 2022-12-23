@@ -17,6 +17,6 @@
 ----------------------------------------------------------
 
 <figure>
+   <figcaption style="text:center">Branch accountant</figcaption>
   <img src="https://raw.githubusercontent.com/AmeerEleyan/Database-Project-Sbitany/master/Screnshote's/accountent.PNG" width="auto" height="auto"> 
-  <figcaption>Branch accountant</figcaption>
 </figure>
